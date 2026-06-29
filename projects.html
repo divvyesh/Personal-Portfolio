@@ -228,6 +228,33 @@
     .ba-param:nth-last-child(-n+2) { border-bottom: none; }
     .ba-pk { color: var(--muted2); font-family: "Space Grotesk", sans-serif; }
     .ba-pv { color: #4a90d0; font-weight: 700; font-family: "Space Grotesk", sans-serif; }
+    /* Problem block */
+    .ba-problem-block {
+      border-left: 2px solid rgba(220,38,38,0.55);
+      background: rgba(220,38,38,0.05);
+      padding: 13px 16px; border-radius: 0 8px 8px 0;
+      margin-bottom: 22px;
+    }
+    .ba-problem-block .ba-bl { color: rgba(220,38,38,0.65); margin-bottom: 8px; }
+    .ba-problem-line {
+      font-size: 12.5px; color: var(--muted); line-height: 1.6;
+      padding: 3px 0; border-bottom: 1px solid rgba(220,38,38,0.06);
+      display: flex; gap: 8px; align-items: baseline;
+    }
+    .ba-problem-line:last-child { border-bottom: none; }
+    .ba-problem-line .pl-n {
+      font-size: 10px; color: rgba(220,38,38,0.5);
+      font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    }
+    /* Stack row */
+    .ba-stack-row {
+      display: flex; flex-wrap: wrap; gap: 5px;
+    }
+    .ba-stack-pill {
+      font-size: 11px; padding: 3px 9px; border-radius: 5px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted2); font-weight: 500;
+    }
     /* Right — PDF only */
     .ba-right {
       position: sticky; top: 80px;
@@ -237,9 +264,8 @@
     .ba-pdf-frame {
       flex: 1; border-radius: 14px; overflow: hidden;
       border: 1px solid rgba(255,255,255,0.07);
-      box-shadow: 0 0 64px rgba(74,144,208,0.05);
     }
-    .ba-pdf-frame iframe { width: 100%; height: 100%; border: none; display: block; }
+    .ba-pdf-frame iframe { width: 100%; height: 100%; border: none; display: block; background: #fff; }
     .ba-pdf-hint {
       text-align: center; font-size: 10.5px;
       color: rgba(232,232,240,0.22); letter-spacing: 0.1em;
@@ -305,6 +331,15 @@
     <!-- LEFT: Specs -->
     <div class="ba-left">
 
+      <!-- Problem block (red) -->
+      <div class="ba-problem-block">
+        <div class="ba-bl">Problem Statement</div>
+        <div class="ba-problem-line"><span class="pl-n">01</span> BA had no unified view of what drives booking completion — customer data lived across 6 disconnected sources with no common key.</div>
+        <div class="ba-problem-line"><span class="pl-n">02</span> Sentiment was siloed across scraped review platforms, free-text comments, and post-flight surveys — impossible to compare at scale.</div>
+        <div class="ba-problem-line"><span class="pl-n">03</span> Booking records held behavioral signals (lead time, extras, seat selection) but were never modeled against satisfaction outcomes.</div>
+        <div class="ba-problem-line"><span class="pl-n">04</span> Goal: build an end-to-end pipeline linking pre-flight behavior to post-flight satisfaction, benchmarked against 4 competitors.</div>
+      </div>
+
       <div class="ba-kpi-row">
         <div class="ba-kpi"><div class="n">6</div><div class="l">Datasets</div></div>
         <div class="ba-kpi"><div class="n">20K+</div><div class="l">Reviews</div></div>
@@ -320,6 +355,23 @@
           <div class="ba-ds-row"><div class="d-name">Passanger_booking_data</div><div class="d-dim">~50K × 14</div><div class="d-src">structured records</div></div>
           <div class="ba-ds-row"><div class="d-name">Survey_InFlightSatisfaction</div><div class="d-dim">~800 × 11</div><div class="d-src">structured survey</div></div>
           <div class="ba-ds-row"><div class="d-name">train / test</div><div class="d-dim">83K / 21K × 14</div><div class="d-src">ML labeled split</div></div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl">Languages &amp; Libraries</div>
+        <div class="ba-stack-row">
+          <span class="ba-stack-pill">Python 3.x</span>
+          <span class="ba-stack-pill">pandas</span>
+          <span class="ba-stack-pill">NumPy</span>
+          <span class="ba-stack-pill">scikit-learn</span>
+          <span class="ba-stack-pill">NLTK</span>
+          <span class="ba-stack-pill">VADER</span>
+          <span class="ba-stack-pill">TextBlob</span>
+          <span class="ba-stack-pill">Gensim</span>
+          <span class="ba-stack-pill">matplotlib</span>
+          <span class="ba-stack-pill">seaborn</span>
+          <span class="ba-stack-pill">Jupyter Notebook</span>
         </div>
       </div>
 
@@ -343,6 +395,18 @@
           <li>ISO 8601 date standardization across sources</li>
           <li>Label encoding of ordinal survey features</li>
           <li>TF-IDF vectorization — 5,000 max features, bigrams, min_df=2</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl">Data Manipulation</div>
+        <ul class="ba-micro-list">
+          <li>Type casting: date columns → datetime64; star ratings → int8; boolean flags for binary features</li>
+          <li>One-hot encoding: trip_type, booking_origin, route (categorical booking variables)</li>
+          <li>Ordinal mapping: satisfaction survey fields scaled 1–5 (Very Dissatisfied → Very Satisfied)</li>
+          <li>Derived variable: days_before_flight (booking lead time); total_extras (baggage + meals + seat)</li>
+          <li>Sentiment score normalization to [0, 1] range across VADER compound scores</li>
+          <li>Feature matrix: VADER scores + booking attributes merged on passenger_id for unified ML input</li>
         </ul>
       </div>
 
@@ -400,7 +464,7 @@
     <!-- RIGHT: PDF only -->
     <div class="ba-right">
       <div class="ba-pdf-frame">
-        <iframe src="British_Airways_PRESENTATION.pdf" title="British Airways Presentation"></iframe>
+        <iframe src="British_Airways_PRESENTATION.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="British Airways Presentation"></iframe>
       </div>
       <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; 17 slides</div>
     </div>
