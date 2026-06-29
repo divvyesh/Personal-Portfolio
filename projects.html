@@ -159,6 +159,104 @@
       .cards-grid { grid-template-columns: 1fr; }
       .impact-row { grid-template-columns: repeat(2, 1fr); }
     }
+
+    /* ── British Airways Full-Width 50/50 Layout ── */
+    .ba-full {
+      max-width: 100% !important;
+      padding: 0 48px 0;
+      margin-left: 0; margin-right: 0;
+    }
+    .ba-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .ba-right {
+      position: sticky;
+      top: 80px;
+      height: calc(100vh - 110px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ba-pdf-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(7,90,170,0.8);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ba-pdf-viewer {
+      flex: 1;
+      border: 1px solid rgba(7,90,170,0.25);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #0d0d1a;
+    }
+    .ba-pdf-viewer iframe {
+      width: 100%; height: 100%;
+      border: none; display: block;
+    }
+    .ba-content-section {
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .ba-content-section:last-of-type { border-bottom: none; margin-bottom: 0; }
+    .ba-section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: #4a90d0; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .ba-section-label::after {
+      content: ''; flex: 1;
+      height: 1px; background: rgba(7,90,170,0.15);
+    }
+    .ba-content-section h3 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 16px; font-weight: 600; margin-bottom: 10px;
+    }
+    .ba-content-section p {
+      font-size: 14px; color: var(--muted); line-height: 1.75;
+      margin-bottom: 8px;
+    }
+    .ba-data-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .ba-data-list li {
+      font-size: 13.5px; color: var(--muted);
+      padding: 8px 0 8px 20px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      line-height: 1.5;
+    }
+    .ba-data-list li:last-child { border-bottom: none; }
+    .ba-data-list li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: #4a90d0; font-size: 11px; top: 10px;
+    }
+    .ba-data-list li strong {
+      color: rgba(232,232,240,0.85);
+      font-weight: 600;
+    }
+    .ba-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 12px; margin: 0 0 28px;
+    }
+    .ba-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    @media (max-width: 1100px) {
+      .ba-full { padding: 0 32px; }
+      .ba-split { gap: 36px; }
+    }
+    @media (max-width: 860px) {
+      .ba-full { padding: 0 24px; }
+      .ba-split { grid-template-columns: 1fr; }
+      .ba-right { position: static; height: 520px; }
+      .ba-stats { grid-template-columns: repeat(2, 1fr); }
+    }
   </style>
 </head>
 <body>
@@ -198,47 +296,109 @@
 </div>
 
 <!-- ═══ BRITISH AIRWAYS ═══ -->
-<section id="british-airways" class="project-section">
-  <div class="project-header">
-    <div class="project-badge" style="background:rgba(7,90,170,0.15);color:#075AAA;">BA</div>
+<section id="british-airways" class="project-section ba-full" style="scroll-margin-top:80px;">
+
+  <!-- Project Header (full-width above the split) -->
+  <div class="project-header" style="max-width:100%; margin-bottom:36px;">
+    <div class="project-badge" style="background:rgba(7,90,170,0.15);color:#4a90d0;width:56px;height:56px;font-size:15px;">BA</div>
     <div class="project-header-text">
-      <div class="project-label" style="color:#075AAA;">BU MSBA Capstone · 2025</div>
-      <h2>British Airways — Fare Class Elasticity &amp; Retargeting Attribution</h2>
-      <p class="summary">Rebuilt the price elasticity model across 12 fare classes, caught a retargeting channel turning cash-negative before the business could see it, and surfaced a media reallocation opportunity hidden inside blended ROAS.</p>
+      <div class="project-label" style="color:#4a90d0;">BU MSBA Group Project · 2025</div>
+      <h2>British Airways — Consumer Behavior &amp; Booking Trends</h2>
+      <p class="summary">Multi-source behavioral analysis across 6 datasets — scraped reviews, booking records, competitor benchmarking, and satisfaction surveys — to decode what drives BA passengers to book and what shapes their in-flight experience. NLP pipeline + ML classification on 50K+ data points.</p>
     </div>
   </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-label" style="color:#075AAA;">The Problem</div>
-      <h3>Aggregate metrics were lying</h3>
-      <p>Blended ROAS looked healthy. But below the surface, a retargeting channel had flipped cash-negative three weeks earlier — masked by organic uplift. The price elasticity curve being used was averaged across fare classes, smoothing out the actual demand cliffs where conversions actually break.</p>
-    </div>
-    <div class="card">
-      <div class="card-label" style="color:#075AAA;">Data &amp; Method</div>
-      <h3>Regression Discontinuity + Causal Attribution</h3>
-      <p>Modeled demand curves independently across all 12 fare classes using regression discontinuity design — isolating price threshold effects where a small increase triggers a non-linear drop. Built a media attribution model separating retargeting lift from organic trend using holdout-based causal validation. Demand doesn't slide; it breaks.</p>
-    </div>
-    <div class="card">
-      <div class="card-label" style="color:#075AAA;">What I Found</div>
-      <h3>Three separate failures in one dataset</h3>
-      <p>Each fare class has its own elasticity cliff — blending them destroys the signal. Retargeting had been spending past its efficient return window for 3+ weeks before detection. A reallocation from retargeting to prospecting channels was the quantifiable opportunity the blended view was hiding.</p>
-    </div>
+
+  <!-- Stats Row (full-width above the split) -->
+  <div class="ba-stats">
+    <div class="impact-stat"><div class="num" style="color:#4a90d0;">6</div><div class="desc">Datasets merged &amp; analyzed</div></div>
+    <div class="impact-stat"><div class="num" style="color:#4a90d0;">NLP</div><div class="desc">Sentiment analysis on scraped reviews</div></div>
+    <div class="impact-stat"><div class="num" style="color:#4a90d0;">ML</div><div class="desc">Classification model (train/test split)</div></div>
+    <div class="impact-stat"><div class="num" style="color:#4a90d0;">6</div><div class="desc">Team contributors (BU MSBA)</div></div>
   </div>
-  <div class="impact-row">
-    <div class="impact-stat"><div class="num" style="color:#075AAA;">12</div><div class="desc">Fare classes modeled independently</div></div>
-    <div class="impact-stat"><div class="num" style="color:#075AAA;">RD</div><div class="desc">Regression-discontinuity elasticity model</div></div>
-    <div class="impact-stat"><div class="num" style="color:#075AAA;">−ROAS</div><div class="desc">Retargeting turned negative before detection</div></div>
-    <div class="impact-stat"><div class="num" style="color:#075AAA;">3wk</div><div class="desc">Early detection window vs blended view</div></div>
-  </div>
-  <div class="tags">
-    <span class="tag">Regression Discontinuity</span>
-    <span class="tag">Price Elasticity</span>
-    <span class="tag">Demand Modeling</span>
-    <span class="tag">Media Attribution</span>
-    <span class="tag">Causal Inference</span>
-    <span class="tag">Python</span>
-    <span class="tag">R</span>
-  </div>
+
+  <!-- 50/50 Split -->
+  <div class="ba-split">
+
+    <!-- LEFT: Technical Breakdown -->
+    <div class="ba-left">
+
+      <div class="ba-content-section">
+        <div class="ba-section-label">Problem Statement</div>
+        <h3>What actually drives BA booking decisions — and satisfaction once onboard?</h3>
+        <p>British Airways operates in one of the most competitive long-haul aviation markets. Customer sentiment was scattered across unstructured review platforms, free-text comment threads, and survey forms — with no unified view of what distinguishes a passenger who books again from one who switches carriers. The booking data existed separately, with no model connecting pre-flight behavior (lead time, extras purchased, trip type) to post-flight satisfaction outcomes.</p>
+        <p>The goal: build an end-to-end pipeline that converts five unstructured and structured data sources into actionable behavioral intelligence — and a predictive model that forecasts satisfaction class from booking-stage signals.</p>
+      </div>
+
+      <div class="ba-content-section">
+        <div class="ba-section-label">Data Sources</div>
+        <h3>Six datasets, two source types</h3>
+        <ul class="ba-data-list">
+          <li><strong>AirlineScrappedReview.csv</strong> — Web-scraped BA passenger reviews from airline rating platforms (Skytrax). Includes star ratings, route, cabin class, traveler type, review text.</li>
+          <li><strong>Customer_comment.csv</strong> — Unstructured free-text customer feedback. Used for theme extraction and co-occurrence analysis.</li>
+          <li><strong>Other_airlines_reviews.csv</strong> — Competitor airline reviews (Emirates, Lufthansa, Air France, etc.) scraped on the same dimensions for direct benchmarking.</li>
+          <li><strong>Passanger_booking_data.csv</strong> — Structured booking records: trip type, booking origin, flight duration, route, num_passengers, extra baggage, preferred seat, in-flight meals, booking_complete flag.</li>
+          <li><strong>Survey data_Inflight Satisfaction Score.csv</strong> — Structured post-flight survey ratings across service dimensions: seat comfort, staff, food, cleanliness, in-flight entertainment, check-in.</li>
+          <li><strong>train.csv / test.csv</strong> — Labeled ML dataset split for classification — predicting booking completion or satisfaction tier from behavioral features.</li>
+        </ul>
+      </div>
+
+      <div class="ba-content-section">
+        <div class="ba-section-label">Methodology</div>
+        <h3>NLP pipeline → EDA → ML classification</h3>
+        <ul class="ba-data-list">
+          <li><strong>Text preprocessing:</strong> Tokenization, lemmatization, stopword removal, punctuation stripping on review and comment corpora.</li>
+          <li><strong>Sentiment scoring:</strong> VADER + TextBlob applied to scraped reviews — generating compound sentiment scores per review, aggregated by route, cabin class, and traveler type.</li>
+          <li><strong>Competitor benchmarking:</strong> BA sentiment scores compared against other carriers on identical service dimensions to surface relative strengths and gaps.</li>
+          <li><strong>Topic modeling:</strong> LDA / frequency-based theme extraction to identify dominant complaint and praise clusters in unstructured feedback.</li>
+          <li><strong>Booking EDA:</strong> Correlation and distribution analysis across lead time, trip type, extras purchased, route, and booking_complete rate.</li>
+          <li><strong>Feature engineering:</strong> Sentiment scores as numeric features merged with booking attributes — creating a unified feature matrix for ML.</li>
+          <li><strong>ML classification:</strong> Random Forest / Gradient Boosting on train/test split predicting booking completion or satisfaction class. Hyperparameter tuning + cross-validation.</li>
+        </ul>
+      </div>
+
+      <div class="ba-content-section">
+        <div class="ba-section-label">Key Findings</div>
+        <h3>Where BA wins, where it loses — and what the booking data reveals</h3>
+        <ul class="ba-data-list">
+          <li>BA economy class reviews skew negative on seat comfort and punctuality; business class reviews trend strongly positive on staff and check-in experience — a cabin-class gap invisible in aggregate star ratings.</li>
+          <li>Competitor benchmarking: BA lags Emirates and Lufthansa on punctuality sentiment; competitive on staff attitude and in-flight entertainment.</li>
+          <li>Passengers who pre-selected seats AND purchased extra baggage showed measurably higher post-flight satisfaction — a pre-booking engagement signal correlated with outcome.</li>
+          <li>Booking completion rate varied significantly by booking origin channel and trip type — internet bookings with >2 weeks lead time had highest completion rates.</li>
+          <li>ML model identified the top predictors of booking completion: booking origin, num_passengers, extra_baggage, and preferred_seat selection — seat customization as the strongest behavioral commitment signal.</li>
+        </ul>
+      </div>
+
+      <div class="ba-tags">
+        <span class="tag">NLP</span>
+        <span class="tag">Sentiment Analysis</span>
+        <span class="tag">VADER</span>
+        <span class="tag">TextBlob</span>
+        <span class="tag">Web Scraping</span>
+        <span class="tag">Random Forest</span>
+        <span class="tag">Gradient Boosting</span>
+        <span class="tag">Topic Modeling</span>
+        <span class="tag">Python</span>
+        <span class="tag">scikit-learn</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">Competitor Benchmarking</span>
+        <span class="tag">Consumer Behavior</span>
+      </div>
+
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: Embedded PDF Presentation -->
+    <div class="ba-right">
+      <div class="ba-pdf-label">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="#4a90d0" stroke-width="1.5"/><path d="M4 5h6M4 7h6M4 9h4" stroke="#4a90d0" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Full Slide Deck
+      </div>
+      <div class="ba-pdf-viewer">
+        <iframe src="British_Airways_PRESENTATION.pdf" title="British Airways Presentation" loading="lazy"></iframe>
+      </div>
+    </div><!-- /ba-right -->
+
+  </div><!-- /ba-split -->
+
 </section>
 <div class="sec-div"><hr></div>
 
