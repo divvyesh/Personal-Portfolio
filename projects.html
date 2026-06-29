@@ -258,11 +258,11 @@
     /* Right — PDF only */
     .ba-right {
       position: sticky; top: 80px;
-      height: calc(100vh - 100px);
       display: flex; flex-direction: column; gap: 7px;
     }
     .ba-pdf-frame {
-      flex: 1; border-radius: 14px; overflow: hidden;
+      aspect-ratio: 16/9;
+      border-radius: 14px; overflow: hidden;
       border: 1px solid rgba(255,255,255,0.07);
     }
     .ba-pdf-frame iframe { width: 100%; height: 100%; border: none; display: block; background: #fff; }
@@ -274,7 +274,8 @@
     @media (max-width: 860px) {
       .ba-full { padding: 0 24px; }
       .ba-split { grid-template-columns: 1fr; }
-      .ba-right { position: static; height: 520px; }
+      .ba-right { position: static; }
+      .ba-pdf-frame { aspect-ratio: 16/9; }
     }
 
     /* ── Analyses structured list (shared BA + SB) ── */
@@ -404,6 +405,24 @@
     .sb-feat-name { color: rgba(232,232,240,0.78); font-weight: 500; }
     .sb-feat-role { color: var(--muted2); }
     .sb-feat-imp { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(0,112,74,0.8); }
+
+    /* ── Salesforce section ── */
+    .sf-bl { color: rgba(0,161,224,0.65) !important; }
+    .sf-pv { color: #00A1E0 !important; }
+    .sf-analysis-finding { font-size: 11px; color: rgba(0,161,224,0.85); line-height: 1.4; }
+    .sf-analysis-finding::before { content: '→ '; }
+    .sf-tool-table { display: flex; flex-direction: column; }
+    .sf-tool-row { display: grid; grid-template-columns: 1.8fr 1fr 1.8fr; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 11.5px; padding: 6px 0; gap: 8px; }
+    .sf-tool-row:last-child { border-bottom: none; }
+    .sf-tool-name { color: rgba(232,232,240,0.82); font-weight: 600; }
+    .sf-tool-cat { color: var(--muted2); font-size: 10.5px; }
+    .sf-tool-roi { color: rgba(0,161,224,0.85); font-size: 11px; }
+    .sf-roi-block { border: 1px solid rgba(0,161,224,0.22); border-radius: 10px; padding: 12px 15px; background: rgba(0,161,224,0.04); }
+    .sf-roi-title { font-family: "Space Grotesk", sans-serif; font-size: 12.5px; font-weight: 700; color: #00A1E0; margin-bottom: 8px; }
+    .sf-cat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--border); margin-bottom: 10px; }
+    .sf-cat-cell { background: var(--surface); padding: 10px 12px; text-align: center; }
+    .sf-cat-n { font-family: "Space Grotesk", sans-serif; font-size: 15px; font-weight: 800; color: #00A1E0; line-height: 1; margin-bottom: 3px; }
+    .sf-cat-l { font-size: 10px; color: var(--muted2); letter-spacing: 0.07em; text-transform: uppercase; }
   </style>
 </head>
 <body>
@@ -1430,46 +1449,202 @@
 <div class="sec-div"><hr></div>
 
 <!-- ═══ SALESFORCE ═══ -->
-<section id="salesforce" class="project-section">
-  <div class="project-header">
+<section id="salesforce" class="project-section ba-full" style="scroll-margin-top:80px;">
+
+  <div class="project-header" style="max-width:100%;margin-bottom:28px;">
     <div class="project-badge" style="background:rgba(0,161,224,0.15);color:#00A1E0;">SF</div>
     <div class="project-header-text">
-      <div class="project-label" style="color:#00A1E0;">BU MSBA Project · 2025</div>
-      <h2>Salesforce — CRM Pipeline Analytics &amp; Revenue Attribution</h2>
-      <p class="summary">Analyzed CRM pipeline data to identify deal velocity patterns, stage conversion bottlenecks, and the gap between forecasted and actual revenue — finding where the pipeline leaked and why.</p>
+      <div class="project-label" style="color:#00A1E0;">BU MSBA · Strategic Analysis · 2025</div>
+      <h2>Salesforce — AI Sales Enablement Strategy &amp; Tool Acquisition</h2>
+      <p class="summary">Research memo and strategic proposal evaluating 7 AI-powered sales tools across 3 categories for Salesforce's CRM platform acquisition — with evidence-backed ROI projections and integration roadmap.</p>
     </div>
   </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-label" style="color:#00A1E0;">The Problem</div>
-      <h3>Forecasts looked right. Revenue didn't match.</h3>
-      <p>Sales forecasts built on CRM stage probabilities assume consistent deal progression. In practice, deals stall, skip stages, and close at unexpected velocities. Without stage-level cohort analysis, the forecast model is measuring intent — not actual trajectory — and the gap between forecast and close compounds each quarter.</p>
+
+  <div class="ba-split">
+    <!-- LEFT: Technical spec blocks -->
+    <div class="ba-left">
+
+      <!-- Problem block -->
+      <div class="ba-problem-block">
+        <div class="ba-bl" style="color:rgba(220,38,38,0.65);">Problem Statement</div>
+        <div class="ba-problem-line"><span class="pl-n">01</span>Sales teams lose 65% of prospecting time to manual qualification — every unautomated hour is pipeline not built</div>
+        <div class="ba-problem-line"><span class="pl-n">02</span>CRM data degradation from manual entry creates forecasting blind spots — Salesforce's own platform becomes unreliable at scale</div>
+        <div class="ba-problem-line"><span class="pl-n">03</span>Fragmented lead-to-close communication slows enterprise deal cycles; AI-personalization at scale is impossible without tooling</div>
+        <div class="ba-problem-line"><span class="pl-n">04</span>Without predictive deal intelligence, Salesforce risks ceding AI-driven revenue leadership to specialized startups eating CRM share</div>
+      </div>
+
+      <!-- KPI row -->
+      <div class="ba-kpi-row" style="margin-bottom:28px;">
+        <div class="ba-kpi"><div class="n" style="color:#00A1E0;">7</div><div class="l">AI Tools Evaluated</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00A1E0;">3</div><div class="l">Strategic Categories</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00A1E0;">92%</div><div class="l">Gong Forecast Accuracy</div></div>
+      </div>
+
+      <!-- Research Scope -->
+      <div class="ba-block">
+        <div class="ba-bl sf-bl">Research Scope & Methodology</div>
+        <ul class="ba-micro-list">
+          <li>Secondary market research across Gartner, Bain & Company, and vendor case study databases</li>
+          <li>Competitive benchmarking: evaluated each tool against Salesforce's native CRM capabilities</li>
+          <li>ROI modeling using published enterprise case studies (Snowflake, MongoDB, L'Oréal)</li>
+          <li>Integration feasibility assessed via connector availability and API documentation</li>
+          <li>Vendor pricing modeled for SMB and enterprise tiers to assess scalability</li>
+        </ul>
+      </div>
+
+      <!-- Three focal categories -->
+      <div class="ba-block">
+        <div class="ba-bl sf-bl">Strategic Focal Points</div>
+        <div class="sf-cat-row">
+          <div class="sf-cat-cell"><div class="sf-cat-n">ML</div><div class="sf-cat-l">CRM Optimization</div></div>
+          <div class="sf-cat-cell"><div class="sf-cat-n">GenAI</div><div class="sf-cat-l">Sales Communications</div></div>
+          <div class="sf-cat-cell"><div class="sf-cat-n">Pred.</div><div class="sf-cat-l">Revenue Intelligence</div></div>
+        </div>
+      </div>
+
+      <!-- Tool evaluation table -->
+      <div class="ba-block">
+        <div class="ba-bl sf-bl">Tool Evaluation — Findings & ROI</div>
+        <div class="sf-tool-table">
+          <div class="sf-tool-row" style="color:var(--muted2);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding-bottom:5px;">
+            <span>Tool</span><span>Category</span><span>Evidence / ROI</span>
+          </div>
+          <div class="sf-tool-row">
+            <span class="sf-tool-name">Cognism AI Prospecting</span>
+            <span class="sf-tool-cat">ML / CRM</span>
+            <span class="sf-tool-roi">65% less prospecting time; Snowflake: +40% SQL conversions</span>
+          </div>
+          <div class="sf-tool-row">
+            <span class="sf-tool-name">Clay Lead Enrichment</span>
+            <span class="sf-tool-cat">ML / CRM</span>
+            <span class="sf-tool-roi">28% faster lead response; +22% demo booking rate</span>
+          </div>
+          <div class="sf-tool-row">
+            <span class="sf-tool-name">Scratchpad CRM Hygiene</span>
+            <span class="sf-tool-cat">ML / CRM</span>
+            <span class="sf-tool-roi">70% reduction in manual CRM data entry; $24/user/mo</span>
+          </div>
+          <div class="sf-tool-row">
+            <span class="sf-tool-name">Jasper Campaign Engine</span>
+            <span class="sf-tool-cat">GenAI / Comms</span>
+            <span class="sf-tool-roi">35% faster content creation vs manual; native SF integration</span>
+          </div>
+          <div class="sf-tool-row">
+            <span class="sf-tool-name">Drift Conversational Cloud</span>
+            <span class="sf-tool-cat">GenAI / Comms</span>
+            <span class="sf-tool-roi">3.8× more pipeline (MongoDB); 58% less lead-to-meeting time</span>
+          </div>
+          <div class="sf-tool-row">
+            <span class="sf-tool-name">Lavender Email AI</span>
+            <span class="sf-tool-cat">GenAI / Comms</span>
+            <span class="sf-tool-roi">+19–34% email reply rate via DISC personality matching</span>
+          </div>
+          <div class="sf-tool-row">
+            <span class="sf-tool-name">Gong Deal Radar</span>
+            <span class="sf-tool-cat">Predictive</span>
+            <span class="sf-tool-roi">92% forecast accuracy; +20% win rate across 1,200+ companies</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Industries Span -->
+      <div class="ba-block">
+        <div class="ba-bl sf-bl">Industries & Clients Covered</div>
+        <div class="ba-chips">
+          <span class="ba-chip">B2B SaaS</span>
+          <span class="ba-chip">Enterprise Tech</span>
+          <span class="ba-chip">E-Commerce / DTC</span>
+          <span class="ba-chip">Financial Services</span>
+          <span class="ba-chip">Professional Services</span>
+          <span class="ba-chip">Manufacturing</span>
+        </div>
+      </div>
+
+      <!-- Business Model -->
+      <div class="ba-block">
+        <div class="ba-bl sf-bl">Business Model Analysis</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.75);">Strategic Acquisition Play:</strong> Identify high-ROI AI tools to integrate into Salesforce's platform, deepening ecosystem lock-in and expanding ARPU</li>
+          <li><strong style="color:rgba(232,232,240,0.75);">Freemium-to-Enterprise Pipeline:</strong> Tools like Clay ($0 free tier → $149/mo API) and Cognism (free trial) enable bottom-up adoption with enterprise upsell potential</li>
+          <li><strong style="color:rgba(232,232,240,0.75);">Platform Differentiation:</strong> Native AI integrations elevate Salesforce beyond CRM data storage into active sales intelligence — competing with HubSpot, Outreach, and Gong directly</li>
+          <li><strong style="color:rgba(232,232,240,0.75);">Gartner Signal:</strong> 35% of CROs will establish GenAI Ops teams by 2025 — Salesforce must be the infrastructure layer, not a component inside it</li>
+        </ul>
+      </div>
+
+      <!-- Investment Profitability -->
+      <div class="ba-block">
+        <div class="ba-bl sf-bl">Investment Profitability</div>
+        <div class="sf-roi-block">
+          <div class="sf-roi-title">Projected ROI by Category</div>
+          <div class="ba-analysis-list">
+            <div class="ba-analysis-item">
+              <div class="ba-analysis-name">CRM Optimization (Cognism + Clay + Scratchpad)</div>
+              <div class="ba-analysis-method">Combined cost: ~$173/user/mo at premium tiers; free trials reduce adoption risk</div>
+              <div class="sf-analysis-finding">40% SQL conversion lift + 28% faster response time → measurable pipeline acceleration within 1 quarter</div>
+            </div>
+            <div class="ba-analysis-item">
+              <div class="ba-analysis-name">Generative AI Comms (Drift + Lavender + Jasper)</div>
+              <div class="ba-analysis-method">Drift at $2,500/mo enterprise floor; Lavender positioned as per-rep productivity tool</div>
+              <div class="sf-analysis-finding">MongoDB: 3.8× more pipeline — payback period under 60 days at enterprise deal sizes</div>
+            </div>
+            <div class="ba-analysis-item">
+              <div class="ba-analysis-name">Predictive Intelligence (Gong + Clari + Synerise)</div>
+              <div class="ba-analysis-method">Evaluated against Salesforce's existing Einstein AI to assess differentiation vs cannibalization</div>
+              <div class="sf-analysis-finding">20% win rate improvement + 15% deal rescue rate — direct revenue retention; L'Oréal: -22% customer acquisition cost</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Challenges -->
+      <div class="ba-block">
+        <div class="ba-bl sf-bl">Challenges & Constraints</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.75);">Pricing Scalability:</strong> Drift at $2,500+/mo locks out SMB segment — Salesforce would need to renegotiate or subsidize for lower tiers</li>
+          <li><strong style="color:rgba(232,232,240,0.75);">Multi-Vendor Integration Risk:</strong> 7 tools = 7 API surfaces = 7 failure points; requires centralized data governance</li>
+          <li><strong style="color:rgba(232,232,240,0.75);">SOC2 & Compliance:</strong> Tools processing call transcripts and CRM records must meet enterprise data residency requirements</li>
+          <li><strong style="color:rgba(232,232,240,0.75);">Einstein AI Cannibalization:</strong> Some tools (Clari, Gong) directly compete with Salesforce's own Einstein forecasting — acquisition strategy must clarify build vs buy</li>
+          <li><strong style="color:rgba(232,232,240,0.75);">Client Requirement Alignment:</strong> Enterprise clients require GDPR-compliant outreach; DISC-based email personalization (Lavender) must be disclosed under EU AI Act obligations</li>
+        </ul>
+      </div>
+
+      <!-- Why it's a billion-dollar idea -->
+      <div class="ba-block">
+        <div class="ba-bl sf-bl">The Underrated Billion-Dollar Idea</div>
+        <ul class="ba-micro-list">
+          <li>Salesforce's real moat isn't CRM — it's the data layer sitting between 150,000+ enterprise customers and their sales pipelines</li>
+          <li>By acquiring AI tools rather than building them, Salesforce instantly layers GenAI productivity + predictive intelligence onto existing customer contracts — no new sales cycle required</li>
+          <li>Platform-native AI bundles become license tier upgrades: every Fortune 500 company already paying $120+/user/mo has an incentive to pay $180 for AI-augmented workflows</li>
+          <li>The alternative — letting Gong, Cognism, and Drift grow independently — creates the same threat HubSpot posed a decade ago: CRM replacement from the bottom up</li>
+        </ul>
+      </div>
+
+      <!-- Tags -->
+      <div class="ba-block">
+        <div class="ba-bl sf-bl">Tags</div>
+        <div class="ba-chips">
+          <span class="ba-chip">AI Strategy</span>
+          <span class="ba-chip">CRM Optimization</span>
+          <span class="ba-chip">Generative AI</span>
+          <span class="ba-chip">Predictive Analytics</span>
+          <span class="ba-chip">Sales Enablement</span>
+          <span class="ba-chip">Market Research</span>
+          <span class="ba-chip">ROI Modeling</span>
+          <span class="ba-chip">Strategic Acquisition</span>
+        </div>
+      </div>
+
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF iframe -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="AI_Sales_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="AI Sales Proposal Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ scroll within frame · AI Sales Proposal</div>
     </div>
-    <div class="card">
-      <div class="card-label" style="color:#00A1E0;">Data &amp; Method</div>
-      <h3>Stage Conversion Funnel + Cohort Velocity</h3>
-      <p>Modeled deal flow through CRM pipeline stages using conversion rate analysis at each handoff. Built cohort-level deal velocity models — grouping deals by entry month, deal size, and rep segment — to isolate where deals were stalling vs. moving. Attribution analysis tied closed-won revenue back to top-of-funnel source at the cohort level.</p>
-    </div>
-    <div class="card">
-      <div class="card-label" style="color:#00A1E0;">What I Found</div>
-      <h3>The leak was at one stage — and rep-specific</h3>
-      <p>Most pipeline drop-off concentrated at a single stage transition, clustering among a subset of reps — not distributed evenly across the team. That meant the fix was coaching and process, not product or market fit. Revenue attribution also revealed one source channel was overweighted in CRM credit vs. actual contribution to close.</p>
-    </div>
-  </div>
-  <div class="impact-row">
-    <div class="impact-stat"><div class="num" style="color:#00A1E0;">Stage</div><div class="desc">Conversion analysis at each handoff</div></div>
-    <div class="impact-stat"><div class="num" style="color:#00A1E0;">Cohort</div><div class="desc">Deal velocity cohort modeling</div></div>
-    <div class="impact-stat"><div class="num" style="color:#00A1E0;">Attrib.</div><div class="desc">Revenue attribution by source</div></div>
-  </div>
-  <div class="tags">
-    <span class="tag">CRM Analytics</span>
-    <span class="tag">Pipeline Modeling</span>
-    <span class="tag">Cohort Analysis</span>
-    <span class="tag">Revenue Attribution</span>
-    <span class="tag">SQL</span>
-    <span class="tag">Python</span>
-    <span class="tag">Tableau</span>
-  </div>
+
+  </div><!-- /ba-split -->
 </section>
 <div class="sec-div"><hr></div>
 
