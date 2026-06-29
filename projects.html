@@ -334,6 +334,47 @@
     }
     .sb-flow-arrow { font-size: 11px; color: rgba(0,112,74,0.4); flex-shrink: 0; }
 
+    /* ── Airbnb overrides ── */
+    .ab-bl { color: rgba(255,90,95,0.65) !important; }
+    .ab-pv { color: #FF5A5F !important; }
+    .ab-micro-list li::before { color: rgba(255,90,95,0.6) !important; }
+
+    /* Variable dictionary */
+    .ab-var-table { display: flex; flex-direction: column; }
+    .ab-var-row {
+      display: grid; grid-template-columns: 1.4fr 0.75fr 2fr;
+      border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 11px; padding: 5px 0;
+    }
+    .ab-var-row:last-child { border-bottom: none; }
+    .ab-var-head { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); padding-bottom: 5px; }
+    .ab-var-name { color: rgba(232,232,240,0.82); font-weight: 600; font-family: "Space Grotesk", sans-serif; }
+    .ab-var-type { color: var(--muted2); font-style: italic; }
+    .ab-var-desc { color: var(--muted); }
+
+    /* Target variable block */
+    .ab-target-block {
+      border: 1px solid rgba(255,90,95,0.25); border-radius: 10px;
+      padding: 10px 14px; background: rgba(255,90,95,0.04);
+    }
+    .ab-target-name {
+      font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 700;
+      color: #FF5A5F; margin-bottom: 4px;
+    }
+    .ab-target-desc { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+    /* Model comparison table */
+    .ab-model-table { display: flex; flex-direction: column; }
+    .ab-model-row {
+      display: grid; grid-template-columns: 2fr 0.8fr 0.8fr;
+      border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 11.5px; padding: 6px 0;
+    }
+    .ab-model-row:last-child { border-bottom: none; }
+    .ab-model-head { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); padding-bottom: 5px; }
+    .ab-model-name { color: rgba(232,232,240,0.8); font-weight: 500; }
+    .ab-model-val { color: var(--muted); }
+    .ab-model-best .ab-model-name { color: #FF5A5F; font-weight: 700; }
+    .ab-model-best .ab-model-val { color: #FF5A5F; font-weight: 700; }
+
     /* ── Feature matrix ── */
     .sb-feat-table { display: flex; flex-direction: column; }
     .sb-feat-row {
@@ -862,45 +903,271 @@
 <div class="sec-div"><hr></div>
 
 <!-- ═══ AIRBNB ═══ -->
-<section id="airbnb" class="project-section">
-  <div class="project-header">
+<section id="airbnb" class="project-section ba-full" style="scroll-margin-top:80px;">
+
+  <div class="project-header" style="max-width:100%;margin-bottom:28px;">
     <div class="project-badge" style="background:rgba(255,90,95,0.15);color:#FF5A5F;">AB</div>
     <div class="project-header-text">
       <div class="project-label" style="color:#FF5A5F;">BU MSBA Project · 2025</div>
       <h2>Airbnb — Dynamic Price Prediction Engine</h2>
-      <p class="summary">Built a listing price prediction model that outperformed simple regression by capturing non-linear feature interactions — amenity bundles, neighborhood effects, and booking-window dynamics that average pricing models flatten out.</p>
+      <p class="summary">74K listings across 6 US cities. A full ML pipeline — cleaning, feature engineering, target encoding, and gradient boosting — to predict log-transformed listing prices and identify the dominant pricing signals.</p>
     </div>
   </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-label" style="color:#FF5A5F;">The Problem</div>
-      <h3>Hosts price by gut — they leave money on the table</h3>
-      <p>Most Airbnb hosts price based on what nearby listings charge and seasonal intuition. That ignores non-linear interactions: a pool adds more value in summer and in family-sized listings, but nearly zero in city studios in March. Linear regression misses all of it.</p>
+
+  <div class="ba-split">
+
+    <!-- LEFT: Specs -->
+    <div class="ba-left">
+
+      <!-- Problem block (red) -->
+      <div class="ba-problem-block" style="border-left-color:rgba(255,90,95,0.55);background:rgba(255,90,95,0.05);">
+        <div class="ba-bl" style="color:rgba(255,90,95,0.65);">Problem Statement</div>
+        <div class="ba-problem-line" style="border-bottom-color:rgba(255,90,95,0.06);"><span class="pl-n" style="color:rgba(255,90,95,0.5);">01</span> Airbnb hosts price by intuition — no access to data-driven models that capture non-linear interactions between location, property type, and amenities.</div>
+        <div class="ba-problem-line" style="border-bottom-color:rgba(255,90,95,0.06);"><span class="pl-n" style="color:rgba(255,90,95,0.5);">02</span> Pricing is pivotal: underpricing loses revenue; overpricing kills occupancy. Linear regression misses the non-additive combinations that drive real premiums.</div>
+        <div class="ba-problem-line" style="border-bottom-color:rgba(255,90,95,0.06);"><span class="pl-n" style="color:rgba(255,90,95,0.5);">03</span> Raw dataset had 25%+ missing rates on review and host fields, high-cardinality text features (amenities), and no unified encoding strategy.</div>
+        <div class="ba-problem-line"><span class="pl-n" style="color:rgba(255,90,95,0.5);">04</span> Goal: build an end-to-end ML pipeline to predict log-transformed listing prices with RMSE &lt;0.35 and identify top pricing determinants.</div>
+      </div>
+
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n" style="color:#FF5A5F;">74K</div><div class="l">Raw Listings</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#FF5A5F;">58K</div><div class="l">After Cleaning</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#FF5A5F;">6</div><div class="l">US Cities</div></div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Data Collection</div>
+        <ul class="ba-micro-list ab-micro-list">
+          <li>Inside Airbnb — scraped July 2016 from live Airbnb listings (NYC, LA, SF, DC, Chicago, Boston)</li>
+          <li>Hosted on Kaggle: kaggle.com/datasets/stevezhenghp/airbnb-price-prediction</li>
+          <li>Structured listing data: property attributes, host characteristics, reviews, geo-coordinates</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Dataset</div>
+        <div class="ba-ds-table">
+          <div class="ba-ds-row"><div class="d-name">Raw listings</div><div class="d-dim">74,111 × 29</div><div class="d-src">Inside Airbnb / Kaggle</div></div>
+          <div class="ba-ds-row"><div class="d-name">After cleaning</div><div class="d-dim">58,247 × 26</div><div class="d-src">post-imputation + drop</div></div>
+          <div class="ba-ds-row"><div class="d-name">Train / Test split</div><div class="d-dim">46K / 12K</div><div class="d-src">80 / 20, random_state=42</div></div>
+          <div class="ba-ds-row"><div class="d-name">Selected features (model)</div><div class="d-dim">8 features</div><div class="d-src">GBM importance selection</div></div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Variable Dictionary</div>
+        <div class="ab-var-table">
+          <div class="ab-var-row">
+            <div class="ab-var-head">Feature</div><div class="ab-var-head">Type</div><div class="ab-var-head">Description</div>
+          </div>
+          <div class="ab-var-row"><div class="ab-var-name">log_price ★</div><div class="ab-var-type">Float · target</div><div class="ab-var-desc">Log-transformed listing price (regression target)</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">room_type</div><div class="ab-var-type">Categorical</div><div class="ab-var-desc">Entire home/apt, Private room, Shared room</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">bathrooms</div><div class="ab-var-type">Numeric</div><div class="ab-var-desc">Number of bathrooms (incl. half-baths)</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">bedrooms</div><div class="ab-var-type">Numeric</div><div class="ab-var-desc">Number of bedrooms in the listing</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">accommodates</div><div class="ab-var-type">Numeric</div><div class="ab-var-desc">Max guest capacity</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">city</div><div class="ab-var-type">Categorical</div><div class="ab-var-desc">One of 6 US cities (NYC, LA, SF, DC, CHI, BOS)</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">latitude / longitude</div><div class="ab-var-type">Numeric</div><div class="ab-var-desc">Geographic coordinates of listing</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">review_scores_rating</div><div class="ab-var-type">Numeric (0–100)</div><div class="ab-var-desc">Average guest review rating</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">cancellation_policy</div><div class="ab-var-type">Categorical</div><div class="ab-var-desc">Flexible / Moderate / Strict</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">instant_bookable</div><div class="ab-var-type">Boolean</div><div class="ab-var-desc">Instant booking enabled (t / f)</div></div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Target Variable</div>
+        <div class="ab-target-block">
+          <div class="ab-target-name">log_price</div>
+          <div class="ab-target-desc">Log-transformed continuous listing price. Log transformation normalizes the right-skewed distribution of raw prices, centering predictions around 4.5–5. Regression problem — RMSE and R² are the primary evaluation metrics.</div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Languages &amp; Libraries</div>
+        <div class="ba-stack-row">
+          <span class="ba-stack-pill">Python 3.x</span>
+          <span class="ba-stack-pill">pandas</span>
+          <span class="ba-stack-pill">NumPy</span>
+          <span class="ba-stack-pill">scikit-learn</span>
+          <span class="ba-stack-pill">category_encoders</span>
+          <span class="ba-stack-pill">scikit-optimize</span>
+          <span class="ba-stack-pill">joblib</span>
+          <span class="ba-stack-pill">matplotlib</span>
+          <span class="ba-stack-pill">seaborn</span>
+          <span class="ba-stack-pill">missingno</span>
+          <span class="ba-stack-pill">plotly</span>
+          <span class="ba-stack-pill">Google Colab</span>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Data Issues</div>
+        <ul class="ba-micro-list ab-micro-list">
+          <li>first_review: 15,864 missing (21.4%) — co-occurring with review_scores_rating nulls</li>
+          <li>review_scores_rating: 16,722 missing (22.5%) — no strong correlation found for imputation</li>
+          <li>host_response_rate: 18,299 missing (24.7%) — stored as string "95%", required parsing</li>
+          <li>neighbourhood: 6,872 missing — redundant given lat/long coordinates; dropped</li>
+          <li>amenities: high-cardinality text field — difficult to parse in raw form; dropped</li>
+          <li>Bedrooms/beds/bathrooms: 91–200 nulls requiring group-median imputation</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Pre-Processing</div>
+        <ul class="ba-micro-list ab-micro-list">
+          <li>Dropped: id, description, thumbnail_url, name, first_review, last_review, host_since, neighbourhood, zipcode, amenities, host_has_profile_pic, host_identity_verified</li>
+          <li>Rows with null first_review dropped (co-occurring with review_scores_rating) → 58,247 records</li>
+          <li>bedrooms: null → median by property_type group</li>
+          <li>beds: null → median by bedrooms group</li>
+          <li>bathrooms: null → median by property_type + bedrooms; remaining → 1</li>
+          <li>review_scores_rating: no strong correlate found → filled with global median</li>
+          <li>host_response_rate: stripped "%" → float; nulls → median by host_identity_verified group</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Data Manipulation</div>
+        <ul class="ba-micro-list ab-micro-list">
+          <li>Boolean columns (cleaning_fee, instant_bookable, host_*): t/f string → 1/0 integer</li>
+          <li>Categorical encoding: Target Encoding (smoothing=0.3) preferred over OHE — avoids dimensionality explosion on high-cardinality features</li>
+          <li>Numeric features: StandardScaler applied in pipeline (zero mean, unit variance)</li>
+          <li>Feature selection post-GBM importance: 8 top features retained — room_type, bathrooms, longitude, accommodates, bedrooms, latitude, city, review_scores_rating</li>
+          <li>ColumnTransformer: 3-branch pipeline for numeric / categorical / boolean separately</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Pipeline Setup</div>
+        <ul class="ba-micro-list ab-micro-list">
+          <li>ColumnTransformer: StandardScaler (numeric) + TargetEncoder smoothing=0.3 (categorical) + BooleanTransformer t/f→int (boolean)</li>
+          <li>80/20 train-test split, random_state=42 → X_train: 46,597 rows, X_test: 11,650 rows</li>
+          <li>Pipeline fit on X_train, transform applied to both train and test to prevent leakage</li>
+          <li>Parallel backend (joblib threading) used during CV to accelerate model comparison</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Analyses</div>
+        <div class="ba-analysis-list">
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Exploratory Data Analysis</div>
+            <div class="ba-analysis-method">Histogram matrix, correlation heatmap, pairplots, boxplots of log_price by city / room type / property type / accommodates / bedrooms</div>
+            <div class="ba-analysis-finding" style="color:rgba(255,90,95,0.85);">SF and NYC have highest median prices + widest spread; room_type and city are visually the strongest price predictors</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Model Comparison (5-fold CV)</div>
+            <div class="ba-analysis-method">Linear Regression, Ridge (α=1.0), SVR (linear kernel, C=1.0), Gradient Boosting — all evaluated on preprocessed train data using RMSE and R²</div>
+            <div class="ba-analysis-finding" style="color:rgba(255,90,95,0.85);">Gradient Boosting dominated: RMSE 0.34, R² 0.73 — significantly outperformed linear baselines</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">GBM Feature Importance</div>
+            <div class="ba-analysis-method">feature_importances_ extracted from trained GradientBoostingRegressor; ranked and plotted; non-zero features retained</div>
+            <div class="ba-analysis-finding" style="color:rgba(255,90,95,0.85);">Top 8: room_type, bathrooms, longitude, accommodates, bedrooms, latitude, city, review_scores_rating — drove final model</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Hyperparameter Tuning — Randomized Search</div>
+            <div class="ba-analysis-method">RandomizedSearchCV, n_iter=20, cv=3, scoring=neg_MSE, n_jobs=−1 across n_estimators / learning_rate / max_depth / subsample space</div>
+            <div class="ba-analysis-finding" style="color:rgba(255,90,95,0.85);">Best config identified from 20 random combinations; faster convergence vs full grid with near-equivalent RMSE</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Hyperparameter Tuning — Grid Search</div>
+            <div class="ba-analysis-method">GridSearchCV over expanded grid (n_estimators ×4, learning_rate ×4, max_depth ×3, subsample ×4, max_features ×3), cv=2, n_jobs=−1</div>
+            <div class="ba-analysis-finding" style="color:rgba(255,90,95,0.85);">Best parameters selected for final model — GridSearch identified max_depth=5, n_estimators=200+, low learning_rate as optimal</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Bayesian Optimization (BayesSearchCV)</div>
+            <div class="ba-analysis-method">scikit-optimize BayesSearchCV, n_iter=30, cv=3; probabilistic search over continuous hyperparameter space (Real, Integer, Categorical)</div>
+            <div class="ba-analysis-finding" style="color:rgba(255,90,95,0.85);">Most efficient tuning approach — converged on optimal config with fewest total fits vs Grid/Random search</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Model Comparison</div>
+        <div class="ab-model-table">
+          <div class="ab-model-row">
+            <div class="ab-model-head">Model</div>
+            <div class="ab-model-head">CV RMSE</div>
+            <div class="ab-model-head">CV R²</div>
+          </div>
+          <div class="ab-model-row">
+            <div class="ab-model-name">Linear Regression</div>
+            <div class="ab-model-val">~0.52</div>
+            <div class="ab-model-val">~0.39</div>
+          </div>
+          <div class="ab-model-row">
+            <div class="ab-model-name">Ridge Regression (α=1.0)</div>
+            <div class="ab-model-val">~0.51</div>
+            <div class="ab-model-val">~0.40</div>
+          </div>
+          <div class="ab-model-row">
+            <div class="ab-model-name">SVR (linear kernel)</div>
+            <div class="ab-model-val">~0.55</div>
+            <div class="ab-model-val">~0.32</div>
+          </div>
+          <div class="ab-model-row ab-model-best">
+            <div class="ab-model-name">Gradient Boosting ★</div>
+            <div class="ab-model-val">0.34</div>
+            <div class="ab-model-val">0.73</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Hyperparameters (Best GBM)</div>
+        <div class="ba-params">
+          <div class="ba-param"><span class="ba-pk">n_estimators</span><span class="ba-pv" style="color:#FF5A5F;">200</span></div>
+          <div class="ba-param"><span class="ba-pk">learning_rate</span><span class="ba-pv" style="color:#FF5A5F;">0.05</span></div>
+          <div class="ba-param"><span class="ba-pk">max_depth</span><span class="ba-pv" style="color:#FF5A5F;">5</span></div>
+          <div class="ba-param"><span class="ba-pk">subsample</span><span class="ba-pv" style="color:#FF5A5F;">0.8</span></div>
+          <div class="ba-param"><span class="ba-pk">min_samples_split</span><span class="ba-pv" style="color:#FF5A5F;">5</span></div>
+          <div class="ba-param"><span class="ba-pk">min_samples_leaf</span><span class="ba-pv" style="color:#FF5A5F;">2</span></div>
+          <div class="ba-param"><span class="ba-pk">max_features</span><span class="ba-pv" style="color:#FF5A5F;">sqrt</span></div>
+          <div class="ba-param"><span class="ba-pk">test_size</span><span class="ba-pv" style="color:#FF5A5F;">0.20</span></div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Model Evaluation</div>
+        <ul class="ba-micro-list ab-micro-list">
+          <li>Final GBM fit on GridSearch best params; evaluated on held-out test set (11,650 rows)</li>
+          <li>Test RMSE: 0.34 · Test R²: 0.73 — consistent with CV, no significant overfitting</li>
+          <li>Actuals vs predictions plotted; residuals checked for systematic bias by city and room type</li>
+          <li>Feature importance bar chart confirmed room_type + geo (city/lat/long) dominate predictions</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl ab-bl">Impact &amp; Metrics</div>
+        <ul class="ba-micro-list ab-micro-list">
+          <li>Gradient Boosting achieved RMSE 0.34 and R² 0.73 on log-transformed prices — best-in-class vs all baseline models</li>
+          <li>room_type (entire home vs private) is the single strongest price predictor — entire home/apt commands highest premium</li>
+          <li>City and geo-coordinates dominate: SF and NYC show 30–40% higher median log prices than other cities</li>
+          <li>Pipeline generalizes across 6 cities — model ready for host-facing pricing recommendation integration</li>
+        </ul>
+      </div>
+
+      <div class="ba-chips">
+        <span class="ba-chip" style="background:rgba(255,90,95,0.1);border-color:rgba(255,90,95,0.28);color:#ff8080;">Gradient Boosting</span>
+        <span class="ba-chip" style="background:rgba(255,90,95,0.1);border-color:rgba(255,90,95,0.28);color:#ff8080;">Target Encoding</span>
+        <span class="ba-chip" style="background:rgba(255,90,95,0.1);border-color:rgba(255,90,95,0.28);color:#ff8080;">RandomizedSearchCV</span>
+        <span class="ba-chip" style="background:rgba(255,90,95,0.1);border-color:rgba(255,90,95,0.28);color:#ff8080;">Bayesian Optimization</span>
+        <span class="ba-chip" style="background:rgba(255,90,95,0.1);border-color:rgba(255,90,95,0.28);color:#ff8080;">scikit-learn Pipeline</span>
+        <span class="ba-chip" style="background:rgba(255,90,95,0.1);border-color:rgba(255,90,95,0.28);color:#ff8080;">Price Prediction</span>
+        <span class="ba-chip" style="background:rgba(255,90,95,0.1);border-color:rgba(255,90,95,0.28);color:#ff8080;">Feature Importance</span>
+        <span class="ba-chip" style="background:rgba(255,90,95,0.1);border-color:rgba(255,90,95,0.28);color:#ff8080;">Python · pandas</span>
+      </div>
+
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF only -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="Airbnb_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="Airbnb Price Prediction Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; 17 slides</div>
     </div>
-    <div class="card">
-      <div class="card-label" style="color:#FF5A5F;">Data &amp; Method</div>
-      <h3>Gradient Boosted Regression + SHAP</h3>
-      <p>Used gradient boosted regression (GBM/XGBoost) to model price as a function of listing features — room type, amenities, neighborhood, host experience, review scores, booking window. The ensemble approach captured feature interactions that linear models smooth away. SHAP values for interpretability and feature importance ranking.</p>
-    </div>
-    <div class="card">
-      <div class="card-label" style="color:#FF5A5F;">What I Found</div>
-      <h3>Amenity bundles drive outsized pricing power</h3>
-      <p>Certain amenity combinations — washer + dryer + workspace + self check-in — predict pricing premiums far beyond the additive value of each amenity alone. Neighborhood cluster and listing type were the dominant predictors, followed by amenity bundle completeness. RMSE dropped significantly vs. the baseline linear model.</p>
-    </div>
-  </div>
-  <div class="impact-row">
-    <div class="impact-stat"><div class="num" style="color:#FF5A5F;">GBM</div><div class="desc">Gradient boosted regression model</div></div>
-    <div class="impact-stat"><div class="num" style="color:#FF5A5F;">SHAP</div><div class="desc">Feature importance + interpretability</div></div>
-    <div class="impact-stat"><div class="num" style="color:#FF5A5F;">↓RMSE</div><div class="desc">Outperformed baseline linear regression</div></div>
-  </div>
-  <div class="tags">
-    <span class="tag">XGBoost / GBM</span>
-    <span class="tag">SHAP Explainability</span>
-    <span class="tag">Price Prediction</span>
-    <span class="tag">Feature Engineering</span>
-    <span class="tag">Python · scikit-learn</span>
-    <span class="tag">Pandas · NumPy</span>
-  </div>
+
+  </div><!-- /ba-split -->
+
 </section>
 <div class="sec-div"><hr></div>
 
