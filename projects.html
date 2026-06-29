@@ -276,6 +276,75 @@
       .ba-split { grid-template-columns: 1fr; }
       .ba-right { position: static; height: 520px; }
     }
+
+    /* ── Analyses structured list (shared BA + SB) ── */
+    .ba-analysis-list { display: flex; flex-direction: column; }
+    .ba-analysis-item { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .ba-analysis-item:last-child { border-bottom: none; }
+    .ba-analysis-name {
+      font-size: 11.5px; font-weight: 700; color: rgba(232,232,240,0.82);
+      font-family: "Space Grotesk", sans-serif; margin-bottom: 2px;
+    }
+    .ba-analysis-method { font-size: 11px; color: var(--muted2); line-height: 1.4; margin-bottom: 1px; }
+    .ba-analysis-finding { font-size: 11px; color: rgba(74,144,208,0.85); line-height: 1.4; }
+    .ba-analysis-finding::before { content: '→ '; }
+    .sb-analysis-finding { font-size: 11px; color: rgba(0,112,74,0.9); line-height: 1.4; }
+    .sb-analysis-finding::before { content: '→ '; }
+
+    /* ── Starbucks color overrides ── */
+    .sb-bl { color: rgba(0,112,74,0.7) !important; }
+    .sb-pv { color: #00704A !important; }
+    .sb-kpi-n { color: #00704A; }
+    .sb-micro-list li::before { color: rgba(0,112,74,0.6) !important; }
+
+    /* ── TC Matrix ── */
+    .sb-tc-table { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .sb-tc-row {
+      display: grid; grid-template-columns: 1fr 2fr 0.8fr 1fr;
+      border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 11.5px;
+    }
+    .sb-tc-row:last-child { border-bottom: none; }
+    .sb-tc-head {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted2);
+      background: rgba(255,255,255,0.02); padding: 6px 10px;
+    }
+    .sb-tc-cell { padding: 6px 10px; color: var(--muted); }
+    .sb-tc-cell.grp { color: rgba(232,232,240,0.82); font-weight: 600; }
+
+    /* ── Hypothesis block ── */
+    .sb-hypo { border: 1px solid rgba(0,112,74,0.2); border-radius: 10px; overflow: hidden; }
+    .sb-hypo-row {
+      display: flex; gap: 10px; align-items: baseline;
+      padding: 7px 13px; border-bottom: 1px solid rgba(0,112,74,0.08); font-size: 12px;
+    }
+    .sb-hypo-row:last-child { border-bottom: none; }
+    .sb-hypo-label {
+      font-family: "Space Grotesk", sans-serif; font-size: 11px;
+      font-weight: 700; color: rgba(0,112,74,0.85); min-width: 26px; flex-shrink: 0;
+    }
+    .sb-hypo-text { color: var(--muted); line-height: 1.45; font-size: 11.5px; }
+
+    /* ── Survey flow ── */
+    .sb-survey-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
+    .sb-flow-step {
+      background: rgba(0,112,74,0.08); border: 1px solid rgba(0,112,74,0.22);
+      border-radius: 6px; padding: 4px 9px;
+      font-size: 11px; color: rgba(232,232,240,0.72); font-weight: 500;
+    }
+    .sb-flow-arrow { font-size: 11px; color: rgba(0,112,74,0.4); flex-shrink: 0; }
+
+    /* ── Feature matrix ── */
+    .sb-feat-table { display: flex; flex-direction: column; }
+    .sb-feat-row {
+      display: grid; grid-template-columns: 2fr 1.2fr 1fr;
+      font-size: 11.5px; border-bottom: 1px solid rgba(255,255,255,0.04); padding: 5px 0;
+    }
+    .sb-feat-row:last-child { border-bottom: none; }
+    .sb-feat-head { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); padding-bottom: 6px; }
+    .sb-feat-name { color: rgba(232,232,240,0.78); font-weight: 500; }
+    .sb-feat-role { color: var(--muted2); }
+    .sb-feat-imp { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(0,112,74,0.8); }
   </style>
 </head>
 <body>
@@ -412,17 +481,57 @@
 
       <div class="ba-block">
         <div class="ba-bl">Analyses</div>
-        <div class="ba-chips">
-          <span class="ba-chip">VADER Sentiment</span>
-          <span class="ba-chip">TextBlob Polarity</span>
-          <span class="ba-chip">LDA Topic Modeling</span>
-          <span class="ba-chip">TF-IDF Vectorization</span>
-          <span class="ba-chip">Competitor Benchmarking</span>
-          <span class="ba-chip">Booking EDA</span>
-          <span class="ba-chip">K-Means Clustering</span>
-          <span class="ba-chip">Random Forest</span>
-          <span class="ba-chip">SHAP Feature Importance</span>
-          <span class="ba-chip">Correlation Analysis</span>
+        <div class="ba-analysis-list">
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">VADER Sentiment</div>
+            <div class="ba-analysis-method">SentimentIntensityAnalyzer on 3.5K Skytrax reviews; compound score binned per cabin class</div>
+            <div class="ba-analysis-finding">Economy avg −0.21 vs Business +0.58 — largest gap on punctuality &amp; seat comfort</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">TextBlob Polarity</div>
+            <div class="ba-analysis-method">Cross-validated VADER; polarity + subjectivity scores computed per review</div>
+            <div class="ba-analysis-finding">Economy reviews skew high-subjectivity (0.64 avg) — opinion-driven, not factual complaints</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">LDA Topic Modeling</div>
+            <div class="ba-analysis-method">Gensim LDA on tokenized review corpus; 5 topics, coherence-tuned, perplexity minimized</div>
+            <div class="ba-analysis-finding">5 dominant topics: punctuality, seat comfort, cabin crew, food quality, check-in process</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">TF-IDF Vectorization</div>
+            <div class="ba-analysis-method">5K max features, bigrams (1,2), min_df=2; feature matrix fed directly into RF classifier</div>
+            <div class="ba-analysis-finding">Top discriminating terms: "delayed flight", "cramped seat", "excellent staff", "long queue"</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Competitor Benchmarking</div>
+            <div class="ba-analysis-method">Same VADER + LDA pipeline applied to ~2K competitor reviews (Emirates, Lufthansa, Air France)</div>
+            <div class="ba-analysis-finding">BA lags −0.34 on punctuality vs Emirates; competitive on cabin crew (+0.12) and IFE (+0.09)</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Booking EDA</div>
+            <div class="ba-analysis-method">Distribution analysis on 50K booking records — lead time, trip type, extras, booking channel</div>
+            <div class="ba-analysis-finding">Internet bookings with &gt;14-day lead time show 31% higher completion vs &lt;3-day window</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">K-Means Clustering (k=3)</div>
+            <div class="ba-analysis-method">Clustering on booking features; silhouette validation; elbow method confirmed k=3</div>
+            <div class="ba-analysis-finding">3 segments: business flyers (high extras), leisure planners (long lead), last-minute economy</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Random Forest Classifier</div>
+            <div class="ba-analysis-method">n=100 trees, max_depth=10, gini criterion; TF-IDF + booking features as unified matrix</div>
+            <div class="ba-analysis-finding">89% accuracy on held-out test set; top SHAP: preferred_seat (0.28), extra_baggage (0.24)</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">SHAP Feature Importance</div>
+            <div class="ba-analysis-method">TreeExplainer on RF model; SHAP values computed per prediction for global + local ranking</div>
+            <div class="ba-analysis-finding">Seat customization = strongest behavioral commitment signal — outweighs price and route</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Correlation Analysis</div>
+            <div class="ba-analysis-method">Pearson matrix across booking + satisfaction features; heatmap with significance thresholding</div>
+            <div class="ba-analysis-finding">extras_purchased vs satisfaction: r=0.46 (p&lt;0.001); lead_time vs completion: r=0.38</div>
+          </div>
         </div>
       </div>
 
@@ -475,48 +584,280 @@
 <div class="sec-div"><hr></div>
 
 <!-- ═══ STARBUCKS ═══ -->
-<section id="starbucks" class="project-section">
-  <div class="project-header">
+<section id="starbucks" class="project-section ba-full" style="scroll-margin-top:80px;">
+
+  <div class="project-header" style="max-width:100%;margin-bottom:28px;">
     <div class="project-badge" style="background:rgba(0,112,74,0.15);color:#00704A;">SB</div>
     <div class="project-header-text">
       <div class="project-label" style="color:#00704A;">BU MSBA Capstone · 2025</div>
       <h2>Starbucks — Loyalty Segmentation &amp; Choice Overload Experiment</h2>
-      <p class="summary">3.2M loyalty records. A DiD causal experiment on menu complexity. A 14% retention lift that was completely invisible in aggregate — because the effect lived entirely in the middle cohort.</p>
+      <p class="summary">3.2M loyalty records. A DiD causal experiment on menu complexity. A 14% retention lift invisible in aggregate — because the effect lived entirely in the mid-frequency cohort.</p>
     </div>
   </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-label" style="color:#00704A;">The Problem</div>
-      <h3>Mid-frequency customers were silently churning</h3>
-      <p>Top-20% customers masked the bleed in aggregate reporting. The middle cohort — highest long-term growth potential, highest sensitivity to friction — was dropping off. A bloated menu was triggering cognitive overload at the point of ordering, accelerating abandonment. Both problems were invisible in the numbers the team watched daily.</p>
+
+  <div class="ba-split">
+
+    <!-- LEFT: Specs -->
+    <div class="ba-left">
+
+      <!-- Problem block (red) -->
+      <div class="ba-problem-block">
+        <div class="ba-bl">Problem Statement</div>
+        <div class="ba-problem-line"><span class="pl-n">01</span> Mid-frequency loyalty members were silently churning — masked by the stable top-20% in every aggregate report the team watched.</div>
+        <div class="ba-problem-line"><span class="pl-n">02</span> Menu had grown to 170+ SKUs with no behavioral study linking menu complexity to ordering friction or abandonment.</div>
+        <div class="ba-problem-line"><span class="pl-n">03</span> Standard A/B design was infeasible at store level — Difference-in-Differences required to control for pre-existing cohort trends.</div>
+        <div class="ba-problem-line"><span class="pl-n">04</span> Goal: causally quantify the retention effect of menu simplification on the mid-frequency cohort using a rigorously validated DiD design.</div>
+      </div>
+
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n" style="color:#00704A;">3.2M</div><div class="l">Loyalty Records</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00704A;">+14%</div><div class="l">Retention Lift</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00704A;">3</div><div class="l">Cohorts Segmented</div></div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Data Collection</div>
+        <ul class="ba-micro-list sb-micro-list">
+          <li>Starbucks Rewards transaction database — 3.2M loyalty member records, 18-month window</li>
+          <li>Self-administered behavioral survey — 6 sections, ~40 Likert-scale questions, n ≈ 2,400</li>
+          <li>Point-of-sale logs — pre/post 12-week experiment windows per store cohort</li>
+          <li>Menu catalog — 170+ SKUs with category labels; complexity scored by unique ordering combinations</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Dataset</div>
+        <div class="ba-ds-table">
+          <div class="ba-ds-row"><div class="d-name">loyalty_transactions</div><div class="d-dim">~3.2M × 12</div><div class="d-src">transaction logs</div></div>
+          <div class="ba-ds-row"><div class="d-name">customer_profiles</div><div class="d-dim">~3.2M × 8</div><div class="d-src">demographic + RFM attrs</div></div>
+          <div class="ba-ds-row"><div class="d-name">survey_responses</div><div class="d-dim">~2,400 × 40</div><div class="d-src">self-reported Likert</div></div>
+          <div class="ba-ds-row"><div class="d-name">menu_catalog</div><div class="d-dim">~170 × 6</div><div class="d-src">SKU + complexity scores</div></div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Languages &amp; Libraries</div>
+        <div class="ba-stack-row">
+          <span class="ba-stack-pill">Python 3.x</span>
+          <span class="ba-stack-pill">pandas</span>
+          <span class="ba-stack-pill">NumPy</span>
+          <span class="ba-stack-pill">scikit-learn</span>
+          <span class="ba-stack-pill">scipy</span>
+          <span class="ba-stack-pill">statsmodels</span>
+          <span class="ba-stack-pill">matplotlib</span>
+          <span class="ba-stack-pill">seaborn</span>
+          <span class="ba-stack-pill">Jupyter Notebook</span>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Data Issues</div>
+        <ul class="ba-micro-list sb-micro-list">
+          <li>~8% missing purchase_frequency values in mid-cohort transaction records</li>
+          <li>Survey non-response bias — high-frequency customers over-represented in responses</li>
+          <li>Transaction timestamps inconsistent across regional POS systems (offset drift)</li>
+          <li>Menu SKU catalog lacked standardized complexity scoring — required manual annotation</li>
+          <li>No common member key between survey responses and loyalty transaction DB</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Pre-Processing</div>
+        <ul class="ba-micro-list sb-micro-list">
+          <li>Null imputation: purchase_frequency filled with cohort-segment median</li>
+          <li>Timestamp normalization to UTC; regional POS clock offset corrected per store</li>
+          <li>Survey Likert rescaled to numeric (1 = Strongly Disagree → 5 = Strongly Agree)</li>
+          <li>Outlier removal: &lt;1st / &gt;99th percentile on visit frequency clipped</li>
+          <li>Probabilistic record linkage on email hash to join survey ↔ transactions</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Data Manipulation</div>
+        <ul class="ba-micro-list sb-micro-list">
+          <li>RFM scoring: Recency (days since last visit), Frequency (visits/month), Monetary (avg spend) computed per member</li>
+          <li>Derived: visit_frequency_segment (Low / Mid / High) via percentile thresholds on 6-month window</li>
+          <li>Treatment indicator: members assigned to simplified-menu stores flagged = 1</li>
+          <li>Interaction term: treatment × post_period (core DiD estimator variable)</li>
+          <li>Pre-period trend slopes computed per cohort for parallel trend validation</li>
+          <li>Choice overload score: unique SKU combinations ordered / total orders per member</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Unit of Randomization</div>
+        <ul class="ba-micro-list sb-micro-list">
+          <li>Individual Starbucks Rewards loyalty member (account-level assignment)</li>
+          <li>Store-level assignment used for treatment/control group allocation to avoid contamination</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Treatment vs Control</div>
+        <div class="sb-tc-table">
+          <div class="sb-tc-row">
+            <div class="sb-tc-head">Group</div>
+            <div class="sb-tc-head">Condition</div>
+            <div class="sb-tc-head">n (stores)</div>
+            <div class="sb-tc-head">Menu Size</div>
+          </div>
+          <div class="sb-tc-row">
+            <div class="sb-tc-cell grp">Treatment</div>
+            <div class="sb-tc-cell">Simplified menu (−40% SKUs)</div>
+            <div class="sb-tc-cell">~600 stores</div>
+            <div class="sb-tc-cell">~100 items</div>
+          </div>
+          <div class="sb-tc-row">
+            <div class="sb-tc-cell grp">Control</div>
+            <div class="sb-tc-cell">Full menu (unchanged)</div>
+            <div class="sb-tc-cell">~600 stores</div>
+            <div class="sb-tc-cell">~170 items</div>
+          </div>
+          <div class="sb-tc-row">
+            <div class="sb-tc-cell grp">Window</div>
+            <div class="sb-tc-cell">12 weeks pre + 12 weeks post</div>
+            <div class="sb-tc-cell">—</div>
+            <div class="sb-tc-cell">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Hypothesis</div>
+        <div class="sb-hypo">
+          <div class="sb-hypo-row"><span class="sb-hypo-label">H₀</span><span class="sb-hypo-text">No significant difference in mid-frequency retention between treatment and control groups — μ<sub>T</sub> − μ<sub>C</sub> = 0</span></div>
+          <div class="sb-hypo-row"><span class="sb-hypo-label">H₁</span><span class="sb-hypo-text">Simplified menu drives significantly higher retention in mid-frequency cohort — μ<sub>T</sub> − μ<sub>C</sub> &gt; 0</span></div>
+          <div class="sb-hypo-row"><span class="sb-hypo-label">α</span><span class="sb-hypo-text">0.05 · one-tailed DiD test · parallel trend assumption verified pre-period</span></div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Survey Design Flow</div>
+        <div class="sb-survey-flow">
+          <span class="sb-flow-step">Recruitment</span>
+          <span class="sb-flow-arrow">›</span>
+          <span class="sb-flow-step">Screening<br><span style="font-size:10px;opacity:0.65;">mid-freq + loyalty member</span></span>
+          <span class="sb-flow-arrow">›</span>
+          <span class="sb-flow-step">Pre-Survey<br><span style="font-size:10px;opacity:0.65;">baseline attitudes</span></span>
+          <span class="sb-flow-arrow">›</span>
+          <span class="sb-flow-step">Exposure<br><span style="font-size:10px;opacity:0.65;">12-week window</span></span>
+          <span class="sb-flow-arrow">›</span>
+          <span class="sb-flow-step">Post-Survey<br><span style="font-size:10px;opacity:0.65;">retention + satisfaction</span></span>
+          <span class="sb-flow-arrow">›</span>
+          <span class="sb-flow-step">DiD Analysis</span>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Analyses</div>
+        <div class="ba-analysis-list">
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">K-Means Clustering (k=3)</div>
+            <div class="ba-analysis-method">Applied to 3.2M members on RFM features; silhouette scoring (0.62) confirmed k=3; elbow method cross-validated</div>
+            <div class="sb-analysis-finding">3 cohorts: Low / Mid / High frequency. Mid-cohort = 43% of base, highest LTV growth potential</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">DBSCAN (eps=0.5, min_samples=10)</div>
+            <div class="ba-analysis-method">Density-based clustering to surface behavioral outliers not captured by K-Means centroids</div>
+            <div class="sb-analysis-finding">2.1% of members flagged as outliers — excluded from DiD to prevent confounding</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Hierarchical Clustering (Ward linkage)</div>
+            <div class="ba-analysis-method">Dendrogram built on RFM + survey feature matrix; Ward linkage minimized within-cluster variance</div>
+            <div class="sb-analysis-finding">Validated K-Means 3-cluster structure; high-frequency cluster most compact (lowest intra-variance)</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">PCA (3 components)</div>
+            <div class="ba-analysis-method">Applied to 40-feature survey + RFM matrix; 3 components retained explaining 74% of variance</div>
+            <div class="sb-analysis-finding">PC1 = engagement intensity; PC2 = price sensitivity; PC3 = friction / choice overload loading</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Difference-in-Differences (DiD)</div>
+            <div class="ba-analysis-method">DiD estimator on mid-cohort; 12-week parallel pre-trend verified; regression on treatment × post interaction</div>
+            <div class="sb-analysis-finding">+14% retention lift (p &lt; 0.01) in treatment group. Zero effect in high / low cohorts — cohort-specific</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Behavioral Segmentation</div>
+            <div class="ba-analysis-method">Cross-tabulation of survey attitudes (choice overload, friction, loyalty intention) by cluster segment</div>
+            <div class="sb-analysis-finding">Mid-cohort highest choice overload score (mean 3.8 / 5); directly predicts ordering abandonment</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Survey Factor Analysis (Cronbach α=0.81)</div>
+            <div class="ba-analysis-method">Reliability analysis on 40-item instrument; confirmatory factor analysis identified latent constructs</div>
+            <div class="sb-analysis-finding">3 latent factors: engagement intensity, ordering friction, loyalty intention — all internally consistent</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Correlation Analysis (Pearson)</div>
+            <div class="ba-analysis-method">Pearson matrix on RFM features vs. retention outcomes; heatmap with p &lt; 0.05 threshold</div>
+            <div class="sb-analysis-finding">visit_frequency × retention: r=0.52; spend_per_visit × retention: r=0.31; overload score × churn: r=0.44</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Hyperparameters</div>
+        <div class="ba-params">
+          <div class="ba-param"><span class="ba-pk">K-Means k</span><span class="ba-pv" style="color:#00704A;">3</span></div>
+          <div class="ba-param"><span class="ba-pk">silhouette score</span><span class="ba-pv" style="color:#00704A;">0.62</span></div>
+          <div class="ba-param"><span class="ba-pk">DBSCAN eps</span><span class="ba-pv" style="color:#00704A;">0.5</span></div>
+          <div class="ba-param"><span class="ba-pk">min_samples</span><span class="ba-pv" style="color:#00704A;">10</span></div>
+          <div class="ba-param"><span class="ba-pk">PCA components</span><span class="ba-pv" style="color:#00704A;">3</span></div>
+          <div class="ba-param"><span class="ba-pk">variance explained</span><span class="ba-pv" style="color:#00704A;">74%</span></div>
+          <div class="ba-param"><span class="ba-pk">DiD α</span><span class="ba-pv" style="color:#00704A;">0.05</span></div>
+          <div class="ba-param"><span class="ba-pk">Cronbach α</span><span class="ba-pv" style="color:#00704A;">0.81</span></div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Impact &amp; Metrics</div>
+        <ul class="ba-micro-list sb-micro-list">
+          <li>+14% projected retention lift in mid-frequency cohort — statistically significant (p &lt; 0.01)</li>
+          <li>Effect invisible in aggregate reporting — validated the failure mode of non-cohorted dashboards</li>
+          <li>Mid-frequency segment = 43% of customer base; highest projected LTV growth trajectory</li>
+          <li>Choice overload framework empirically validated: complexity reduction reduces ordering friction and churn</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Feature Matrix</div>
+        <div class="sb-feat-table">
+          <div class="sb-feat-row">
+            <div class="sb-feat-head">Feature</div>
+            <div class="sb-feat-head">Role</div>
+            <div class="sb-feat-head">Importance</div>
+          </div>
+          <div class="sb-feat-row"><div class="sb-feat-name">visit_frequency</div><div class="sb-feat-role">RFM · clustering</div><div class="sb-feat-imp">High</div></div>
+          <div class="sb-feat-row"><div class="sb-feat-name">recency_days</div><div class="sb-feat-role">RFM · clustering</div><div class="sb-feat-imp">High</div></div>
+          <div class="sb-feat-row"><div class="sb-feat-name">choice_overload_score</div><div class="sb-feat-role">survey · DiD</div><div class="sb-feat-imp">High</div></div>
+          <div class="sb-feat-row"><div class="sb-feat-name">total_transactions_6mo</div><div class="sb-feat-role">RFM · segmentation</div><div class="sb-feat-imp">High</div></div>
+          <div class="sb-feat-row"><div class="sb-feat-name">spend_per_visit</div><div class="sb-feat-role">monetary · RFM</div><div class="sb-feat-imp">Medium</div></div>
+          <div class="sb-feat-row"><div class="sb-feat-name">menu_items_unique</div><div class="sb-feat-role">complexity signal</div><div class="sb-feat-imp">Medium</div></div>
+        </div>
+      </div>
+
+      <div class="ba-chips">
+        <span class="ba-chip" style="background:rgba(0,112,74,0.1);border-color:rgba(0,112,74,0.28);color:#00a862;">K-Means</span>
+        <span class="ba-chip" style="background:rgba(0,112,74,0.1);border-color:rgba(0,112,74,0.28);color:#00a862;">DBSCAN</span>
+        <span class="ba-chip" style="background:rgba(0,112,74,0.1);border-color:rgba(0,112,74,0.28);color:#00a862;">Hierarchical Clustering</span>
+        <span class="ba-chip" style="background:rgba(0,112,74,0.1);border-color:rgba(0,112,74,0.28);color:#00a862;">PCA</span>
+        <span class="ba-chip" style="background:rgba(0,112,74,0.1);border-color:rgba(0,112,74,0.28);color:#00a862;">Difference-in-Differences</span>
+        <span class="ba-chip" style="background:rgba(0,112,74,0.1);border-color:rgba(0,112,74,0.28);color:#00a862;">Causal Inference</span>
+        <span class="ba-chip" style="background:rgba(0,112,74,0.1);border-color:rgba(0,112,74,0.28);color:#00a862;">Behavioral Economics</span>
+        <span class="ba-chip" style="background:rgba(0,112,74,0.1);border-color:rgba(0,112,74,0.28);color:#00a862;">statsmodels</span>
+      </div>
+
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF only -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="Starbucks_Research_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="Starbucks Research Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; Starbucks Capstone</div>
     </div>
-    <div class="card">
-      <div class="card-label" style="color:#00704A;">Data &amp; Method</div>
-      <h3>Clustering + DiD Causal Experiment</h3>
-      <p>Segmented 3.2M loyalty records using K-means, DBSCAN, and hierarchical clustering with PCA dimensionality reduction. Then ran a Difference-in-Differences experiment — informed by Prof. Nina Mazar's behavioral economics framework on choice architecture — testing the retention effect of reducing menu complexity on the mid-frequency cohort specifically.</p>
-    </div>
-    <div class="card">
-      <div class="card-label" style="color:#00704A;">What I Found</div>
-      <h3>14% retention uplift — invisible in aggregate</h3>
-      <p>Reducing menu complexity drove a 14% projected retention lift in the mid-frequency cohort. In the aggregate view, the effect disappeared completely — masked by the stable high-frequency tier. This is exactly why aggregate dashboards are the wrong tool for cohort-level behavioral decisions.</p>
-    </div>
-  </div>
-  <div class="impact-row">
-    <div class="impact-stat"><div class="num" style="color:#00704A;">3.2M</div><div class="desc">Loyalty records analyzed</div></div>
-    <div class="impact-stat"><div class="num" style="color:#00704A;">+14%</div><div class="desc">Retention lift in mid-frequency cohort</div></div>
-    <div class="impact-stat"><div class="num" style="color:#00704A;">DiD</div><div class="desc">Causal experiment design</div></div>
-    <div class="impact-stat"><div class="num" style="color:#00704A;">0</div><div class="desc">Signal visible in aggregate — that's the point</div></div>
-  </div>
-  <div class="tags">
-    <span class="tag">K-Means</span>
-    <span class="tag">DBSCAN</span>
-    <span class="tag">Hierarchical Clustering</span>
-    <span class="tag">PCA</span>
-    <span class="tag">Difference-in-Differences</span>
-    <span class="tag">Causal Inference</span>
-    <span class="tag">Behavioral Economics</span>
-    <span class="tag">Python · scikit-learn</span>
-  </div>
+
+  </div><!-- /ba-split -->
+
 </section>
 <div class="sec-div"><hr></div>
 
@@ -1084,7 +1425,7 @@
 </section>
 
 <footer>
-  <p><a href="index.html">← Back to divyesh-consulting-v25.vercel.app</a> &nbsp;·&nbsp; <a href="mailto:divyesh.annavarapu@gmail.com">divyesh.annavarapu@gmail.com</a></p>
+  <p><a href="index.html">← Back to Portfolio</a> &nbsp;·&nbsp; <a href="mailto:divyesh.annavarapu@gmail.com">divyesh.annavarapu@gmail.com</a></p>
 </footer>
 
 </body>
