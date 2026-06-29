@@ -375,6 +375,24 @@
     .ab-model-best .ab-model-name { color: #FF5A5F; font-weight: 700; }
     .ab-model-best .ab-model-val { color: #FF5A5F; font-weight: 700; }
 
+    /* ── EV / Tesla section ── */
+    .ev-pv { color: #CC0000 !important; }
+    .ev-inv-block {
+      border: 1px solid rgba(204,0,0,0.25); border-radius: 10px;
+      padding: 13px 16px; background: rgba(204,0,0,0.04);
+    }
+    .ev-inv-title {
+      font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 700;
+      color: #CC0000; margin-bottom: 6px;
+    }
+    .ev-biz-row {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px; margin-bottom: 10px;
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--border);
+    }
+    .ev-biz-cell { background: var(--surface); padding: 10px 12px; text-align: center; }
+    .ev-biz-n { font-family: "Space Grotesk", sans-serif; font-size: 17px; font-weight: 800; color: #CC0000; line-height: 1; margin-bottom: 3px; }
+    .ev-biz-l { font-size: 10px; color: var(--muted2); letter-spacing: 0.07em; text-transform: uppercase; }
     /* ── Feature matrix ── */
     .sb-feat-table { display: flex; flex-direction: column; }
     .sb-feat-row {
@@ -1172,44 +1190,242 @@
 <div class="sec-div"><hr></div>
 
 <!-- ═══ TESLA ═══ -->
-<section id="tesla" class="project-section">
-  <div class="project-header">
+<section id="tesla" class="project-section ba-full" style="scroll-margin-top:80px;">
+
+  <div class="project-header" style="max-width:100%;margin-bottom:28px;">
     <div class="project-badge" style="background:rgba(204,0,0,0.15);color:#CC0000;">EV</div>
     <div class="project-header-text">
-      <div class="project-label" style="color:#CC0000;">BU MSBA Project · 2025</div>
-      <h2>Tesla / EV Market — Adoption Clustering &amp; Behavioral Segmentation</h2>
-      <p class="summary">Segmented the EV adopter landscape to identify which consumer profiles drive early adoption, which stall at consideration, and what behavioral and geographic features actually predict the switch from ICE to electric.</p>
+      <div class="project-label" style="color:#CC0000;">BU MSBA Capstone · 2025</div>
+      <h2>Charging California — AI-Driven EV Charging Station Optimization</h2>
+      <p class="summary">K-Means geospatial clustering on California's EV infrastructure to identify charging deserts, pinpoint optimal new station sites, and validate a 265% ROI investment thesis for the $10B+ EV charging market.</p>
     </div>
   </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-label" style="color:#CC0000;">The Problem</div>
-      <h3>EV adoption isn't one market — it's five</h3>
-      <p>Marketing EV to "the average consumer" is a category error. Early adopters, range-anxious late majority, fleet purchasers, sustainability-driven buyers, and incentive-chasing rationalists all have distinct triggers and barriers. Treating them as one segment produces messaging that converts nobody and wastes budget on the wrong cohort.</p>
+
+  <div class="ba-split">
+    <div class="ba-left">
+
+      <!-- Problem block (red) -->
+      <div class="ba-problem-block" style="border-left-color:rgba(204,0,0,0.55);background:rgba(204,0,0,0.05);">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Problem Statement</div>
+        <div class="ba-problem-line" style="border-bottom-color:rgba(204,0,0,0.06);"><span class="pl-n" style="color:rgba(204,0,0,0.5);">01</span> California holds 35% of US EV registrations (2M+ vehicles by 2027) but charging infrastructure is clustered in urban hubs — leaving entire regions as "charging deserts" with no reliable access.</div>
+        <div class="ba-problem-line" style="border-bottom-color:rgba(204,0,0,0.06);"><span class="pl-n" style="color:rgba(204,0,0,0.5);">02</span> Station placement today is ad-hoc — not driven by EV density, renewable energy proximity, traffic load, or demographic demand, creating systematic misallocation of infrastructure investment.</div>
+        <div class="ba-problem-line" style="border-bottom-color:rgba(204,0,0,0.06);"><span class="pl-n" style="color:rgba(204,0,0,0.5);">03</span> Grid inefficiency and reliance on non-renewables: no real-time load balancing or AI-guided renewable integration means EV growth increases grid strain rather than reducing it.</div>
+        <div class="ba-problem-line"><span class="pl-n" style="color:rgba(204,0,0,0.5);">04</span> Goal: Apply K-Means clustering + PCA to geospatial + demographic data to identify optimal placement zones, validate ROI, and build a data-driven case for the $10B+ infrastructure opportunity.</div>
+      </div>
+
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n" style="color:#CC0000;">2M+</div><div class="l">CA EVs by 2027</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#CC0000;">265%</div><div class="l">Top-5 Cluster ROI</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#CC0000;">34%</div><div class="l">CAGR Charging Ports</div></div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Data Collection</div>
+        <ul class="ba-micro-list">
+          <li style="--before-color:rgba(204,0,0,0.55)">California EV registration data — CARB / DMV records, EV density by ZIP and county</li>
+          <li>AFDC (Alternative Fuels Station Locator) — existing charging station coordinates, type, port count</li>
+          <li>US Census / ACS — population density, income, commute patterns by region</li>
+          <li>NREL geospatial data — solar irradiance, wind energy proximity per location</li>
+          <li>Traffic pattern data — ADT (annual daily traffic) counts by corridor and highway segment</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Dataset</div>
+        <div class="ba-ds-table">
+          <div class="ba-ds-row"><div class="d-name">EV station registry (CA)</div><div class="d-dim">~13K stations</div><div class="d-src">AFDC · geo-indexed</div></div>
+          <div class="ba-ds-row"><div class="d-name">EV registration density</div><div class="d-dim">~58 counties × 8</div><div class="d-src">CARB / DMV</div></div>
+          <div class="ba-ds-row"><div class="d-name">Demographic / Census</div><div class="d-dim">~2,700 ZIPs × 12</div><div class="d-src">US Census ACS</div></div>
+          <div class="ba-ds-row"><div class="d-name">Renewable energy map</div><div class="d-dim">Grid-level GIS</div><div class="d-src">NREL / EIA</div></div>
+          <div class="ba-ds-row"><div class="d-name">Charger market share</div><div class="d-dim">NACS 79% / CCS 11%</div><div class="d-src">IEA / DOE 2023</div></div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Variable Dictionary</div>
+        <div class="ab-var-table">
+          <div class="ab-var-row">
+            <div class="ab-var-head">Feature</div><div class="ab-var-head">Type</div><div class="ab-var-head">Description</div>
+          </div>
+          <div class="ab-var-row"><div class="ab-var-name">latitude / longitude</div><div class="ab-var-type">Numeric</div><div class="ab-var-desc">Geographic coordinates of station or demand centroid</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">ev_density</div><div class="ab-var-type">Numeric</div><div class="ab-var-desc">EVs per sq mi by ZIP code (CARB registration data)</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">charger_type</div><div class="ab-var-type">Categorical</div><div class="ab-var-desc">Level 2 (5–6h) vs DC Fast (15–45 min)</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">port_count</div><div class="ab-var-type">Numeric</div><div class="ab-var-desc">Number of charging ports per station</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">renewable_proximity</div><div class="ab-var-type">Numeric (km)</div><div class="ab-var-desc">Distance to nearest solar/wind energy source</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">pop_density</div><div class="ab-var-type">Numeric</div><div class="ab-var-desc">Population per sq mi (Census ACS)</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">adt_volume</div><div class="ab-var-type">Numeric</div><div class="ab-var-desc">Annual daily traffic count on nearest corridor</div></div>
+          <div class="ab-var-row"><div class="ab-var-name">coverage_gap</div><div class="ab-var-type">Boolean</div><div class="ab-var-desc">Whether region is classified as a charging desert</div></div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Languages &amp; Libraries</div>
+        <div class="ba-stack-row">
+          <span class="ba-stack-pill">Python 3.x</span>
+          <span class="ba-stack-pill">pandas</span>
+          <span class="ba-stack-pill">NumPy</span>
+          <span class="ba-stack-pill">scikit-learn</span>
+          <span class="ba-stack-pill">geopandas</span>
+          <span class="ba-stack-pill">folium</span>
+          <span class="ba-stack-pill">shapely</span>
+          <span class="ba-stack-pill">matplotlib</span>
+          <span class="ba-stack-pill">seaborn</span>
+          <span class="ba-stack-pill">plotly</span>
+          <span class="ba-stack-pill">Jupyter Notebook</span>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Data Issues</div>
+        <ul class="ba-micro-list">
+          <li>AFDC station data: ~8% records missing port_count or charger_type — inconsistent self-reporting by operators</li>
+          <li>Coordinate precision varies: some stations geo-coded to ZIP centroid rather than actual address</li>
+          <li>Charger compatibility fragmentation: NACS (79%), CCS (11.4%), CHAdeMO (0.7%) — no unified standard until recent NACS adoption</li>
+          <li>EV density data lagged by 6–12 months vs real registration velocity in fast-growth counties</li>
+          <li>Renewable proximity data at grid resolution — not station-level precision for rural sites</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Pre-Processing</div>
+        <ul class="ba-micro-list">
+          <li>Dropped duplicate station records (same lat/long, different operator entries)</li>
+          <li>Port count nulls: imputed with median by charger_type and city tier (urban/suburban/rural)</li>
+          <li>Coordinate outliers (ocean, outside CA boundary): removed via bounding box filter</li>
+          <li>Charger type standardized to 3-class taxonomy (L1, L2, DCFC) from 12+ raw format strings</li>
+          <li>Spatial join: Census ZIP-level demographics merged onto station points via geopandas</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Data Manipulation</div>
+        <ul class="ba-micro-list">
+          <li>Coverage gap scoring: Voronoi tessellation to identify ZIPs &gt;5 mi from nearest station</li>
+          <li>Composite demand score: weighted sum of ev_density + pop_density + adt_volume (normalized)</li>
+          <li>Feature scaling: StandardScaler on all clustering inputs (lat, long, demand_score, renewable_proximity)</li>
+          <li>PCA applied pre-clustering to reduce 8 geospatial + demographic features to 3 principal components (explaining ~78% variance)</li>
+          <li>Southern CA weight: 59.88% of state population concentrated in LA/SD corridor — reflected in cluster weighting</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Analyses</div>
+        <div class="ba-analysis-list">
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Geospatial EDA</div>
+            <div class="ba-analysis-method">Folium choropleth maps of EV density vs station coverage; distribution by charger type (L2 vs DCFC); coverage desert identification</div>
+            <div class="ba-analysis-finding" style="color:rgba(204,0,0,0.85);">Urban hubs (LA, SF Bay) over-indexed in L2 chargers; Northern CA + Central Valley identified as largest coverage gaps</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">K-Means Clustering (Optimal Placement)</div>
+            <div class="ba-analysis-method">K-Means on PCA-reduced feature matrix (lat/long + demand + renewable proximity); elbow method + silhouette scoring to select k</div>
+            <div class="ba-analysis-finding" style="color:rgba(204,0,0,0.85);">Identified 5 high-priority clusters representing underserved high-demand zones — primary investment targets</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Silhouette Validation</div>
+            <div class="ba-analysis-method">Silhouette score computed across k=2–10; optimal k selected based on highest average silhouette coefficient</div>
+            <div class="ba-analysis-finding" style="color:rgba(204,0,0,0.85);">k=5 returned silhouette score of 0.58 — well-separated clusters; confirmed cluster stability via bootstrapping</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Market Share &amp; Compatibility Analysis</div>
+            <div class="ba-analysis-method">Breakdown of existing station standards (NACS, CCS, CHAdeMO) across CA; trend analysis vs IEA / DOE 2023 data</div>
+            <div class="ba-analysis-finding" style="color:rgba(204,0,0,0.85);">NACS at 79% market share (Tesla 62.6%) — NACS-compatible investment is the dominant future-proof standard</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">ROI &amp; Investment Profitability Analysis</div>
+            <div class="ba-analysis-method">Unit economics modeled per cluster: charger CAPEX + installation + annual OPEX vs projected utilization revenue</div>
+            <div class="ba-analysis-finding" style="color:rgba(204,0,0,0.85);">Top 5 clusters yield avg 265% ROI — $182,500/year revenue per 5-charger site vs $55K total setup cost</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Renewable Energy Integration Analysis</div>
+            <div class="ba-analysis-method">Cross-referenced cluster centroids with NREL solar irradiance + wind power data; identified co-location opportunities</div>
+            <div class="ba-analysis-finding" style="color:rgba(204,0,0,0.85);">Southern CA clusters overlap high solar zones — on-site solar integration reduces grid draw and lowers per-kWh cost</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Hyperparameters</div>
+        <div class="ba-params">
+          <div class="ba-param"><span class="ba-pk">K-Means k</span><span class="ba-pv" style="color:#CC0000;">5</span></div>
+          <div class="ba-param"><span class="ba-pk">silhouette score</span><span class="ba-pv" style="color:#CC0000;">0.58</span></div>
+          <div class="ba-param"><span class="ba-pk">PCA components</span><span class="ba-pv" style="color:#CC0000;">3</span></div>
+          <div class="ba-param"><span class="ba-pk">variance explained</span><span class="ba-pv" style="color:#CC0000;">~78%</span></div>
+          <div class="ba-param"><span class="ba-pk">k search range</span><span class="ba-pv" style="color:#CC0000;">2–10</span></div>
+          <div class="ba-param"><span class="ba-pk">scaler</span><span class="ba-pv" style="color:#CC0000;">StandardScaler</span></div>
+          <div class="ba-param"><span class="ba-pk">random_state</span><span class="ba-pv" style="color:#CC0000;">42</span></div>
+          <div class="ba-param"><span class="ba-pk">init</span><span class="ba-pv" style="color:#CC0000;">k-means++</span></div>
+        </div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Business Model — The Underrated Billion Dollar Opportunity</div>
+        <div class="ev-inv-block">
+          <div class="ev-inv-title">Unit Economics per 5-Charger Site</div>
+          <div class="ev-biz-row">
+            <div class="ev-biz-cell"><div class="ev-biz-n">$40K</div><div class="ev-biz-l">per charger (CAPEX)</div></div>
+            <div class="ev-biz-cell"><div class="ev-biz-n">$15K</div><div class="ev-biz-l">install + permits</div></div>
+            <div class="ev-biz-cell"><div class="ev-biz-n">$5K/yr</div><div class="ev-biz-l">maintenance OPEX</div></div>
+          </div>
+          <div class="ev-biz-row">
+            <div class="ev-biz-cell"><div class="ev-biz-n">$182K</div><div class="ev-biz-l">revenue / yr (5 chargers)</div></div>
+            <div class="ev-biz-cell"><div class="ev-biz-n">265%</div><div class="ev-biz-l">ROI top 5 clusters</div></div>
+            <div class="ev-biz-cell"><div class="ev-biz-n">$10B+</div><div class="ev-biz-l">CA opportunity by 2030</div></div>
+          </div>
+        </div>
+        <ul class="ba-micro-list" style="margin-top:10px;">
+          <li>Revenue streams: pay-per-charge + subscription plans (monthly fleet / individual) + government incentives</li>
+          <li>Fleet electrification packages: AI-backed scheduling, energy analytics, carbon reporting for fleet operators</li>
+          <li>Charging ports projected to grow 2.6M → 28M by 2030 at 34% CAGR — first-mover placement advantage is compounding</li>
+          <li>Each profitable cluster identified de-risks investment — data-backed site proposals fast-track regulatory approvals</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Challenges Tackled</div>
+        <ul class="ba-micro-list">
+          <li>Scalability: California-first model designed for national replication — cluster methodology generalizes to any state EV dataset</li>
+          <li>Land acquisition: model surface-targets underutilized spaces (parking lots, highway rest stops, mall perimeters) to minimize acquisition friction</li>
+          <li>Regulatory hurdles: data-driven site proposals provide defensible evidence for permit fast-tracking vs ad-hoc applications</li>
+          <li>Charger standard fragmentation: NACS-first design + backward-compatible adapters addresses 79% of the installed base</li>
+          <li>Grid strain: renewable energy co-location + smart load scheduling reduces peak grid draw per cluster</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Impact &amp; Metrics</div>
+        <ul class="ba-micro-list">
+          <li>5 high-priority placement clusters identified in California — covering highest-demand, lowest-coverage zones</li>
+          <li>265% average ROI validated for top-cluster sites — $182,500/year revenue per 5-charger deployment</li>
+          <li>Charging desert reduction: Voronoi gap analysis quantified underserved ZIPs — model directly informs infrastructure spend</li>
+          <li>Renewable co-location identified across Southern CA clusters — enabling carbon-negative charging operations</li>
+          <li>AI framework scales nationally: 28M ports needed by 2030 — data-driven placement is the only feasible path</li>
+        </ul>
+      </div>
+
+      <div class="ba-chips">
+        <span class="ba-chip" style="background:rgba(204,0,0,0.1);border-color:rgba(204,0,0,0.28);color:#e05555;">K-Means Clustering</span>
+        <span class="ba-chip" style="background:rgba(204,0,0,0.1);border-color:rgba(204,0,0,0.28);color:#e05555;">PCA</span>
+        <span class="ba-chip" style="background:rgba(204,0,0,0.1);border-color:rgba(204,0,0,0.28);color:#e05555;">Geospatial Analysis</span>
+        <span class="ba-chip" style="background:rgba(204,0,0,0.1);border-color:rgba(204,0,0,0.28);color:#e05555;">geopandas · folium</span>
+        <span class="ba-chip" style="background:rgba(204,0,0,0.1);border-color:rgba(204,0,0,0.28);color:#e05555;">Silhouette Validation</span>
+        <span class="ba-chip" style="background:rgba(204,0,0,0.1);border-color:rgba(204,0,0,0.28);color:#e05555;">EV Infrastructure</span>
+        <span class="ba-chip" style="background:rgba(204,0,0,0.1);border-color:rgba(204,0,0,0.28);color:#e05555;">Renewable Integration</span>
+        <span class="ba-chip" style="background:rgba(204,0,0,0.1);border-color:rgba(204,0,0,0.28);color:#e05555;">ROI Analysis</span>
+      </div>
+
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF only -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="EV_Charging_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="EV Charging Station Optimization"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; 19 slides</div>
     </div>
-    <div class="card">
-      <div class="card-label" style="color:#CC0000;">Data &amp; Method</div>
-      <h3>K-Means + Behavioral Feature Engineering</h3>
-      <p>Applied K-means clustering on consumer survey and registration data, engineered behavioral features (commute distance, home charging access, prior hybrid ownership, incentive awareness, environmental attitudes), and used PCA to reduce dimensionality before clustering. Validated cluster stability with silhouette scoring.</p>
-    </div>
-    <div class="card">
-      <div class="card-label" style="color:#CC0000;">What I Found</div>
-      <h3>Infrastructure access beats price sensitivity</h3>
-      <p>Across clusters, access to home and workplace charging infrastructure dominated adoption readiness — ahead of purchase price sensitivity and environmental concern. Range anxiety was overrepresented in survey responses but underpredicted actual non-adoption in the behavioral model. Infrastructure investment unlocks adoption faster than price subsidies.</p>
-    </div>
-  </div>
-  <div class="impact-row">
-    <div class="impact-stat"><div class="num" style="color:#CC0000;">5+</div><div class="desc">Distinct adopter segments identified</div></div>
-    <div class="impact-stat"><div class="num" style="color:#CC0000;">K-M</div><div class="desc">K-means with silhouette validation</div></div>
-    <div class="impact-stat"><div class="num" style="color:#CC0000;">PCA</div><div class="desc">Dimensionality reduction pre-cluster</div></div>
-  </div>
-  <div class="tags">
-    <span class="tag">K-Means Clustering</span>
-    <span class="tag">PCA</span>
-    <span class="tag">Consumer Segmentation</span>
-    <span class="tag">Behavioral Analytics</span>
-    <span class="tag">Python · scikit-learn</span>
-  </div>
+
+  </div><!-- /ba-split -->
+
 </section>
 <div class="sec-div"><hr></div>
 
