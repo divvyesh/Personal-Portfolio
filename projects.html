@@ -167,11 +167,18 @@
       margin-left: 0; margin-right: 0;
     }
     .ba-split {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .ba-left {
       display: grid;
-      grid-template-columns: 5fr 7fr;
-      gap: 56px;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 48px;
       align-items: start;
     }
+    .ba-problem-block { grid-column: 1 / -1; }
+    .ba-kpi-row { grid-column: 1 / -1; }
     .ba-kpi-row {
       display: grid; grid-template-columns: repeat(3,1fr);
       gap: 1px; margin-bottom: 28px;
@@ -255,10 +262,12 @@
       background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
       color: var(--muted2); font-weight: 500;
     }
-    /* Right — PDF only */
+    /* Right — PDF (shown above content via order) */
     .ba-right {
-      position: sticky; top: 80px;
+      position: static;
       display: flex; flex-direction: column; gap: 7px;
+      order: -1;
+      margin-bottom: 40px;
     }
     .ba-pdf-frame {
       aspect-ratio: 16/9;
@@ -270,11 +279,10 @@
       text-align: center; font-size: 10.5px;
       color: rgba(232,232,240,0.22); letter-spacing: 0.1em;
     }
-    @media (max-width: 1100px) { .ba-full { padding: 0 32px; } .ba-split { gap: 40px; } }
+    @media (max-width: 1100px) { .ba-full { padding: 0 32px; } }
     @media (max-width: 860px) {
       .ba-full { padding: 0 24px; }
-      .ba-split { grid-template-columns: 1fr; }
-      .ba-right { position: static; }
+      .ba-left { grid-template-columns: 1fr; }
       .ba-pdf-frame { aspect-ratio: 16/9; }
     }
 
@@ -405,6 +413,26 @@
     .sb-feat-name { color: rgba(232,232,240,0.78); font-weight: 500; }
     .sb-feat-role { color: var(--muted2); }
     .sb-feat-imp { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(0,112,74,0.8); }
+
+    /* ── Google Trends section ── */
+    .gt-bl { color: rgba(66,133,244,0.65) !important; }
+    .gt-pv { color: #4285F4 !important; }
+    .gt-analysis-finding { font-size: 11px; color: rgba(66,133,244,0.85); line-height: 1.4; }
+    .gt-analysis-finding::before { content: '→ '; }
+    .gt-target-block { border: 1px solid rgba(66,133,244,0.25); border-radius: 10px; padding: 11px 14px; background: rgba(66,133,244,0.04); }
+    .gt-model-table { display: flex; flex-direction: column; }
+    .gt-model-row { display: grid; grid-template-columns: 1.2fr 0.7fr 1fr; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 11.5px; padding: 6px 0; gap: 8px; }
+    .gt-model-row:last-child { border-bottom: none; }
+    .gt-model-name { color: rgba(232,232,240,0.82); font-weight: 600; }
+    .gt-model-best .gt-model-name { color: #4285F4; font-weight: 700; }
+    .gt-model-best .gt-model-val { color: #4285F4; font-weight: 700; }
+    .gt-model-val { color: var(--muted); }
+    .gt-cat-bar { display: flex; flex-direction: column; gap: 5px; }
+    .gt-cat-row { display: grid; grid-template-columns: 1.4fr 0.5fr 3fr; gap: 8px; align-items: center; font-size: 11px; }
+    .gt-cat-label { color: rgba(232,232,240,0.72); font-weight: 500; }
+    .gt-cat-pct { color: #4285F4; font-weight: 700; font-size: 11.5px; }
+    .gt-cat-track { background: rgba(255,255,255,0.05); border-radius: 4px; height: 5px; overflow: hidden; }
+    .gt-cat-fill { height: 100%; background: rgba(66,133,244,0.55); border-radius: 4px; }
 
     /* ── Salesforce section ── */
     .sf-bl { color: rgba(0,161,224,0.65) !important; }
@@ -1649,45 +1677,326 @@
 <div class="sec-div"><hr></div>
 
 <!-- ═══ GOOGLE TRENDS ═══ -->
-<section id="google-trends" class="project-section">
-  <div class="project-header">
+<section id="google-trends" class="project-section ba-full" style="scroll-margin-top:80px;">
+
+  <div class="project-header" style="max-width:100%;margin-bottom:28px;">
     <div class="project-badge" style="background:rgba(66,133,244,0.15);color:#4285F4;">GT</div>
     <div class="project-header-text">
       <div class="project-label" style="color:#4285F4;">BU MSBA · Big Data Analytics · 2025</div>
-      <h2>Google Trends — Big Data Pipeline &amp; Demand Forecasting</h2>
-      <p class="summary">Built a large-scale distributed data pipeline on Google Trends data to identify leading indicators of consumer demand shifts — signals that appear in search volume before they show up in sales data.</p>
+      <h2>Google Trends — From Spikes to Signals: Country-Level Diagnostics</h2>
+      <p class="summary">Distributed PySpark pipeline across 10M+ rows of Google Trends data (42 countries, 2020–2025) joined with World Bank WDI indicators — diagnosing structural search volatility, detecting coordinated spam, and predicting trend survival via logistic regression.</p>
     </div>
   </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-label" style="color:#4285F4;">The Problem</div>
-      <h3>Demand signals exist before purchase — nobody captures them at scale</h3>
-      <p>Search volume on Google precedes purchase by days to weeks. The signal is public, real-time, and largely unused in demand forecasting because processing it at scale requires distributed big data infrastructure most analytics teams don't have or build for.</p>
+
+  <div class="ba-split">
+
+    <!-- LEFT: content blocks (shown below PDF via flexbox order) -->
+    <div class="ba-left">
+
+      <!-- Problem block spans full width -->
+      <div class="ba-problem-block">
+        <div class="ba-bl" style="color:rgba(220,38,38,0.65);">Problem Statement</div>
+        <div class="ba-problem-line"><span class="pl-n">01</span>98% of rising search terms vanish within 24–48 hours — real signals are indistinguishable from noise without country-level structural context at scale</div>
+        <div class="ba-problem-line"><span class="pl-n">02</span>Cross-country comparison is structurally unsound: Indonesia's "normal" spike is France's outlier — GDP, internet penetration, and governance completely reshape what volatility means</div>
+        <div class="ba-problem-line"><span class="pl-n">03</span>Coordinated gambling spam propagates across East/SE Asia borders, corrupting rising term data and creating false demand signals that break any global forecasting pipeline</div>
+        <div class="ba-problem-line"><span class="pl-n">04</span>No diagnostic framework exists for classifying countries by search volatility profile — organizations allocate global campaign budgets without a per-market signal baseline</div>
+      </div>
+
+      <!-- KPI row spans full width -->
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n" style="color:#4285F4;">10M+</div><div class="l">Rows Processed</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#4285F4;">42</div><div class="l">Countries</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#4285F4;">0.64</div><div class="l">AUC — Survival Model</div></div>
+      </div>
+
+      <!-- DATA COLLECTION -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Data Collection</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.72);">Google Trends:</strong> BigQuery Public Datasets via GCS Parquet export — `international_top_rising_term_*` and `international_top_term_*`</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">World Bank WDI:</strong> Kaggle mirror of World Development Indicators (268 countries × 48 features, 1960–2022); loaded with custom PySpark schema</li>
+          <li>Joined at <strong style="color:rgba(232,232,240,0.72);">country-year</strong> level — refresh_date year matched to WDI annual indicator; forward-fill applied for missing years</li>
+        </ul>
+      </div>
+
+      <!-- DATASET TABLE -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Dataset</div>
+        <div class="ba-ds-table">
+          <div class="ba-ds-row" style="color:var(--muted2);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding-bottom:5px;">
+            <span>Table</span><span>Dimensions</span><span>Source</span>
+          </div>
+          <div class="ba-ds-row">
+            <span class="d-name">international_top_rising_terms</span>
+            <span class="d-dim">8,747,342 × 10 · 17.6 GB</span>
+            <span class="d-src">BigQuery / GCS Parquet</span>
+          </div>
+          <div class="ba-ds-row">
+            <span class="d-name">international_top_terms</span>
+            <span class="d-dim">1,363,914 × 9 (49,315 compressed)</span>
+            <span class="d-src">BigQuery / GCS Parquet · 15.6 GB</span>
+          </div>
+          <div class="ba-ds-row">
+            <span class="d-name">world_development_indicators</span>
+            <span class="d-dim">268 countries × 48 features · 1960–2022</span>
+            <span class="d-src">World Bank / Kaggle</span>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted2);margin-top:6px;">After cleaning: ~33,500 unique rising events · 31,184 unique terms</div>
+      </div>
+
+      <!-- VARIABLE DICTIONARY -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Variable Dictionary</div>
+        <div class="ab-var-table">
+          <div class="ab-var-row" style="color:var(--muted2);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding-bottom:5px;">
+            <span>Variable</span><span>Type</span><span>Description</span>
+          </div>
+          <div class="ab-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">term</span><span style="color:var(--muted2);">string</span><span style="color:var(--muted2);">Search keyword / phrase in rising or top list</span></div>
+          <div class="ab-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">country_code</span><span style="color:var(--muted2);">string</span><span style="color:var(--muted2);">ISO-2 code; join key to WDI</span></div>
+          <div class="ab-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">percent_gain</span><span style="color:var(--muted2);">long</span><span style="color:var(--muted2);">% increase vs prior period (rising only)</span></div>
+          <div class="ab-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">score</span><span style="color:var(--muted2);">long</span><span style="color:var(--muted2);">0–100 normalized interest; NULL in rising</span></div>
+          <div class="ab-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">rank</span><span style="color:var(--muted2);">long</span><span style="color:var(--muted2);">Position in country-week list (1 = top)</span></div>
+          <div class="ab-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">GDP_current_US</span><span style="color:var(--muted2);">float</span><span style="color:var(--muted2);">WDI: GDP in current USD</span></div>
+          <div class="ab-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">individuals_using_internet%</span><span style="color:var(--muted2);">float</span><span style="color:var(--muted2);">WDI: % population with internet access</span></div>
+          <div class="ab-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">voice_and_accountability_estimate</span><span style="color:var(--muted2);">float</span><span style="color:var(--muted2);">WDI: political freedom index (−2.5 to +2.5)</span></div>
+        </div>
+      </div>
+
+      <!-- LANGUAGES -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Languages &amp; Libraries</div>
+        <div class="ba-stack-row">
+          <span class="ba-stack-pill">PySpark</span>
+          <span class="ba-stack-pill">Spark SQL</span>
+          <span class="ba-stack-pill">Python 3</span>
+          <span class="ba-stack-pill">Pandas</span>
+          <span class="ba-stack-pill">NumPy</span>
+          <span class="ba-stack-pill">Matplotlib</span>
+          <span class="ba-stack-pill">Seaborn</span>
+          <span class="ba-stack-pill">Plotly Express</span>
+          <span class="ba-stack-pill">WordCloud</span>
+          <span class="ba-stack-pill">NetworkX</span>
+          <span class="ba-stack-pill">SciPy (pearsonr)</span>
+          <span class="ba-stack-pill">Scikit-learn (ROC/AUC)</span>
+          <span class="ba-stack-pill">Spark ML Pipeline</span>
+          <span class="ba-stack-pill">GCS / Parquet</span>
+          <span class="ba-stack-pill">Jupyter</span>
+        </div>
+      </div>
+
+      <!-- DATA ISSUES -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Data Issues</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.72);">`score` NULL in rising terms:</strong> Google suppresses volume for rising queries — percent_gain used instead for all rising-term analyses</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">`week` field unreliable in top terms:</strong> Repeated snapshot tag, not a true weekly computation — treated as static snapshot only</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Coordinated spam pollution:</strong> Gambling-related terms propagate across 8+ countries (Philippines, Indonesia, Malaysia, Vietnam) — must filter before cross-country comparison</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Missing internet% data:</strong> Many countries have NULL `individuals_using_internet%` in WDI → forced Model A (no internet%) vs Model B (with internet%) split</li>
+          <li>70% daily new-term churn rate — most terms appear exactly once, creating extreme class imbalance in survival modeling</li>
+        </ul>
+      </div>
+
+      <!-- PRE-PROCESSING -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Pre-Processing</div>
+        <ul class="ba-micro-list">
+          <li>Rising terms: drop `week` column → compress to unique (country_name, term, refresh_date) events to remove repeat snapshot rows</li>
+          <li>Top terms dual-track: full data → analyze refresh patterns; static snapshot (de-dup by country, term, rank) → analyze score correlations</li>
+          <li>NULL score rows excluded from correlation analyses; kept for count-based and survival metrics</li>
+          <li>Spam detection: identify gambling-term clusters by co-occurrence network → flagged and filtered for clean cross-country modeling</li>
+        </ul>
+      </div>
+
+      <!-- DATA MANIPULATION -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Data Manipulation</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.72);">`term_age`:</strong> Spark Window function — days between first and last refresh_date per (country, term) pair; used for survival analysis</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Survival label:</strong> Binary — does term reappear in next refresh cycle at same rank or better? (0/1 for LR target)</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Country volatility index:</strong> Mean percent_gain per country across all rising terms — single feature for macro comparison</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Topic categories:</strong> Rule-based NLP tagging across 31,184 unique terms → 6 buckets (Sports, Entertainment, News, General, Gambling, Finance/Tech)</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">WDI join:</strong> country_code → country name mapping; year matched to refresh_date year; forward-fill for 1–2 year WDI reporting lag</li>
+          <li>VectorAssembler + StandardScaler (mean=True, std=True) on [percent_gain, volatility_score, GDP_current_US, goverment_effectiveness, voice_accountability]</li>
+        </ul>
+      </div>
+
+      <!-- TARGET VARIABLE -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Target Variable</div>
+        <div class="gt-target-block">
+          <div style="font-size:12.5px;font-weight:700;color:#4285F4;margin-bottom:6px;font-family:'Space Grotesk',sans-serif;">survived (binary)</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">1 = rising term reappears in next Google refresh cycle at same or better rank · 0 = term does not reappear (single-day spike)</div>
+          <div style="margin-top:8px;font-size:11px;color:var(--muted2);">Class distribution: ~98% class 0 (did not survive) · ~2% class 1 — severe imbalance; models evaluated by AUC not accuracy</div>
+        </div>
+      </div>
+
+      <!-- PIPELINE SETUP -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Pipeline Setup</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.72);">Ingestion:</strong> PySpark reads GCS Parquet partitions in parallel; schema enforced at load time</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Cleaning:</strong> NULL handling, dedup, spam filter, type casting</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Feature engineering:</strong> term_age, survival label, volatility index, category tags, WDI join</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">ML Pipeline:</strong> VectorAssembler → StandardScaler → LogisticRegression (all Spark ML)</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Eval:</strong> BinaryClassificationEvaluator (areaUnderROC) + sklearn roc_curve / auc for visualization</li>
+        </ul>
+      </div>
+
+      <!-- ANALYSES -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Analyses</div>
+        <div class="ba-analysis-list">
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Term Survival Analysis</div>
+            <div class="ba-analysis-method">Spark Window: term_age = days between min/max refresh_date per (country, term); binned into 1, 2, 3+ day cohorts</div>
+            <div class="gt-analysis-finding">~98% of rising terms survive ≤2 days; top terms only marginally more persistent — trending is fundamentally short-lived</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Content Pulse Word Clouds</div>
+            <div class="ba-analysis-method">WordCloud on unigram frequency of rising vs top term corpora separately</div>
+            <div class="gt-analysis-finding">Rising = sports events / news / entertainment (short shocks); Top = clubs / competitions / celebrities (persistent background culture)</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Cross-Country Term Diffusion</div>
+            <div class="ba-analysis-method">NetworkX graph: nodes = countries, edges weighted by shared rising terms across same week window</div>
+            <div class="gt-analysis-finding">Gambling terms spanned 8+ country nodes before filtering — confirmed coordinated spam vs. organic cultural diffusion in global top terms</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Spam Detection — Spatial Diffusion Map</div>
+            <div class="ba-analysis-method">Plotly Express choropleth: gambling-term frequency per country overlaid on world map</div>
+            <div class="gt-analysis-finding">East/SE Asia (Philippines, Indonesia, Malaysia, Vietnam) = highest concentration; South Asia + Middle East secondary — coordinated spam behavior, not organic interest</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Category Distribution Analysis</div>
+            <div class="ba-analysis-method">Rule-based NLP category tagging on 31,184 unique terms; Spark groupBy + count aggregation</div>
+            <div class="gt-analysis-finding">Sports 45.7% · Entertainment 15.7% · News 13.6% · General 9.4% · Gambling 8.4% · Finance/Tech 7.3% — category bias drives regional volatility differences</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Daily Churn Rate Analysis</div>
+            <div class="ba-analysis-method">Count distinct new terms per refresh_date; rolling 7-day new-term rate computed in Spark</div>
+            <div class="gt-analysis-finding">~2,620 new terms daily; 70% new-term churn rate; Google update behavior shift detected mid-September 2025 (spike in new rising term volume)</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">GDP vs. Search Intensity Correlation</div>
+            <div class="ba-analysis-method">SciPy pearsonr on country-level mean percent_gain vs GDP_current_US from WDI; adjustText for scatter label overlap</div>
+            <div class="gt-analysis-finding">r ≈ −0.50: as GDP rises, attention intensity falls — smaller economies concentrate on dominant topics; larger economies scatter attention broadly</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Internet Penetration as Volatility Signal</div>
+            <div class="ba-analysis-method">Scatter plot individuals_using_internet% vs percent_gain per country; Pearson r (SciPy)</div>
+            <div class="gt-analysis-finding">r = −0.66: strongest signal in dataset — low internet access (Indonesia, Egypt) = highest percent gains; digital maturity = lower volatility and more diffuse attention</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Voice &amp; Accountability vs. Trend Gain</div>
+            <div class="ba-analysis-method">Seaborn regression plot of political freedom index vs mean percent_gain; outlier annotation</div>
+            <div class="gt-analysis-finding">Higher political accountability → lower spike intensity generally; outliers (low-governance + high spikes) suggest information suppression causing reactive search bursts</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Logistic Regression — Trend Survival</div>
+            <div class="ba-analysis-method">Spark ML Pipeline: VectorAssembler → StandardScaler → LogisticRegression; Model A (no internet%, 42 countries) vs Model B (internet%, fewer countries)</div>
+            <div class="gt-analysis-finding">AUC ≈ 0.64 (both models); adding internet% doesn't improve performance → trend dynamics (percent_gain, volatility) predict survival more than connectivity infrastructure</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY BREAKDOWN -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Topic Category Breakdown</div>
+        <div class="gt-cat-bar">
+          <div class="gt-cat-row"><span class="gt-cat-label">Sports</span><span class="gt-cat-pct">45.7%</span><div class="gt-cat-track"><div class="gt-cat-fill" style="width:45.7%"></div></div></div>
+          <div class="gt-cat-row"><span class="gt-cat-label">Entertainment</span><span class="gt-cat-pct">15.7%</span><div class="gt-cat-track"><div class="gt-cat-fill" style="width:15.7%"></div></div></div>
+          <div class="gt-cat-row"><span class="gt-cat-label">News / Events</span><span class="gt-cat-pct">13.6%</span><div class="gt-cat-track"><div class="gt-cat-fill" style="width:13.6%"></div></div></div>
+          <div class="gt-cat-row"><span class="gt-cat-label">General Info</span><span class="gt-cat-pct">9.4%</span><div class="gt-cat-track"><div class="gt-cat-fill" style="width:9.4%"></div></div></div>
+          <div class="gt-cat-row"><span class="gt-cat-label">Gambling / Spam</span><span class="gt-cat-pct">8.4%</span><div class="gt-cat-track"><div class="gt-cat-fill" style="width:8.4%"></div></div></div>
+          <div class="gt-cat-row"><span class="gt-cat-label">Finance / Tech</span><span class="gt-cat-pct">7.3%</span><div class="gt-cat-track"><div class="gt-cat-fill" style="width:7.3%"></div></div></div>
+        </div>
+      </div>
+
+      <!-- HYPERPARAMETERS -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Hyperparameters — Logistic Regression</div>
+        <div class="ba-params">
+          <div class="ba-param"><span class="ba-pk">Algorithm</span><span class="ba-pv gt-pv">LogisticRegression</span></div>
+          <div class="ba-param"><span class="ba-pk">Scaler</span><span class="ba-pv gt-pv">StandardScaler</span></div>
+          <div class="ba-param"><span class="ba-pk">elasticNetParam</span><span class="ba-pv gt-pv">0.0 (L2)</span></div>
+          <div class="ba-param"><span class="ba-pk">maxIter</span><span class="ba-pv gt-pv">100</span></div>
+          <div class="ba-param"><span class="ba-pk">threshold</span><span class="ba-pv gt-pv">0.5</span></div>
+          <div class="ba-param"><span class="ba-pk">Evaluator</span><span class="ba-pv gt-pv">areaUnderROC</span></div>
+          <div class="ba-param"><span class="ba-pk">Model A countries</span><span class="ba-pv gt-pv">42</span></div>
+          <div class="ba-param"><span class="ba-pk">Model B countries</span><span class="ba-pv gt-pv">~30 (internet% available)</span></div>
+        </div>
+      </div>
+
+      <!-- MODEL EVALUATION -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Model Evaluation &amp; Feature Importance</div>
+        <div class="gt-model-table">
+          <div class="gt-model-row" style="color:var(--muted2);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding-bottom:5px;">
+            <span>Model</span><span>AUC</span><span>Key Finding</span>
+          </div>
+          <div class="gt-model-row gt-model-best">
+            <span class="gt-model-name">Model A — no internet%</span>
+            <span class="gt-model-val">0.64</span>
+            <span style="color:rgba(66,133,244,0.8);font-size:11px;">42 countries; trend dynamics drive prediction</span>
+          </div>
+          <div class="gt-model-row">
+            <span class="gt-model-name">Model B — with internet%</span>
+            <span class="gt-model-val">0.64</span>
+            <span style="color:var(--muted2);font-size:11px;">Fewer countries; internet% adds marginal signal</span>
+          </div>
+        </div>
+        <ul class="ba-micro-list" style="margin-top:10px;">
+          <li><strong style="color:rgba(232,232,240,0.72);">percent_gain:</strong> Primary predictor — high volatility → lower survival probability</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">GDP moderator:</strong> Higher GDP → survival pattern more predictable (less reactive)</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Governance index:</strong> Secondary moderator — low-freedom countries show sharper, more reactive spikes</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">internet%:</strong> Marginal contribution — AUC unchanged between Model A and B</li>
+          <li>ROC curve plotted via sklearn roc_curve; AUC computed against held-out test split</li>
+        </ul>
+      </div>
+
+      <!-- IMPACT -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Impact &amp; Metrics</div>
+        <ul class="ba-micro-list">
+          <li>10M+ rows processed via distributed PySpark pipeline on GCP — full 5-year Google Trends history across 42 countries</li>
+          <li>31,184 unique terms classified into 6 topic categories; 70% daily churn rate quantified for the first time in this dataset</li>
+          <li>Coordinated spam networks identified and mapped across 8+ countries — filterable flag added to pipeline output</li>
+          <li>Country archetypes established: <em>high-volatility emerging markets</em> (blitz activation strategy) vs <em>mature markets</em> (sustained SEO engagement)</li>
+          <li>Reusable diagnostic framework: any organization can plug in country-level macro data and get per-market signal baselines for trend monitoring</li>
+        </ul>
+      </div>
+
+      <!-- TAGS -->
+      <div class="ba-block">
+        <div class="ba-bl gt-bl">Tags</div>
+        <div class="ba-chips">
+          <span class="ba-chip">PySpark</span>
+          <span class="ba-chip">Spark SQL</span>
+          <span class="ba-chip">BigQuery</span>
+          <span class="ba-chip">GCP</span>
+          <span class="ba-chip">Logistic Regression</span>
+          <span class="ba-chip">Spam Detection</span>
+          <span class="ba-chip">NetworkX</span>
+          <span class="ba-chip">Choropleth</span>
+          <span class="ba-chip">World Bank WDI</span>
+          <span class="ba-chip">NLP Tagging</span>
+          <span class="ba-chip">ROC / AUC</span>
+          <span class="ba-chip">Big Data</span>
+        </div>
+      </div>
+
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF (order:-1 → shown at top via CSS) -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="GT_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="Google Trends Big Data Analytics Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ scroll within frame · From Spikes to Signals</div>
     </div>
-    <div class="card">
-      <div class="card-label" style="color:#4285F4;">Data &amp; Method</div>
-      <h3>Apache Spark + BigQuery at scale</h3>
-      <p>Ingested and processed multi-year Google Trends data across product and category keywords using Apache Spark for distributed processing and BigQuery for analytical querying. Built time-series trend decomposition to separate seasonality from genuine demand shifts, and correlated search-volume movements with downstream sales signals across categories.</p>
-    </div>
-    <div class="card">
-      <div class="card-label" style="color:#4285F4;">What I Found</div>
-      <h3>2–4 week leading indicator windows</h3>
-      <p>Search volume spikes for specific long-tail queries predicted category demand shifts 2–4 weeks ahead with significant correlation — most reliably in consumer electronics and seasonal apparel. The distributed pipeline processed the full multi-year dataset in a fraction of the time of a local Python approach, validating the architecture decision.</p>
-    </div>
-  </div>
-  <div class="impact-row">
-    <div class="impact-stat"><div class="num" style="color:#4285F4;">2–4wk</div><div class="desc">Demand leading indicator window</div></div>
-    <div class="impact-stat"><div class="num" style="color:#4285F4;">Spark</div><div class="desc">Distributed processing pipeline</div></div>
-    <div class="impact-stat"><div class="num" style="color:#4285F4;">BQ</div><div class="desc">BigQuery analytical layer</div></div>
-  </div>
-  <div class="tags">
-    <span class="tag">Apache Spark</span>
-    <span class="tag">BigQuery</span>
-    <span class="tag teal">Time Series Decomposition</span>
-    <span class="tag">Demand Forecasting</span>
-    <span class="tag">GCP</span>
-    <span class="tag">Python · PySpark</span>
-  </div>
+
+  </div><!-- /ba-split -->
 </section>
 <div class="sec-div"><hr></div>
 
