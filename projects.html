@@ -167,9 +167,10 @@
       margin-left: 0; margin-right: 0;
     }
     .ba-split {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 48px;
+      align-items: start;
     }
     .ba-left {
       display: grid;
@@ -262,12 +263,12 @@
       background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
       color: var(--muted2); font-weight: 500;
     }
-    /* Right — PDF (shown above content via order) */
+    /* Right — PDF (sticky while scrolling left content) */
     .ba-right {
-      position: static;
-      display: flex; flex-direction: column; gap: 7px;
-      order: -1;
-      margin-bottom: 40px;
+      position: sticky;
+      top: 80px;
+      display: flex; flex-direction: column; gap: 20px;
+      align-self: start;
     }
     .ba-pdf-frame {
       aspect-ratio: 16/9;
@@ -282,6 +283,7 @@
     @media (max-width: 1100px) { .ba-full { padding: 0 32px; } }
     @media (max-width: 860px) {
       .ba-full { padding: 0 24px; }
+      .ba-split { grid-template-columns: 1fr; }
       .ba-left { grid-template-columns: 1fr; }
       .ba-pdf-frame { aspect-ratio: 16/9; }
     }
@@ -551,12 +553,6 @@
         <div class="ba-problem-line"><span class="pl-n">04</span> Goal: build an end-to-end pipeline linking pre-flight behavior to post-flight satisfaction, benchmarked against 4 competitors.</div>
       </div>
 
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n">6</div><div class="l">Datasets</div></div>
-        <div class="ba-kpi"><div class="n">20K+</div><div class="l">Reviews</div></div>
-        <div class="ba-kpi"><div class="n">50K+</div><div class="l">Booking records</div></div>
-      </div>
-
       <div class="ba-block">
         <div class="ba-bl">Dataset</div>
         <div class="ba-ds-table">
@@ -691,6 +687,21 @@
         </div>
       </div>
 
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF + KPI + Impact + Tags -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="British_Airways_PRESENTATION.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="British Airways Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; 17 slides</div>
+
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n">6</div><div class="l">Datasets</div></div>
+        <div class="ba-kpi"><div class="n">20K+</div><div class="l">Reviews</div></div>
+        <div class="ba-kpi"><div class="n">50K+</div><div class="l">Booking records</div></div>
+      </div>
+
       <div class="ba-block">
         <div class="ba-bl">Impact &amp; Metrics</div>
         <ul class="ba-micro-list">
@@ -709,15 +720,6 @@
         <span class="ba-chip" style="background:rgba(124,58,237,0.1);border-color:rgba(124,58,237,0.25);color:var(--purple-light);">NLTK</span>
         <span class="ba-chip" style="background:rgba(124,58,237,0.1);border-color:rgba(124,58,237,0.25);color:var(--purple-light);">Consumer Behavior</span>
       </div>
-
-    </div><!-- /ba-left -->
-
-    <!-- RIGHT: PDF only -->
-    <div class="ba-right">
-      <div class="ba-pdf-frame">
-        <iframe src="British_Airways_PRESENTATION.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="British Airways Presentation"></iframe>
-      </div>
-      <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; 17 slides</div>
     </div>
 
   </div><!-- /ba-split -->
@@ -749,12 +751,6 @@
         <div class="ba-problem-line"><span class="pl-n">02</span> Menu had grown to 170+ SKUs with no behavioral study linking menu complexity to ordering friction or abandonment.</div>
         <div class="ba-problem-line"><span class="pl-n">03</span> Standard A/B design was infeasible at store level — Difference-in-Differences required to control for pre-existing cohort trends.</div>
         <div class="ba-problem-line"><span class="pl-n">04</span> Goal: causally quantify the retention effect of menu simplification on the mid-frequency cohort using a rigorously validated DiD design.</div>
-      </div>
-
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n" style="color:#00704A;">3.2M</div><div class="l">Loyalty Records</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#00704A;">+14%</div><div class="l">Retention Lift</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#00704A;">3</div><div class="l">Cohorts Segmented</div></div>
       </div>
 
       <div class="ba-block">
@@ -951,16 +947,6 @@
       </div>
 
       <div class="ba-block">
-        <div class="ba-bl sb-bl">Impact &amp; Metrics</div>
-        <ul class="ba-micro-list sb-micro-list">
-          <li>+14% projected retention lift in mid-frequency cohort — statistically significant (p &lt; 0.01)</li>
-          <li>Effect invisible in aggregate reporting — validated the failure mode of non-cohorted dashboards</li>
-          <li>Mid-frequency segment = 43% of customer base; highest projected LTV growth trajectory</li>
-          <li>Choice overload framework empirically validated: complexity reduction reduces ordering friction and churn</li>
-        </ul>
-      </div>
-
-      <div class="ba-block">
         <div class="ba-bl sb-bl">Feature Matrix</div>
         <div class="sb-feat-table">
           <div class="sb-feat-row">
@@ -977,6 +963,31 @@
         </div>
       </div>
 
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF + KPI + Impact + Tags -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="Starbucks_Research_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="Starbucks Research Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; Starbucks Capstone</div>
+
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n" style="color:#00704A;">3.2M</div><div class="l">Loyalty Records</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00704A;">+14%</div><div class="l">Retention Lift</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00704A;">3</div><div class="l">Cohorts Segmented</div></div>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl sb-bl">Impact &amp; Metrics</div>
+        <ul class="ba-micro-list sb-micro-list">
+          <li>+14% projected retention lift in mid-frequency cohort — statistically significant (p &lt; 0.01)</li>
+          <li>Effect invisible in aggregate reporting — validated the failure mode of non-cohorted dashboards</li>
+          <li>Mid-frequency segment = 43% of customer base; highest projected LTV growth trajectory</li>
+          <li>Choice overload framework empirically validated: complexity reduction reduces ordering friction and churn</li>
+        </ul>
+      </div>
+
       <div class="ba-chips">
         <span class="ba-chip" style="background:rgba(0,112,74,0.1);border-color:rgba(0,112,74,0.28);color:#00a862;">K-Means</span>
         <span class="ba-chip" style="background:rgba(0,112,74,0.1);border-color:rgba(0,112,74,0.28);color:#00a862;">DBSCAN</span>
@@ -987,15 +998,6 @@
         <span class="ba-chip" style="background:rgba(0,112,74,0.1);border-color:rgba(0,112,74,0.28);color:#00a862;">Behavioral Economics</span>
         <span class="ba-chip" style="background:rgba(0,112,74,0.1);border-color:rgba(0,112,74,0.28);color:#00a862;">statsmodels</span>
       </div>
-
-    </div><!-- /ba-left -->
-
-    <!-- RIGHT: PDF only -->
-    <div class="ba-right">
-      <div class="ba-pdf-frame">
-        <iframe src="Starbucks_Research_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="Starbucks Research Presentation"></iframe>
-      </div>
-      <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; Starbucks Capstone</div>
     </div>
 
   </div><!-- /ba-split -->
@@ -1027,12 +1029,6 @@
         <div class="ba-problem-line" style="border-bottom-color:rgba(255,90,95,0.06);"><span class="pl-n" style="color:rgba(255,90,95,0.5);">02</span> Pricing is pivotal: underpricing loses revenue; overpricing kills occupancy. Linear regression misses the non-additive combinations that drive real premiums.</div>
         <div class="ba-problem-line" style="border-bottom-color:rgba(255,90,95,0.06);"><span class="pl-n" style="color:rgba(255,90,95,0.5);">03</span> Raw dataset had 25%+ missing rates on review and host fields, high-cardinality text features (amenities), and no unified encoding strategy.</div>
         <div class="ba-problem-line"><span class="pl-n" style="color:rgba(255,90,95,0.5);">04</span> Goal: build an end-to-end ML pipeline to predict log-transformed listing prices with RMSE &lt;0.35 and identify top pricing determinants.</div>
-      </div>
-
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n" style="color:#FF5A5F;">74K</div><div class="l">Raw Listings</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#FF5A5F;">58K</div><div class="l">After Cleaning</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#FF5A5F;">6</div><div class="l">US Cities</div></div>
       </div>
 
       <div class="ba-block">
@@ -1236,6 +1232,21 @@
         </ul>
       </div>
 
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF + KPI + Impact + Tags -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="Airbnb_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="Airbnb Price Prediction Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; 17 slides</div>
+
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n" style="color:#FF5A5F;">74K</div><div class="l">Raw Listings</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#FF5A5F;">58K</div><div class="l">After Cleaning</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#FF5A5F;">6</div><div class="l">US Cities</div></div>
+      </div>
+
       <div class="ba-block">
         <div class="ba-bl ab-bl">Impact &amp; Metrics</div>
         <ul class="ba-micro-list ab-micro-list">
@@ -1256,15 +1267,6 @@
         <span class="ba-chip" style="background:rgba(255,90,95,0.1);border-color:rgba(255,90,95,0.28);color:#ff8080;">Feature Importance</span>
         <span class="ba-chip" style="background:rgba(255,90,95,0.1);border-color:rgba(255,90,95,0.28);color:#ff8080;">Python · pandas</span>
       </div>
-
-    </div><!-- /ba-left -->
-
-    <!-- RIGHT: PDF only -->
-    <div class="ba-right">
-      <div class="ba-pdf-frame">
-        <iframe src="Airbnb_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="Airbnb Price Prediction Presentation"></iframe>
-      </div>
-      <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; 17 slides</div>
     </div>
 
   </div><!-- /ba-split -->
@@ -1294,12 +1296,6 @@
         <div class="ba-problem-line" style="border-bottom-color:rgba(204,0,0,0.06);"><span class="pl-n" style="color:rgba(204,0,0,0.5);">02</span> Station placement today is ad-hoc — not driven by EV density, renewable energy proximity, traffic load, or demographic demand, creating systematic misallocation of infrastructure investment.</div>
         <div class="ba-problem-line" style="border-bottom-color:rgba(204,0,0,0.06);"><span class="pl-n" style="color:rgba(204,0,0,0.5);">03</span> Grid inefficiency and reliance on non-renewables: no real-time load balancing or AI-guided renewable integration means EV growth increases grid strain rather than reducing it.</div>
         <div class="ba-problem-line"><span class="pl-n" style="color:rgba(204,0,0,0.5);">04</span> Goal: Apply K-Means clustering + PCA to geospatial + demographic data to identify optimal placement zones, validate ROI, and build a data-driven case for the $10B+ infrastructure opportunity.</div>
-      </div>
-
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n" style="color:#CC0000;">2M+</div><div class="l">CA EVs by 2027</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#CC0000;">265%</div><div class="l">Top-5 Cluster ROI</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#CC0000;">34%</div><div class="l">CAGR Charging Ports</div></div>
       </div>
 
       <div class="ba-block">
@@ -1475,6 +1471,23 @@
         </ul>
       </div>
 
+
+
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF + KPI + Impact + Tags -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="EV_Charging_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="EV Charging Station Optimization"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; 19 slides</div>
+
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n" style="color:#CC0000;">2M+</div><div class="l">CA EVs by 2027</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#CC0000;">265%</div><div class="l">Top-5 Cluster ROI</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#CC0000;">34%</div><div class="l">CAGR Charging Ports</div></div>
+      </div>
+
       <div class="ba-block">
         <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Impact &amp; Metrics</div>
         <ul class="ba-micro-list">
@@ -1496,15 +1509,6 @@
         <span class="ba-chip" style="background:rgba(204,0,0,0.1);border-color:rgba(204,0,0,0.28);color:#e05555;">Renewable Integration</span>
         <span class="ba-chip" style="background:rgba(204,0,0,0.1);border-color:rgba(204,0,0,0.28);color:#e05555;">ROI Analysis</span>
       </div>
-
-    </div><!-- /ba-left -->
-
-    <!-- RIGHT: PDF only -->
-    <div class="ba-right">
-      <div class="ba-pdf-frame">
-        <iframe src="EV_Charging_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="EV Charging Station Optimization"></iframe>
-      </div>
-      <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; 19 slides</div>
     </div>
 
   </div><!-- /ba-split -->
@@ -1535,13 +1539,6 @@
         <div class="ba-problem-line"><span class="pl-n">02</span>CRM data degradation from manual entry creates forecasting blind spots — Salesforce's own platform becomes unreliable at scale</div>
         <div class="ba-problem-line"><span class="pl-n">03</span>Fragmented lead-to-close communication slows enterprise deal cycles; AI-personalization at scale is impossible without tooling</div>
         <div class="ba-problem-line"><span class="pl-n">04</span>Without predictive deal intelligence, Salesforce risks ceding AI-driven revenue leadership to specialized startups eating CRM share</div>
-      </div>
-
-      <!-- KPI row -->
-      <div class="ba-kpi-row" style="margin-bottom:28px;">
-        <div class="ba-kpi"><div class="n" style="color:#00A1E0;">7</div><div class="l">AI Tools Evaluated</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#00A1E0;">3</div><div class="l">Strategic Categories</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#00A1E0;">92%</div><div class="l">Gong Forecast Accuracy</div></div>
       </div>
 
       <!-- Research Scope -->
@@ -1683,6 +1680,21 @@
         </ul>
       </div>
 
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF + KPI + Tags -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="AI_Sales_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="AI Sales Proposal Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ scroll within frame · AI Sales Proposal</div>
+
+      <div class="ba-kpi-row" style="margin-bottom:28px;">
+        <div class="ba-kpi"><div class="n" style="color:#00A1E0;">7</div><div class="l">AI Tools Evaluated</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00A1E0;">3</div><div class="l">Strategic Categories</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00A1E0;">92%</div><div class="l">Gong Forecast Accuracy</div></div>
+      </div>
+
       <!-- Tags -->
       <div class="ba-block">
         <div class="ba-bl sf-bl">Tags</div>
@@ -1697,15 +1709,6 @@
           <span class="ba-chip">Strategic Acquisition</span>
         </div>
       </div>
-
-    </div><!-- /ba-left -->
-
-    <!-- RIGHT: PDF iframe -->
-    <div class="ba-right">
-      <div class="ba-pdf-frame">
-        <iframe src="AI_Sales_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="AI Sales Proposal Presentation"></iframe>
-      </div>
-      <div class="ba-pdf-hint">↕ scroll within frame · AI Sales Proposal</div>
     </div>
 
   </div><!-- /ba-split -->
@@ -1736,13 +1739,6 @@
         <div class="ba-problem-line"><span class="pl-n">02</span>Cross-country comparison is structurally unsound: Indonesia's "normal" spike is France's outlier — GDP, internet penetration, and governance completely reshape what volatility means</div>
         <div class="ba-problem-line"><span class="pl-n">03</span>Coordinated gambling spam propagates across East/SE Asia borders, corrupting rising term data and creating false demand signals that break any global forecasting pipeline</div>
         <div class="ba-problem-line"><span class="pl-n">04</span>No diagnostic framework exists for classifying countries by search volatility profile — organizations allocate global campaign budgets without a per-market signal baseline</div>
-      </div>
-
-      <!-- KPI row spans full width -->
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n" style="color:#4285F4;">10M+</div><div class="l">Rows Processed</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#4285F4;">42</div><div class="l">Countries</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#4285F4;">0.64</div><div class="l">AUC — Survival Model</div></div>
       </div>
 
       <!-- DATA COLLECTION -->
@@ -1991,6 +1987,21 @@
         </ul>
       </div>
 
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF + KPI + Impact + Tags -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="GT_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="Google Trends Big Data Analytics Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ scroll within frame · From Spikes to Signals</div>
+
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n" style="color:#4285F4;">10M+</div><div class="l">Rows Processed</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#4285F4;">42</div><div class="l">Countries</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#4285F4;">0.64</div><div class="l">AUC — Survival Model</div></div>
+      </div>
+
       <!-- IMPACT -->
       <div class="ba-block">
         <div class="ba-bl gt-bl">Impact &amp; Metrics</div>
@@ -2021,15 +2032,6 @@
           <span class="ba-chip">Big Data</span>
         </div>
       </div>
-
-    </div><!-- /ba-left -->
-
-    <!-- RIGHT: PDF (order:-1 → shown at top via CSS) -->
-    <div class="ba-right">
-      <div class="ba-pdf-frame">
-        <iframe src="GT_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="Google Trends Big Data Analytics Presentation"></iframe>
-      </div>
-      <div class="ba-pdf-hint">↕ scroll within frame · From Spikes to Signals</div>
     </div>
 
   </div><!-- /ba-split -->
@@ -2059,13 +2061,6 @@
         <div class="ba-problem-line"><span class="pl-n">02</span>No quantitative stop-by-stop diagnostic existed to identify which stations were causing headway bunching and where trains were getting "caught" along the route</div>
         <div class="ba-problem-line"><span class="pl-n">03</span>$700M projected MBTA budget deficit by 2026 — every operational fix must be data-justified; without station-level attribution, there's no basis for TSP or infrastructure investment prioritization</div>
         <div class="ba-problem-line"><span class="pl-n">04</span>Unclear whether headway degradation suppresses ridership or riders absorb poor service as captive users — misunderstanding this relationship shapes fare and capacity strategy</div>
-      </div>
-
-      <!-- KPI row -->
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n" style="color:#DA291C;">Green-B</div><div class="l">Worst Normalized Headway</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#DA291C;">4</div><div class="l">Problem Stations Identified</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#DA291C;">2</div><div class="l">Tableau Dashboards Built</div></div>
       </div>
 
       <!-- DATA COLLECTION -->
@@ -2254,6 +2249,45 @@
         </div>
       </div>
 
+      <!-- NEXT STEPS -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Next Steps</div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <div class="mbta-next-row"><span class="mbta-next-n">01</span><span style="color:var(--muted);font-size:12px;">Pilot Transit Signal Priority (TSP) at Warren Street and Packard's Corner intersections — measure headway variance reduction</span></div>
+          <div class="mbta-next-row"><span class="mbta-next-n">02</span><span style="color:var(--muted);font-size:12px;">Expand branch-level analysis to Red-A / Red-B to identify analogous problem stations on other branches</span></div>
+          <div class="mbta-next-row"><span class="mbta-next-n">03</span><span style="color:var(--muted);font-size:12px;">Build real-time headway monitoring pipeline feeding directly into Tableau for live operations visibility</span></div>
+          <div class="mbta-next-row"><span class="mbta-next-n">04</span><span style="color:var(--muted);font-size:12px;">Model optimal headway intervals by time-of-day using historical distribution to set dynamic scheduling targets</span></div>
+          <div class="mbta-next-row"><span class="mbta-next-n">05</span><span style="color:var(--muted);font-size:12px;">Investigate Monthly Membership Promotion impact on peak ridership distribution and its knock-on effect on headway bunching</span></div>
+        </div>
+      </div>
+
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF + KPI + Impact + Tableau + Recommendations + Tags -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="MBTA_Headway_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="MBTA Headway Analysis Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ scroll within frame · Headway: Analyzing MBTA Consistency</div>
+
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n" style="color:#DA291C;">Green-B</div><div class="l">Worst Normalized Headway</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#DA291C;">4</div><div class="l">Problem Stations Identified</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#DA291C;">2</div><div class="l">Tableau Dashboards Built</div></div>
+      </div>
+
+      <!-- IMPACT -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Impact &amp; Metrics</div>
+        <ul class="ba-micro-list">
+          <li>Identified 4 problem stations (Chestnut Hill Ave, Warren St, Harvard Ave, Packard's Corner) driving majority of Green-B headway variance</li>
+          <li>Quantified that off-peak is less predictable than peak service — contradicting intuitive assumptions about capacity and demand</li>
+          <li>Demonstrated low ridership elasticity to headway: captive users absorb poor service — significant for MBTA's fare strategy and subsidy justification</li>
+          <li>Linked Warren Street's variance directly to intersection geometry (15–20s crossing window, 90s wait) — actionable basis for Transit Signal Priority pilot</li>
+          <li>Delivered 2 Tableau dashboards usable by MBTA operations teams for ongoing monitoring without re-running analysis</li>
+        </ul>
+      </div>
+
       <!-- TABLEAU DASHBOARDS -->
       <div class="ba-block">
         <div class="ba-bl mbta-bl">Tableau Dashboards</div>
@@ -2272,30 +2306,6 @@
               <a class="mbta-link-url" href="https://public.tableau.com/app/profile/barrett.ratzlaff/viz/Green-BLineConsistencyDashboard/ConsistencyofGreenBLineServicein2024" target="_blank" rel="noopener">public.tableau.com → Green-BLineConsistencyDashboard</a>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- IMPACT -->
-      <div class="ba-block">
-        <div class="ba-bl mbta-bl">Impact &amp; Metrics</div>
-        <ul class="ba-micro-list">
-          <li>Identified 4 problem stations (Chestnut Hill Ave, Warren St, Harvard Ave, Packard's Corner) driving majority of Green-B headway variance</li>
-          <li>Quantified that off-peak is less predictable than peak service — contradicting intuitive assumptions about capacity and demand</li>
-          <li>Demonstrated low ridership elasticity to headway: captive users absorb poor service — significant for MBTA's fare strategy and subsidy justification</li>
-          <li>Linked Warren Street's variance directly to intersection geometry (15–20s crossing window, 90s wait) — actionable basis for Transit Signal Priority pilot</li>
-          <li>Delivered 2 Tableau dashboards usable by MBTA operations teams for ongoing monitoring without re-running analysis</li>
-        </ul>
-      </div>
-
-      <!-- NEXT STEPS -->
-      <div class="ba-block">
-        <div class="ba-bl mbta-bl">Next Steps</div>
-        <div style="display:flex;flex-direction:column;gap:2px;">
-          <div class="mbta-next-row"><span class="mbta-next-n">01</span><span style="color:var(--muted);font-size:12px;">Pilot Transit Signal Priority (TSP) at Warren Street and Packard's Corner intersections — measure headway variance reduction</span></div>
-          <div class="mbta-next-row"><span class="mbta-next-n">02</span><span style="color:var(--muted);font-size:12px;">Expand branch-level analysis to Red-A / Red-B to identify analogous problem stations on other branches</span></div>
-          <div class="mbta-next-row"><span class="mbta-next-n">03</span><span style="color:var(--muted);font-size:12px;">Build real-time headway monitoring pipeline feeding directly into Tableau for live operations visibility</span></div>
-          <div class="mbta-next-row"><span class="mbta-next-n">04</span><span style="color:var(--muted);font-size:12px;">Model optimal headway intervals by time-of-day using historical distribution to set dynamic scheduling targets</span></div>
-          <div class="mbta-next-row"><span class="mbta-next-n">05</span><span style="color:var(--muted);font-size:12px;">Investigate Monthly Membership Promotion impact on peak ridership distribution and its knock-on effect on headway bunching</span></div>
         </div>
       </div>
 
@@ -2325,15 +2335,6 @@
           <span class="ba-chip">Green Line</span>
         </div>
       </div>
-
-    </div><!-- /ba-left -->
-
-    <!-- RIGHT: PDF (shown at top via order:-1) -->
-    <div class="ba-right">
-      <div class="ba-pdf-frame">
-        <iframe src="MBTA_Headway_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="MBTA Headway Analysis Presentation"></iframe>
-      </div>
-      <div class="ba-pdf-hint">↕ scroll within frame · Headway: Analyzing MBTA Consistency</div>
     </div>
 
   </div><!-- /ba-split -->
@@ -2363,14 +2364,6 @@
         <div class="ba-problem-line"><span class="pl-n">02</span>Portugal's banking sector faced structural inefficiency: broad-brush marketing campaigns with poor conversion — no behavioral model existed to identify which customers would respond to which financial products</div>
         <div class="ba-problem-line"><span class="pl-n">03</span>No correlation structure existed between numeric variables — standard regression/supervised approaches would fail without first discovering latent behavioral clusters hidden in 17-dimensional data</div>
         <div class="ba-problem-line"><span class="pl-n">04</span>Motivation: demonstrate that behavioral segmentation via unsupervised ML unlocks targeted marketing, reduces campaign waste, and enables personalized product recommendations at scale for retail banking</div>
-      </div>
-
-      <!-- KPI row -->
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n" style="color:#00843D;">45,211</div><div class="l">Customer Records</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#00843D;">17</div><div class="l">Features (7 numeric, 10 cat)</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#00843D;">4</div><div class="l">ML Methods Applied</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#00843D;">3</div><div class="l">Behavioral Segments Found</div></div>
       </div>
 
       <!-- DATA COLLECTION -->
@@ -2614,6 +2607,34 @@
         </ul>
       </div>
 
+      <!-- NEXT STEPS -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Next Steps</div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <div class="banco-next-row"><span class="banco-next-n">01</span><span style="color:var(--muted);font-size:12px;">Layer supervised model (XGBoost/Random Forest) on top of cluster labels to predict term deposit subscription probability within each segment</span></div>
+          <div class="banco-next-row"><span class="banco-next-n">02</span><span style="color:var(--muted);font-size:12px;">A/B test messaging variants for secondary-educated segment to address the participation↑ / conversion↓ mismatch identified by ARM</span></div>
+          <div class="banco-next-row"><span class="banco-next-n">03</span><span style="color:var(--muted);font-size:12px;">Re-run K-Prototypes on full 45K dataset with optimized Cao initialization — confirm cluster stability vs. 5K subsample results</span></div>
+          <div class="banco-next-row"><span class="banco-next-n">04</span><span style="color:var(--muted);font-size:12px;">Build Tableau dashboard mapping cluster membership by region/branch for geo-targeted campaign execution</span></div>
+          <div class="banco-next-row"><span class="banco-next-n">05</span><span style="color:var(--muted);font-size:12px;">Implement dynamic segment re-scoring pipeline: re-cluster quarterly as customer financial behavior evolves to keep segments current</span></div>
+        </div>
+      </div>
+
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF + KPI + Impact + Tags -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="Banco_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="Customer-Centric Bank Marketing Strategies Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ scroll within frame · Customer-Centric Bank Marketing Strategies · Team 11</div>
+
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n" style="color:#00843D;">45,211</div><div class="l">Customer Records</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00843D;">17</div><div class="l">Features (7 numeric, 10 cat)</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00843D;">4</div><div class="l">ML Methods Applied</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00843D;">3</div><div class="l">Behavioral Segments Found</div></div>
+      </div>
+
       <!-- IMPACT -->
       <div class="ba-block">
         <div class="ba-bl banco-bl">Impact &amp; Metrics</div>
@@ -2625,18 +2646,6 @@
           <li>Secondary-educated segment: high participation, low conversion — evidence of messaging mismatch, not audience problem; actionable insight for creative/copy direction</li>
           <li>3-cluster model reduces marketing spend concentration: High-Income Investors (Cluster 3) = highest ROI cross-sell target despite smallest absolute size</li>
         </ul>
-      </div>
-
-      <!-- NEXT STEPS -->
-      <div class="ba-block">
-        <div class="ba-bl banco-bl">Next Steps</div>
-        <div style="display:flex;flex-direction:column;gap:2px;">
-          <div class="banco-next-row"><span class="banco-next-n">01</span><span style="color:var(--muted);font-size:12px;">Layer supervised model (XGBoost/Random Forest) on top of cluster labels to predict term deposit subscription probability within each segment</span></div>
-          <div class="banco-next-row"><span class="banco-next-n">02</span><span style="color:var(--muted);font-size:12px;">A/B test messaging variants for secondary-educated segment to address the participation↑ / conversion↓ mismatch identified by ARM</span></div>
-          <div class="banco-next-row"><span class="banco-next-n">03</span><span style="color:var(--muted);font-size:12px;">Re-run K-Prototypes on full 45K dataset with optimized Cao initialization — confirm cluster stability vs. 5K subsample results</span></div>
-          <div class="banco-next-row"><span class="banco-next-n">04</span><span style="color:var(--muted);font-size:12px;">Build Tableau dashboard mapping cluster membership by region/branch for geo-targeted campaign execution</span></div>
-          <div class="banco-next-row"><span class="banco-next-n">05</span><span style="color:var(--muted);font-size:12px;">Implement dynamic segment re-scoring pipeline: re-cluster quarterly as customer financial behavior evolves to keep segments current</span></div>
-        </div>
       </div>
 
       <!-- TAGS -->
@@ -2656,15 +2665,6 @@
           <span class="ba-chip">UCI Dataset</span>
         </div>
       </div>
-
-    </div><!-- /ba-left -->
-
-    <!-- RIGHT: PDF (shown at top via order:-1) -->
-    <div class="ba-right">
-      <div class="ba-pdf-frame">
-        <iframe src="Banco_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="Customer-Centric Bank Marketing Strategies Presentation"></iframe>
-      </div>
-      <div class="ba-pdf-hint">↕ scroll within frame · Customer-Centric Bank Marketing Strategies · Team 11</div>
     </div>
 
   </div><!-- /ba-split -->
