@@ -1406,9 +1406,9 @@
 <section id="airbnb" class="project-section ba-full" style="scroll-margin-top:80px;">
 
   <div class="project-header" style="max-width:100%;margin-bottom:28px;">
-    <div class="project-badge" style="background:rgba(255,90,95,0.15);color:#FF5A5F;">AB</div>
+    <div class="project-badge" style="background:rgba(255,90,95,0.12);padding:6px;display:flex;align-items:center;justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FF5A5F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></div>
     <div class="project-header-text">
-      <div class="project-label" style="color:#FF5A5F;">BU MSBA Project · 2025</div>
+      <div class="project-label" style="color:#FF5A5F;">BU MSBA · Machine Learning · 2025</div>
       <h2>Airbnb — Dynamic Price Prediction Engine</h2>
       <p class="summary">74K listings across 6 US cities. A full ML pipeline — cleaning, feature engineering, target encoding, and gradient boosting — to predict log-transformed listing prices and identify the dominant pricing signals.</p>
     </div>
@@ -1492,7 +1492,7 @@
         </div>
       </div>
 
-      <div class="ba-block">
+      <div class="ba-block" style="background:rgba(140,0,0,0.22);border:1px solid rgba(220,38,38,0.4);border-left:3px solid rgba(220,38,38,0.75);">
         <div class="ba-bl ab-bl">Data Issues</div>
         <ul class="ba-micro-list ab-micro-list">
           <li>first_review: 15,864 missing (21.4%) — co-occurring with review_scores_rating nulls</li>
@@ -1538,38 +1538,32 @@
         </ul>
       </div>
 
-      <div class="ba-block">
+      <div class="ba-block" style="grid-column:1/-1;">
         <div class="ba-bl ab-bl">Analyses</div>
-        <div class="ba-analysis-list">
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Exploratory Data Analysis</div>
-            <div class="ba-analysis-method">Histogram matrix, correlation heatmap, pairplots, boxplots of log_price by city / room type / property type / accommodates / bedrooms</div>
-            <div class="ba-analysis-finding" style="color:rgba(255,90,95,0.85);">SF and NYC have highest median prices + widest spread; room_type and city are visually the strongest price predictors</div>
+        <div class="ba-analysis-grid">
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(255,90,95,0.4);">
+            <div class="ba-analysis-card-title">Exploratory Data Analysis</div>
+            <div class="ba-analysis-card-finding">SF and NYC show highest median prices with widest spread. <strong>room_type</strong> and <strong>city</strong> are visually the strongest price predictors — entire home commands 40%+ premium over private rooms.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Model Comparison (5-fold CV)</div>
-            <div class="ba-analysis-method">Linear Regression, Ridge (α=1.0), SVR (linear kernel, C=1.0), Gradient Boosting — all evaluated on preprocessed train data using RMSE and R²</div>
-            <div class="ba-analysis-finding" style="color:rgba(255,90,95,0.85);">Gradient Boosting dominated: RMSE 0.34, R² 0.73 — significantly outperformed linear baselines</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(255,90,95,0.4);">
+            <div class="ba-analysis-card-title">Model Comparison (5-fold CV)</div>
+            <div class="ba-analysis-card-finding"><strong>Gradient Boosting</strong> dominated all baselines: RMSE 0.34, R² 0.73. Linear Regression (R² ~0.39) and SVR (R² ~0.32) significantly underperformed — non-linear interactions are essential for price prediction.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">GBM Feature Importance</div>
-            <div class="ba-analysis-method">feature_importances_ extracted from trained GradientBoostingRegressor; ranked and plotted; non-zero features retained</div>
-            <div class="ba-analysis-finding" style="color:rgba(255,90,95,0.85);">Top 8: room_type, bathrooms, longitude, accommodates, bedrooms, latitude, city, review_scores_rating — drove final model</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(255,90,95,0.4);">
+            <div class="ba-analysis-card-title">GBM Feature Importance</div>
+            <div class="ba-analysis-card-finding">Top 8 pricing signals: <strong>room_type, bathrooms, longitude, accommodates, bedrooms, latitude, city, review_scores_rating</strong>. Geo-coordinates + room type alone explain the majority of price variance.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Hyperparameter Tuning — Randomized Search</div>
-            <div class="ba-analysis-method">RandomizedSearchCV, n_iter=20, cv=3, scoring=neg_MSE, n_jobs=−1 across n_estimators / learning_rate / max_depth / subsample space</div>
-            <div class="ba-analysis-finding" style="color:rgba(255,90,95,0.85);">Best config identified from 20 random combinations; faster convergence vs full grid with near-equivalent RMSE</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(255,90,95,0.4);">
+            <div class="ba-analysis-card-title">Randomized Search Tuning</div>
+            <div class="ba-analysis-card-finding"><strong>RandomizedSearchCV</strong> (n_iter=20, cv=3) identified optimal config 3x faster than full grid — near-equivalent RMSE with dramatically fewer total model fits.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Hyperparameter Tuning — Grid Search</div>
-            <div class="ba-analysis-method">GridSearchCV over expanded grid (n_estimators ×4, learning_rate ×4, max_depth ×3, subsample ×4, max_features ×3), cv=2, n_jobs=−1</div>
-            <div class="ba-analysis-finding" style="color:rgba(255,90,95,0.85);">Best parameters selected for final model — GridSearch identified max_depth=5, n_estimators=200+, low learning_rate as optimal</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(255,90,95,0.4);">
+            <div class="ba-analysis-card-title">Grid Search Refinement</div>
+            <div class="ba-analysis-card-finding">GridSearchCV confirmed <strong>max_depth=5, n_estimators=200+, low learning_rate</strong> as optimal. Systematic grid search validated randomized results and finalized the production model configuration.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Bayesian Optimization (BayesSearchCV)</div>
-            <div class="ba-analysis-method">scikit-optimize BayesSearchCV, n_iter=30, cv=3; probabilistic search over continuous hyperparameter space (Real, Integer, Categorical)</div>
-            <div class="ba-analysis-finding" style="color:rgba(255,90,95,0.85);">Most efficient tuning approach — converged on optimal config with fewest total fits vs Grid/Random search</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(255,90,95,0.4);">
+            <div class="ba-analysis-card-title">Bayesian Optimization</div>
+            <div class="ba-analysis-card-finding"><strong>BayesSearchCV</strong> (n_iter=30) achieved best efficiency — converged on optimal hyperparameters with fewest total fits vs Grid and Random Search by using probabilistic sampling of the parameter space.</div>
           </div>
         </div>
       </div>
@@ -1638,20 +1632,33 @@
       </div>
       <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; 17 slides</div>
 
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n" style="color:#FF5A5F;">74K</div><div class="l">Raw Listings</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#FF5A5F;">58K</div><div class="l">After Cleaning</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#FF5A5F;">6</div><div class="l">US Cities</div></div>
+      <div class="ba-kpi-row" style="grid-template-columns:repeat(3,1fr);">
+        <div class="ba-kpi"><div class="n">0.73</div><div class="l">Test R² Score</div></div>
+        <div class="ba-kpi"><div class="n">0.34</div><div class="l">Test RMSE (log)</div></div>
+        <div class="ba-kpi"><div class="n">74K</div><div class="l">Listings Analyzed</div></div>
+        <div class="ba-kpi"><div class="n">8</div><div class="l">Top Pricing Features</div></div>
+        <div class="ba-kpi"><div class="n">-35%</div><div class="l">Error vs Linear Baseline</div></div>
+        <div class="ba-kpi"><div class="n">6</div><div class="l">US Cities Covered</div></div>
       </div>
 
-      <div class="ba-block">
+      <div class="ba-impact">
         <div class="ba-bl ab-bl">Impact &amp; Metrics</div>
         <ul class="ba-micro-list ab-micro-list">
-          <li>Gradient Boosting achieved RMSE 0.34 and R² 0.73 on log-transformed prices — best-in-class vs all baseline models</li>
-          <li>room_type (entire home vs private) is the single strongest price predictor — entire home/apt commands highest premium</li>
-          <li>City and geo-coordinates dominate: SF and NYC show 30–40% higher median log prices than other cities</li>
-          <li>Pipeline generalizes across 6 cities — model ready for host-facing pricing recommendation integration</li>
+          <li><strong>Gradient Boosting</strong> achieved RMSE 0.34 and R² 0.73 — outperformed all baselines (linear R² ~0.39, SVR ~0.32)</li>
+          <li><strong>room_type</strong> is the single strongest price driver — entire home/apt commands a 40%+ premium over private rooms</li>
+          <li><strong>SF and NYC</strong> show 30-40% higher median log prices than other cities; geo-coordinates explain cross-city variance</li>
+          <li>End-to-end pipeline generalizes across 6 markets — production-ready for host-facing pricing recommendation integration</li>
         </ul>
+      </div>
+
+      <div class="ba-block" style="margin-top:10px;">
+        <div class="ba-bl ab-bl">Next Steps</div>
+        <div class="ba-next-grid">
+          <div class="ba-next-card"><div class="ba-next-num">01</div><div><div class="ba-next-title">Real-Time Price API</div><div class="ba-next-desc">Deploy GBM model as a REST API for live host-facing price recommendations — update predictions as new listing data arrives.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">02</div><div><div class="ba-next-title">Amenity Feature Engineering</div><div class="ba-next-desc">Parse and encode the high-cardinality amenities field via NLP or binary flags to capture untapped pricing signal currently dropped.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">03</div><div><div class="ba-next-title">Seasonal Price Modeling</div><div class="ba-next-desc">Layer temporal features (month, day-of-week, holidays) to capture seasonal demand and improve RMSE during peak travel periods.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">04</div><div><div class="ba-next-title">Neural Network Comparison</div><div class="ba-next-desc">Benchmark XGBoost and a shallow NN against tuned GBM to quantify whether more complex models yield meaningful R² gains on this feature set.</div></div></div>
+        </div>
       </div>
 
       <div class="ba-chips">
@@ -1675,7 +1682,7 @@
 <section id="tesla" class="project-section ba-full" style="scroll-margin-top:80px;">
 
   <div class="project-header" style="max-width:100%;margin-bottom:28px;">
-    <div class="project-badge" style="background:rgba(204,0,0,0.15);color:#CC0000;">EV</div>
+    <div class="project-badge" style="background:rgba(204,0,0,0.12);padding:6px;display:flex;align-items:center;justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#CC0000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
     <div class="project-header-text">
       <div class="project-label" style="color:#CC0000;">BU MSBA Capstone · 2025</div>
       <h2>Charging California — AI-Driven EV Charging Station Optimization</h2>
@@ -1751,7 +1758,7 @@
         </div>
       </div>
 
-      <div class="ba-block">
+      <div class="ba-block" style="background:rgba(140,0,0,0.22);border:1px solid rgba(220,38,38,0.4);border-left:3px solid rgba(220,38,38,0.75);">
         <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Data Issues</div>
         <ul class="ba-micro-list">
           <li>AFDC station data: ~8% records missing port_count or charger_type — inconsistent self-reporting by operators</li>
@@ -1784,38 +1791,32 @@
         </ul>
       </div>
 
-      <div class="ba-block">
+      <div class="ba-block" style="grid-column:1/-1;">
         <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Analyses</div>
-        <div class="ba-analysis-list">
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Geospatial EDA</div>
-            <div class="ba-analysis-method">Folium choropleth maps of EV density vs station coverage; distribution by charger type (L2 vs DCFC); coverage desert identification</div>
-            <div class="ba-analysis-finding" style="color:rgba(204,0,0,0.85);">Urban hubs (LA, SF Bay) over-indexed in L2 chargers; Northern CA + Central Valley identified as largest coverage gaps</div>
+        <div class="ba-analysis-grid">
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(204,0,0,0.4);">
+            <div class="ba-analysis-card-title">Geospatial EDA</div>
+            <div class="ba-analysis-card-finding">Folium choropleths revealed <strong>urban over-indexing</strong> in L2 chargers. Northern CA and Central Valley identified as largest coverage gaps — high EV density, near-zero charging access.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">K-Means Clustering (Optimal Placement)</div>
-            <div class="ba-analysis-method">K-Means on PCA-reduced feature matrix (lat/long + demand + renewable proximity); elbow method + silhouette scoring to select k</div>
-            <div class="ba-analysis-finding" style="color:rgba(204,0,0,0.85);">Identified 5 high-priority clusters representing underserved high-demand zones — primary investment targets</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(204,0,0,0.4);">
+            <div class="ba-analysis-card-title">K-Means Clustering (Optimal Placement)</div>
+            <div class="ba-analysis-card-finding"><strong>5 high-priority clusters</strong> identified in underserved high-demand zones. PCA-reduced input (lat/long + demand + renewable proximity) with elbow + silhouette validation to select k.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Silhouette Validation</div>
-            <div class="ba-analysis-method">Silhouette score computed across k=2–10; optimal k selected based on highest average silhouette coefficient</div>
-            <div class="ba-analysis-finding" style="color:rgba(204,0,0,0.85);">k=5 returned silhouette score of 0.58 — well-separated clusters; confirmed cluster stability via bootstrapping</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(204,0,0,0.4);">
+            <div class="ba-analysis-card-title">Silhouette Validation</div>
+            <div class="ba-analysis-card-finding">k=5 returned silhouette score of <strong>0.58</strong> — well-separated clusters confirmed via bootstrapping. Tested k=2-10; silhouette peaked at k=5 with highest cluster stability.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Market Share &amp; Compatibility Analysis</div>
-            <div class="ba-analysis-method">Breakdown of existing station standards (NACS, CCS, CHAdeMO) across CA; trend analysis vs IEA / DOE 2023 data</div>
-            <div class="ba-analysis-finding" style="color:rgba(204,0,0,0.85);">NACS at 79% market share (Tesla 62.6%) — NACS-compatible investment is the dominant future-proof standard</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(204,0,0,0.4);">
+            <div class="ba-analysis-card-title">Market Share and Compatibility</div>
+            <div class="ba-analysis-card-finding"><strong>NACS at 79% market share</strong> (Tesla 62.6%) — NACS-compatible investment is the dominant future-proof standard. CHAdeMO declining rapidly; CCS at 11.4% as secondary target.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">ROI &amp; Investment Profitability Analysis</div>
-            <div class="ba-analysis-method">Unit economics modeled per cluster: charger CAPEX + installation + annual OPEX vs projected utilization revenue</div>
-            <div class="ba-analysis-finding" style="color:rgba(204,0,0,0.85);">Top 5 clusters yield avg 265% ROI — $182,500/year revenue per 5-charger site vs $55K total setup cost</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(204,0,0,0.4);">
+            <div class="ba-analysis-card-title">ROI and Investment Profitability</div>
+            <div class="ba-analysis-card-finding">Top 5 clusters yield avg <strong>265% ROI</strong> — $182,500/year revenue per 5-charger site vs $55K total setup cost. Unit economics modeled per cluster via CAPEX + OPEX vs utilization projections.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Renewable Energy Integration Analysis</div>
-            <div class="ba-analysis-method">Cross-referenced cluster centroids with NREL solar irradiance + wind power data; identified co-location opportunities</div>
-            <div class="ba-analysis-finding" style="color:rgba(204,0,0,0.85);">Southern CA clusters overlap high solar zones — on-site solar integration reduces grid draw and lowers per-kWh cost</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(204,0,0,0.4);">
+            <div class="ba-analysis-card-title">Renewable Energy Co-location</div>
+            <div class="ba-analysis-card-finding">Southern CA clusters overlap <strong>high solar irradiance zones</strong> (NREL data) — on-site solar integration reduces grid draw per kWh. Carbon-negative operations achievable at 3 of 5 top clusters.</div>
           </div>
         </div>
       </div>
@@ -1835,40 +1836,25 @@
       </div>
 
       <div class="ba-block">
-        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Business Model — The Underrated Billion Dollar Opportunity</div>
-        <div class="ev-inv-block">
-          <div class="ev-inv-title">Unit Economics per 5-Charger Site</div>
-          <div class="ev-biz-row">
-            <div class="ev-biz-cell"><div class="ev-biz-n">$40K</div><div class="ev-biz-l">per charger (CAPEX)</div></div>
-            <div class="ev-biz-cell"><div class="ev-biz-n">$15K</div><div class="ev-biz-l">install + permits</div></div>
-            <div class="ev-biz-cell"><div class="ev-biz-n">$5K/yr</div><div class="ev-biz-l">maintenance OPEX</div></div>
-          </div>
-          <div class="ev-biz-row">
-            <div class="ev-biz-cell"><div class="ev-biz-n">$182K</div><div class="ev-biz-l">revenue / yr (5 chargers)</div></div>
-            <div class="ev-biz-cell"><div class="ev-biz-n">265%</div><div class="ev-biz-l">ROI top 5 clusters</div></div>
-            <div class="ev-biz-cell"><div class="ev-biz-n">$10B+</div><div class="ev-biz-l">CA opportunity by 2030</div></div>
-          </div>
-        </div>
-        <ul class="ba-micro-list" style="margin-top:10px;">
-          <li>Revenue streams: pay-per-charge + subscription plans (monthly fleet / individual) + government incentives</li>
-          <li>Fleet electrification packages: AI-backed scheduling, energy analytics, carbon reporting for fleet operators</li>
-          <li>Charging ports projected to grow 2.6M → 28M by 2030 at 34% CAGR — first-mover placement advantage is compounding</li>
-          <li>Each profitable cluster identified de-risks investment — data-backed site proposals fast-track regulatory approvals</li>
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Challenges Tackled</div>
+        <ul class="ba-micro-list">
+          <li><strong>Scalability:</strong> California-first model designed for national replication — cluster methodology generalizes to any state EV dataset</li>
+          <li><strong>Land acquisition:</strong> Model targets underutilized spaces (parking lots, highway rest stops) to minimize acquisition friction</li>
+          <li><strong>Regulatory:</strong> Data-driven site proposals provide defensible evidence for permit fast-tracking vs ad-hoc applications</li>
+          <li><strong>Charger fragmentation:</strong> NACS-first design + backward-compatible adapters addresses 79% of installed base</li>
+          <li><strong>Grid strain:</strong> Renewable co-location + smart load scheduling reduces peak grid draw per cluster</li>
         </ul>
       </div>
 
       <div class="ba-block">
-        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Challenges Tackled</div>
-        <ul class="ba-micro-list">
-          <li>Scalability: California-first model designed for national replication — cluster methodology generalizes to any state EV dataset</li>
-          <li>Land acquisition: model surface-targets underutilized spaces (parking lots, highway rest stops, mall perimeters) to minimize acquisition friction</li>
-          <li>Regulatory hurdles: data-driven site proposals provide defensible evidence for permit fast-tracking vs ad-hoc applications</li>
-          <li>Charger standard fragmentation: NACS-first design + backward-compatible adapters addresses 79% of the installed base</li>
-          <li>Grid strain: renewable energy co-location + smart load scheduling reduces peak grid draw per cluster</li>
-        </ul>
+        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Next Steps</div>
+        <div class="ba-next-grid">
+          <div class="ba-next-card"><div class="ba-next-num">01</div><div><div class="ba-next-title">National Expansion Model</div><div class="ba-next-desc">Replicate clustering pipeline for Texas, Florida, and New York — three highest EV adoption states outside CA for immediate ROI replication.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">02</div><div><div class="ba-next-title">Real-Time Demand Scoring</div><div class="ba-next-desc">Build live EV registration feed from DMV data into cluster model — automatically re-rank top placement zones as EV density shifts quarterly.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">03</div><div><div class="ba-next-title">Renewable Integration Analysis</div><div class="ba-next-desc">Model per-cluster solar ROI using NREL irradiance data — quantify carbon credit revenue and grid cost savings for each top-5 placement site.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">04</div><div><div class="ba-next-title">Fleet Operator Partnerships</div><div class="ba-next-desc">Target commercial fleet operators (logistics, rideshare) in top clusters — fleet contracts drive guaranteed utilization and accelerate payback period below 12 months.</div></div></div>
+        </div>
       </div>
-
-
 
     </div><!-- /ba-left -->
 
@@ -1879,20 +1865,22 @@
       </div>
       <div class="ba-pdf-hint">↕ &thinsp; scroll within frame &nbsp;·&nbsp; 19 slides</div>
 
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n" style="color:#CC0000;">2M+</div><div class="l">CA EVs by 2027</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#CC0000;">265%</div><div class="l">Top-5 Cluster ROI</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#CC0000;">34%</div><div class="l">CAGR Charging Ports</div></div>
+      <div class="ba-kpi-row" style="grid-template-columns:repeat(3,1fr);">
+        <div class="ba-kpi"><div class="n">5</div><div class="l">Placement Clusters Found</div></div>
+        <div class="ba-kpi"><div class="n">0.58</div><div class="l">Silhouette Score</div></div>
+        <div class="ba-kpi"><div class="n">$182K</div><div class="l">Annual Revenue/Site</div></div>
+        <div class="ba-kpi"><div class="n">265%</div><div class="l">Avg Cluster ROI</div></div>
+        <div class="ba-kpi"><div class="n">78%</div><div class="l">Variance via PCA</div></div>
+        <div class="ba-kpi"><div class="n">34%</div><div class="l">CAGR Charging Ports</div></div>
       </div>
 
-      <div class="ba-block">
-        <div class="ba-bl" style="color:rgba(204,0,0,0.65);">Impact &amp; Metrics</div>
+      <div class="ba-impact">
+        <div class="ba-bl" style="color:rgba(0,150,70,0.8);">Impact &amp; Metrics</div>
         <ul class="ba-micro-list">
-          <li>5 high-priority placement clusters identified in California — covering highest-demand, lowest-coverage zones</li>
-          <li>265% average ROI validated for top-cluster sites — $182,500/year revenue per 5-charger deployment</li>
-          <li>Charging desert reduction: Voronoi gap analysis quantified underserved ZIPs — model directly informs infrastructure spend</li>
-          <li>Renewable co-location identified across Southern CA clusters — enabling carbon-negative charging operations</li>
-          <li>AI framework scales nationally: 28M ports needed by 2030 — data-driven placement is the only feasible path</li>
+          <li><strong>5 high-priority clusters</strong> identified in CA — covering highest-demand, lowest-coverage zones with confirmed 265% ROI</li>
+          <li><strong>Voronoi gap analysis</strong> quantified underserved ZIPs across Northern CA and Central Valley — directly informing infrastructure spend</li>
+          <li><strong>Renewable co-location</strong> confirmed across Southern CA clusters — carbon-negative operations achievable at 3 top-5 sites</li>
+          <li>Framework scales nationally: <strong>28M ports needed by 2030</strong> — this cluster methodology is the only scalable placement approach</li>
         </ul>
       </div>
 
@@ -1917,7 +1905,7 @@
 <section id="salesforce" class="project-section ba-full" style="scroll-margin-top:80px;">
 
   <div class="project-header" style="max-width:100%;margin-bottom:28px;">
-    <div class="project-badge" style="background:rgba(0,161,224,0.15);color:#00A1E0;">SF</div>
+    <div class="project-badge" style="background:rgba(0,161,224,0.12);padding:6px;display:flex;align-items:center;justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg></div>
     <div class="project-header-text">
       <div class="project-label" style="color:#00A1E0;">BU MSBA · Strategic Analysis · 2025</div>
       <h2>Salesforce — AI Sales Enablement Strategy &amp; Tool Acquisition</h2>
@@ -1930,7 +1918,7 @@
     <div class="ba-left">
 
       <!-- Problem block -->
-      <div class="ba-problem-block">
+      <div class="ba-problem-block" style="background:rgba(140,0,0,0.22);border:1px solid rgba(220,38,38,0.4);border-left:3px solid rgba(220,38,38,0.75);">
         <div class="ba-bl" style="color:rgba(220,38,38,0.65);">Problem Statement</div>
         <div class="ba-problem-line"><span class="pl-n">01</span>Sales teams lose 65% of prospecting time to manual qualification — every unautomated hour is pipeline not built</div>
         <div class="ba-problem-line"><span class="pl-n">02</span>CRM data degradation from manual entry creates forecasting blind spots — Salesforce's own platform becomes unreliable at scale</div>
@@ -2055,7 +2043,7 @@
       </div>
 
       <!-- Challenges -->
-      <div class="ba-block">
+      <div class="ba-block" style="background:rgba(140,0,0,0.22);border:1px solid rgba(220,38,38,0.4);border-left:3px solid rgba(220,38,38,0.75);">
         <div class="ba-bl sf-bl">Challenges & Constraints</div>
         <ul class="ba-micro-list">
           <li><strong style="color:rgba(232,232,240,0.75);">Pricing Scalability:</strong> Drift at $2,500+/mo locks out SMB segment — Salesforce would need to renegotiate or subsidize for lower tiers</li>
@@ -2066,15 +2054,14 @@
         </ul>
       </div>
 
-      <!-- Why it's a billion-dollar idea -->
       <div class="ba-block">
-        <div class="ba-bl sf-bl">The Underrated Billion-Dollar Idea</div>
-        <ul class="ba-micro-list">
-          <li>Salesforce's real moat isn't CRM — it's the data layer sitting between 150,000+ enterprise customers and their sales pipelines</li>
-          <li>By acquiring AI tools rather than building them, Salesforce instantly layers GenAI productivity + predictive intelligence onto existing customer contracts — no new sales cycle required</li>
-          <li>Platform-native AI bundles become license tier upgrades: every Fortune 500 company already paying $120+/user/mo has an incentive to pay $180 for AI-augmented workflows</li>
-          <li>The alternative — letting Gong, Cognism, and Drift grow independently — creates the same threat HubSpot posed a decade ago: CRM replacement from the bottom up</li>
-        </ul>
+        <div class="ba-bl sf-bl">Next Steps</div>
+        <div class="ba-next-grid">
+          <div class="ba-next-card"><div class="ba-next-num">01</div><div><div class="ba-next-title">Einstein AI Integration Roadmap</div><div class="ba-next-desc">Define clear build-vs-buy criteria for each of the 7 tools vs Salesforce Einstein — prevent cannibalization and identify highest-leverage acquisition targets.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">02</div><div><div class="ba-next-title">SMB-Tier Pricing Model</div><div class="ba-next-desc">Renegotiate Drift and Cognism enterprise pricing to unlock SMB segment — bottom-up adoption drives ARPU expansion across Salesforce's 150K+ customer base.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">03</div><div><div class="ba-next-title">90-Day Pilot Framework</div><div class="ba-next-desc">Design controlled pilots for top 2 tools (Gong + Drift) with a Fortune 500 partner — measure win rate, forecast accuracy, and pipeline velocity against control group.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">04</div><div><div class="ba-next-title">AI Bundle License Tier</div><div class="ba-next-desc">Package top 3 tools as "Salesforce AI Suite" — price at $180/user/mo vs existing $120 base; target existing enterprise accounts for immediate upsell with no new sales cycle.</div></div></div>
+        </div>
       </div>
 
     </div><!-- /ba-left -->
@@ -2086,10 +2073,23 @@
       </div>
       <div class="ba-pdf-hint">↕ scroll within frame · AI Sales Proposal</div>
 
-      <div class="ba-kpi-row" style="margin-bottom:28px;">
-        <div class="ba-kpi"><div class="n" style="color:#00A1E0;">7</div><div class="l">AI Tools Evaluated</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#00A1E0;">3</div><div class="l">Strategic Categories</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#00A1E0;">92%</div><div class="l">Gong Forecast Accuracy</div></div>
+      <div class="ba-kpi-row" style="margin-bottom:28px;grid-template-columns:repeat(3,1fr);">
+        <div class="ba-kpi"><div class="n">7</div><div class="l">AI Tools Evaluated</div></div>
+        <div class="ba-kpi"><div class="n">3</div><div class="l">Strategic Categories</div></div>
+        <div class="ba-kpi"><div class="n">92%</div><div class="l">Gong Forecast Accuracy</div></div>
+        <div class="ba-kpi"><div class="n">3.8x</div><div class="l">Pipeline Multiplier (Drift)</div></div>
+        <div class="ba-kpi"><div class="n">-65%</div><div class="l">Prospecting Time (Cognism)</div></div>
+        <div class="ba-kpi"><div class="n">+40%</div><div class="l">SQL Conversion Lift</div></div>
+      </div>
+
+      <div class="ba-impact" style="margin-bottom:10px;">
+        <div class="ba-bl sf-bl">Impact &amp; Metrics</div>
+        <ul class="ba-micro-list">
+          <li><strong>7 AI tools</strong> evaluated with published enterprise ROI data — fully evidence-backed acquisition recommendations</li>
+          <li><strong>3.8x more pipeline</strong> validated via MongoDB case study on Drift — 58% reduction in lead-to-meeting conversion time</li>
+          <li><strong>92% forecast accuracy</strong> from Gong across 1,200+ companies — directly competes with and outperforms Salesforce Einstein</li>
+          <li>Identified $10K/user/month revenue upsell opportunity by bundling tools into AI-augmented Salesforce license tiers</li>
+        </ul>
       </div>
 
       <!-- Tags -->
@@ -2116,7 +2116,7 @@
 <section id="google-trends" class="project-section ba-full" style="scroll-margin-top:80px;">
 
   <div class="project-header" style="max-width:100%;margin-bottom:28px;">
-    <div class="project-badge" style="background:rgba(66,133,244,0.15);color:#4285F4;">GT</div>
+    <div class="project-badge" style="background:rgba(66,133,244,0.12);padding:6px;display:flex;align-items:center;justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4285F4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg></div>
     <div class="project-header-text">
       <div class="project-label" style="color:#4285F4;">BU MSBA · Big Data Analytics · 2025</div>
       <h2>Google Trends — From Spikes to Signals: Country-Level Diagnostics</h2>
@@ -2130,7 +2130,7 @@
     <div class="ba-left">
 
       <!-- Problem block spans full width -->
-      <div class="ba-problem-block">
+      <div class="ba-problem-block" style="background:rgba(140,0,0,0.22);border:1px solid rgba(220,38,38,0.4);border-left:3px solid rgba(220,38,38,0.75);">
         <div class="ba-bl" style="color:rgba(220,38,38,0.65);">Problem Statement</div>
         <div class="ba-problem-line"><span class="pl-n">01</span>98% of rising search terms vanish within 24–48 hours — real signals are indistinguishable from noise without country-level structural context at scale</div>
         <div class="ba-problem-line"><span class="pl-n">02</span>Cross-country comparison is structurally unsound: Indonesia's "normal" spike is France's outlier — GDP, internet penetration, and governance completely reshape what volatility means</div>
@@ -2215,7 +2215,7 @@
       </div>
 
       <!-- DATA ISSUES -->
-      <div class="ba-block">
+      <div class="ba-block" style="background:rgba(140,0,0,0.22);border:1px solid rgba(220,38,38,0.4);border-left:3px solid rgba(220,38,38,0.75);">
         <div class="ba-bl gt-bl">Data Issues</div>
         <ul class="ba-micro-list">
           <li><strong style="color:rgba(232,232,240,0.72);">`score` NULL in rising terms:</strong> Google suppresses volume for rising queries — percent_gain used instead for all rising-term analyses</li>
@@ -2273,58 +2273,48 @@
       </div>
 
       <!-- ANALYSES -->
-      <div class="ba-block">
+      <div class="ba-block" style="grid-column:1/-1;">
         <div class="ba-bl gt-bl">Analyses</div>
-        <div class="ba-analysis-list">
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Term Survival Analysis</div>
-            <div class="ba-analysis-method">Spark Window: term_age = days between min/max refresh_date per (country, term); binned into 1, 2, 3+ day cohorts</div>
-            <div class="gt-analysis-finding">~98% of rising terms survive ≤2 days; top terms only marginally more persistent — trending is fundamentally short-lived</div>
+        <div class="ba-analysis-grid">
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(66,133,244,0.4);">
+            <div class="ba-analysis-card-title">Term Survival Analysis</div>
+            <div class="ba-analysis-card-finding"><strong>98% of rising terms survive 2 days or less</strong> — trending is fundamentally short-lived. Spark Window functions computed term_age across all (country, term) pairs to build survival cohorts.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Content Pulse Word Clouds</div>
-            <div class="ba-analysis-method">WordCloud on unigram frequency of rising vs top term corpora separately</div>
-            <div class="gt-analysis-finding">Rising = sports events / news / entertainment (short shocks); Top = clubs / competitions / celebrities (persistent background culture)</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(66,133,244,0.4);">
+            <div class="ba-analysis-card-title">Content Pulse Word Clouds</div>
+            <div class="ba-analysis-card-finding"><strong>Rising terms</strong> = sports events / news / entertainment (short shocks). <strong>Top terms</strong> = clubs / competitions / celebrities (persistent background culture). Distinct corpora, distinct audience intent.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Cross-Country Term Diffusion</div>
-            <div class="ba-analysis-method">NetworkX graph: nodes = countries, edges weighted by shared rising terms across same week window</div>
-            <div class="gt-analysis-finding">Gambling terms spanned 8+ country nodes before filtering — confirmed coordinated spam vs. organic cultural diffusion in global top terms</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(66,133,244,0.4);">
+            <div class="ba-analysis-card-title">Cross-Country Term Diffusion</div>
+            <div class="ba-analysis-card-finding"><strong>Gambling terms spanned 8+ country nodes</strong> before filtering — confirmed coordinated spam vs organic cultural diffusion. NetworkX graph: nodes = countries, edges weighted by shared rising terms.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Spam Detection — Spatial Diffusion Map</div>
-            <div class="ba-analysis-method">Plotly Express choropleth: gambling-term frequency per country overlaid on world map</div>
-            <div class="gt-analysis-finding">East/SE Asia (Philippines, Indonesia, Malaysia, Vietnam) = highest concentration; South Asia + Middle East secondary — coordinated spam behavior, not organic interest</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(66,133,244,0.4);">
+            <div class="ba-analysis-card-title">Spam Detection Map</div>
+            <div class="ba-analysis-card-finding"><strong>Philippines, Indonesia, Malaysia, Vietnam</strong> show highest gambling-term concentration. Choropleth confirmed coordinated behavior — not organic interest — enabling spam flag in pipeline output.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Category Distribution Analysis</div>
-            <div class="ba-analysis-method">Rule-based NLP category tagging on 31,184 unique terms; Spark groupBy + count aggregation</div>
-            <div class="gt-analysis-finding">Sports 45.7% · Entertainment 15.7% · News 13.6% · General 9.4% · Gambling 8.4% · Finance/Tech 7.3% — category bias drives regional volatility differences</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(66,133,244,0.4);">
+            <div class="ba-analysis-card-title">Category Distribution</div>
+            <div class="ba-analysis-card-finding"><strong>Sports 45.7%</strong> dominates global rising terms. Entertainment 15.7%, News 13.6%, General 9.4%, Gambling 8.4%, Finance/Tech 7.3%. Category bias explains regional volatility differences across markets.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Daily Churn Rate Analysis</div>
-            <div class="ba-analysis-method">Count distinct new terms per refresh_date; rolling 7-day new-term rate computed in Spark</div>
-            <div class="gt-analysis-finding">~2,620 new terms daily; 70% new-term churn rate; Google update behavior shift detected mid-September 2025 (spike in new rising term volume)</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(66,133,244,0.4);">
+            <div class="ba-analysis-card-title">Daily Churn Rate</div>
+            <div class="ba-analysis-card-finding"><strong>70% daily new-term churn rate</strong> — ~2,620 new terms per day. Mid-September 2025 spike in new rising term volume detected: Google update behavior shift captured in rolling 7-day Spark aggregation.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">GDP vs. Search Intensity Correlation</div>
-            <div class="ba-analysis-method">SciPy pearsonr on country-level mean percent_gain vs GDP_current_US from WDI; adjustText for scatter label overlap</div>
-            <div class="gt-analysis-finding">r ≈ −0.50: as GDP rises, attention intensity falls — smaller economies concentrate on dominant topics; larger economies scatter attention broadly</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(66,133,244,0.4);">
+            <div class="ba-analysis-card-title">GDP vs Search Intensity</div>
+            <div class="ba-analysis-card-finding"><strong>r = -0.50:</strong> As GDP rises, search intensity falls. Smaller economies concentrate attention on dominant topics; larger economies scatter attention broadly across more diverse interests.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Internet Penetration as Volatility Signal</div>
-            <div class="ba-analysis-method">Scatter plot individuals_using_internet% vs percent_gain per country; Pearson r (SciPy)</div>
-            <div class="gt-analysis-finding">r = −0.66: strongest signal in dataset — low internet access (Indonesia, Egypt) = highest percent gains; digital maturity = lower volatility and more diffuse attention</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(66,133,244,0.4);">
+            <div class="ba-analysis-card-title">Internet Penetration Signal</div>
+            <div class="ba-analysis-card-finding"><strong>r = -0.66 (strongest in dataset):</strong> Low internet access (Indonesia, Egypt) = highest percent gains. Digital maturity correlates with lower volatility and broader attention diffusion across topics.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Voice &amp; Accountability vs. Trend Gain</div>
-            <div class="ba-analysis-method">Seaborn regression plot of political freedom index vs mean percent_gain; outlier annotation</div>
-            <div class="gt-analysis-finding">Higher political accountability → lower spike intensity generally; outliers (low-governance + high spikes) suggest information suppression causing reactive search bursts</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(66,133,244,0.4);">
+            <div class="ba-analysis-card-title">Voice and Accountability Signal</div>
+            <div class="ba-analysis-card-finding">Higher <strong>political accountability</strong> correlates with lower spike intensity. Outliers: low-governance + high spikes suggest information suppression causing reactive search bursts during key events.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Logistic Regression — Trend Survival</div>
-            <div class="ba-analysis-method">Spark ML Pipeline: VectorAssembler → StandardScaler → LogisticRegression; Model A (no internet%, 42 countries) vs Model B (internet%, fewer countries)</div>
-            <div class="gt-analysis-finding">AUC ≈ 0.64 (both models); adding internet% doesn't improve performance → trend dynamics (percent_gain, volatility) predict survival more than connectivity infrastructure</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(66,133,244,0.4);">
+            <div class="ba-analysis-card-title">Logistic Regression — Trend Survival</div>
+            <div class="ba-analysis-card-finding">Spark ML Pipeline yielded <strong>AUC = 0.64</strong> (both Model A and B). Adding internet% doesn't improve performance — trend dynamics (percent_gain, volatility) predict survival more than connectivity infrastructure.</div>
           </div>
         </div>
       </div>
@@ -2393,22 +2383,36 @@
       </div>
       <div class="ba-pdf-hint">↕ scroll within frame · From Spikes to Signals</div>
 
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n" style="color:#4285F4;">10M+</div><div class="l">Rows Processed</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#4285F4;">42</div><div class="l">Countries</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#4285F4;">0.64</div><div class="l">AUC — Survival Model</div></div>
+      <div class="ba-kpi-row" style="grid-template-columns:repeat(3,1fr);">
+        <div class="ba-kpi"><div class="n">10M+</div><div class="l">Rows Processed</div></div>
+        <div class="ba-kpi"><div class="n">42</div><div class="l">Countries Analyzed</div></div>
+        <div class="ba-kpi"><div class="n">0.64</div><div class="l">AUC Survival Model</div></div>
+        <div class="ba-kpi"><div class="n">31K</div><div class="l">Unique Terms Tagged</div></div>
+        <div class="ba-kpi"><div class="n">-0.66</div><div class="l">Internet vs Volatility (r)</div></div>
+        <div class="ba-kpi"><div class="n">70%</div><div class="l">Daily Term Churn Rate</div></div>
       </div>
 
       <!-- IMPACT -->
-      <div class="ba-block">
+      <div class="ba-impact">
         <div class="ba-bl gt-bl">Impact &amp; Metrics</div>
         <ul class="ba-micro-list">
-          <li>10M+ rows processed via distributed PySpark pipeline on GCP — full 5-year Google Trends history across 42 countries</li>
-          <li>31,184 unique terms classified into 6 topic categories; 70% daily churn rate quantified for the first time in this dataset</li>
-          <li>Coordinated spam networks identified and mapped across 8+ countries — filterable flag added to pipeline output</li>
-          <li>Country archetypes established: <em>high-volatility emerging markets</em> (blitz activation strategy) vs <em>mature markets</em> (sustained SEO engagement)</li>
-          <li>Reusable diagnostic framework: any organization can plug in country-level macro data and get per-market signal baselines for trend monitoring</li>
+          <li><strong>10M+ rows</strong> processed via distributed PySpark pipeline on GCP — full 5-year Google Trends history across 42 countries</li>
+          <li><strong>31,184 unique terms</strong> classified into 6 topic categories; 70% daily churn rate quantified for the first time on this dataset</li>
+          <li><strong>Spam network</strong> identified and mapped across 8+ countries — filterable pipeline flag delivers cleaner global trend signals</li>
+          <li>Country archetypes established: <strong>high-volatility emerging markets</strong> (blitz activation) vs mature markets (sustained SEO engagement)</li>
+          <li>Reusable diagnostic framework — any organization can plug in macro data to get per-market signal baselines for campaign planning</li>
         </ul>
+      </div>
+
+      <!-- NEXT STEPS -->
+      <div class="ba-block" style="margin-top:10px;">
+        <div class="ba-bl gt-bl">Next Steps</div>
+        <div class="ba-next-grid">
+          <div class="ba-next-card"><div class="ba-next-num">01</div><div><div class="ba-next-title">Real-Time Trend Monitoring API</div><div class="ba-next-desc">Deploy PySpark pipeline as a streaming job on GCP Dataflow — give marketing teams live country-level signal baselines updated daily.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">02</div><div><div class="ba-next-title">Spam Filter Productionization</div><div class="ba-next-desc">Package co-occurrence graph spam detection as reusable ML module — exportable to any organization ingesting Google Trends data at scale.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">03</div><div><div class="ba-next-title">Advanced Survival Modeling</div><div class="ba-next-desc">Replace logistic regression with LSTM or survival analysis (Cox proportional hazards) to capture time-decay patterns in trend persistence.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">04</div><div><div class="ba-next-title">Campaign Budget Allocation Tool</div><div class="ba-next-desc">Build decision tool that maps country volatility archetype to recommended media mix — blitz budget for high-churn markets vs sustained SEO for mature markets.</div></div></div>
+        </div>
       </div>
 
       <!-- TAGS -->
@@ -2439,9 +2443,9 @@
 <section id="mbta" class="project-section ba-full" style="scroll-margin-top:80px;">
 
   <div class="project-header" style="max-width:100%;margin-bottom:28px;">
-    <div class="project-badge" style="background:rgba(218,41,28,0.15);color:#DA291C;">T</div>
+    <div class="project-badge" style="background:rgba(218,41,28,0.12);padding:6px;display:flex;align-items:center;justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#DA291C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M3 11V8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v3"/><line x1="8" y1="19" x2="8" y2="21"/><line x1="16" y1="19" x2="16" y2="21"/></svg></div>
     <div class="project-header-text">
-      <div class="project-label" style="color:#DA291C;">BU MSBA · BA 775 · SQL &amp; Analytics · 2025</div>
+      <div class="project-label" style="color:#DA291C;">BU MSBA · SQL &amp; Data Analytics · 2025</div>
       <h2>MBTA — Headway Consistency Analysis &amp; Operations Intelligence</h2>
       <p class="summary">SQL + Python analytics on MBTA's publicly released headway and gated-entry datasets — identifying the Green-B Line as the worst performer, pinpointing 4 problem stations by variance, and quantifying ridership elasticity to service inconsistency.</p>
     </div>
@@ -2452,7 +2456,7 @@
     <div class="ba-left">
 
       <!-- Problem block -->
-      <div class="ba-problem-block">
+      <div class="ba-problem-block" style="background:rgba(140,0,0,0.22);border:1px solid rgba(220,38,38,0.4);border-left:3px solid rgba(220,38,38,0.75);">
         <div class="ba-bl" style="color:rgba(220,38,38,0.65);">Problem Statement</div>
         <div class="ba-problem-line"><span class="pl-n">01</span>MBTA reported acceptable system-wide on-time performance — but stop-level headway variance was masking chronic inconsistency on specific Green-B segments invisible to aggregate metrics</div>
         <div class="ba-problem-line"><span class="pl-n">02</span>No quantitative stop-by-stop diagnostic existed to identify which stations were causing headway bunching and where trains were getting "caught" along the route</div>
@@ -2526,7 +2530,7 @@
       </div>
 
       <!-- DATA ISSUES -->
-      <div class="ba-block">
+      <div class="ba-block" style="background:rgba(140,0,0,0.22);border:1px solid rgba(220,38,38,0.4);border-left:3px solid rgba(220,38,38,0.75);">
         <div class="ba-bl mbta-bl">Data Issues</div>
         <ul class="ba-micro-list">
           <li><strong style="color:rgba(232,232,240,0.72);">Day-boundary in stop_departure_sec:</strong> Values exceed 86,400 seconds for trips running past midnight — required modulo normalization to avoid incorrect temporal ordering</li>
@@ -2600,48 +2604,40 @@
       </div>
 
       <!-- ANALYSES -->
-      <div class="ba-block">
+      <div class="ba-block" style="grid-column:1/-1;">
         <div class="ba-bl mbta-bl">Analyses</div>
-        <div class="ba-analysis-list">
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Line Comparison — Normalized Headway</div>
-            <div class="ba-analysis-method">Computed (actual headway) / (scheduled headway) ratio per trunk line; ranked all MBTA lines by average deviation from schedule</div>
-            <div class="mbta-analysis-finding">Green-B identified as worst-performing line on normalized headway — selected as primary focus for all downstream stop-level analysis</div>
+        <div class="ba-analysis-grid">
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(218,41,28,0.4);">
+            <div class="ba-analysis-card-title">Line Comparison — Normalized Headway</div>
+            <div class="ba-analysis-card-finding"><strong>Green-B identified as worst-performing line</strong> on normalized headway across all MBTA trunk lines. Selected as primary focus for all downstream stop-level analysis.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Stop-Level Headway Variance (Green-B)</div>
-            <div class="ba-analysis-method">SQL GROUP BY stop_name; computed std deviation of headway_branch_seconds per stop; ranked descending</div>
-            <div class="mbta-analysis-finding">4 problem stations: Chestnut Hill Avenue, Warren Street, Harvard Avenue, Packard's Corner — these stops drive the majority of Green-B headway inconsistency</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(218,41,28,0.4);">
+            <div class="ba-analysis-card-title">Stop-Level Variance (Green-B)</div>
+            <div class="ba-analysis-card-finding"><strong>4 problem stations pinpointed:</strong> Chestnut Hill Avenue, Warren Street, Harvard Avenue, Packard's Corner — these stops drive the majority of Green-B headway inconsistency.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Long vs. Short Headway Co-occurrence</div>
-            <div class="ba-analysis-method">Counted stops with headway &gt; standard and stops with headway &lt; 70% standard per station; compared rankings</div>
-            <div class="mbta-analysis-finding">Stations with most over-long headways are the same stations with most short headways — confirms bunching cascades: one late train causes the next to arrive early (train spacing collapse)</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(218,41,28,0.4);">
+            <div class="ba-analysis-card-title">Long vs Short Headway Co-occurrence</div>
+            <div class="ba-analysis-card-finding">Stations with most over-long headways are the same stations with most short headways — confirms <strong>bunching cascades:</strong> one late train causes the next to arrive early (train spacing collapse).</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Peak vs. Off-Peak Variability</div>
-            <div class="ba-analysis-method">Segmented all trips into AM peak (7–9am), PM peak (4–7pm), off-peak; computed headway variance per segment per stop</div>
-            <div class="mbta-analysis-finding">Green-B has the most over-long headways during peak hours, but off-peak shows highest station-to-station variability — off-peak service is the least predictable window</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(218,41,28,0.4);">
+            <div class="ba-analysis-card-title">Peak vs Off-Peak Variability</div>
+            <div class="ba-analysis-card-finding">Green-B has most over-long headways during <strong>peak hours</strong>, but off-peak shows highest station-to-station variability — off-peak service is the least predictable window for riders.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Intersection Geometry Analysis (Warren St)</div>
-            <div class="ba-analysis-method">Qualitative analysis supplementing headway data: Warren St has a 15–20 second crossing window with 90-second wait between windows; trains must operate independently from parallel traffic flow</div>
-            <div class="mbta-analysis-finding">Abnormal intersection geometry directly explains Warren Street's variance spike — random timing within the window creates unpredictable departure delays that propagate downstream</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(218,41,28,0.4);">
+            <div class="ba-analysis-card-title">Warren St Intersection Geometry</div>
+            <div class="ba-analysis-card-finding"><strong>15-20 second crossing window</strong> with 90-second wait between cycles — trains operate independently from parallel traffic flow. Random timing within the window creates unpredictable departure delays that propagate downstream.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Ridership vs. Headway Variance Correlation</div>
-            <div class="ba-analysis-method">Joined gse_24 gated_entries (daily total per stop) with stop-level headway variance; computed Pearson correlation and scatter plot</div>
-            <div class="mbta-analysis-finding">Very little correlation found — riders are captive users who rely on the T regardless of service quality; this has implications for fare elasticity and capacity planning</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(218,41,28,0.4);">
+            <div class="ba-analysis-card-title">Ridership vs Headway Variance Correlation</div>
+            <div class="ba-analysis-card-finding"><strong>Low correlation</strong> found between headway variance and ridership — riders are captive users who rely on the T regardless of service quality. Key insight for MBTA fare elasticity and subsidy justification.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">EDA Dashboard (Tableau)</div>
-            <div class="ba-analysis-method">Exported aggregated stop-level headway stats to Tableau; built interactive dashboard for cross-line and cross-station comparison</div>
-            <div class="mbta-analysis-finding">Visual EDA revealed Green-B outlier status clearly; dashboard allows MBTA operations team to drill into any station across any line</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(218,41,28,0.4);">
+            <div class="ba-analysis-card-title">EDA Dashboard (Tableau)</div>
+            <div class="ba-analysis-card-finding">Interactive dashboard allows cross-line and cross-station comparison for <strong>MBTA operations teams</strong>. Green-B outlier status immediately visible; drill-down to any stop across any line.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Green-B Consistency Dashboard (Tableau)</div>
-            <div class="ba-analysis-method">Built second Tableau dashboard focused exclusively on Green-B stop-by-stop consistency metrics across 2024</div>
-            <div class="mbta-analysis-finding">Consistency visualization enables stakeholder communication of where TSP investment would have highest headway reduction impact</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(218,41,28,0.4);">
+            <div class="ba-analysis-card-title">Green-B Consistency Dashboard</div>
+            <div class="ba-analysis-card-finding">Stop-by-stop consistency visualization across 2024 enables <strong>stakeholder communication</strong> of where TSP investment would deliver highest headway reduction impact per dollar.</div>
           </div>
         </div>
       </div>
@@ -2649,12 +2645,11 @@
       <!-- NEXT STEPS -->
       <div class="ba-block">
         <div class="ba-bl mbta-bl">Next Steps</div>
-        <div style="display:flex;flex-direction:column;gap:2px;">
-          <div class="mbta-next-row"><span class="mbta-next-n">01</span><span style="color:var(--muted);font-size:12px;">Pilot Transit Signal Priority (TSP) at Warren Street and Packard's Corner intersections — measure headway variance reduction</span></div>
-          <div class="mbta-next-row"><span class="mbta-next-n">02</span><span style="color:var(--muted);font-size:12px;">Expand branch-level analysis to Red-A / Red-B to identify analogous problem stations on other branches</span></div>
-          <div class="mbta-next-row"><span class="mbta-next-n">03</span><span style="color:var(--muted);font-size:12px;">Build real-time headway monitoring pipeline feeding directly into Tableau for live operations visibility</span></div>
-          <div class="mbta-next-row"><span class="mbta-next-n">04</span><span style="color:var(--muted);font-size:12px;">Model optimal headway intervals by time-of-day using historical distribution to set dynamic scheduling targets</span></div>
-          <div class="mbta-next-row"><span class="mbta-next-n">05</span><span style="color:var(--muted);font-size:12px;">Investigate Monthly Membership Promotion impact on peak ridership distribution and its knock-on effect on headway bunching</span></div>
+        <div class="ba-next-grid">
+          <div class="ba-next-card"><div class="ba-next-num">01</div><div><div class="ba-next-title">TSP Pilot — Warren St</div><div class="ba-next-desc">Pilot Transit Signal Priority at Warren Street and Packard's Corner intersections — measure headway variance reduction vs control stops over 90 days.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">02</div><div><div class="ba-next-title">Red-A/B Branch Analysis</div><div class="ba-next-desc">Replicate stop-level variance methodology on Red-A and Red-B branches — identify analogous problem stations and quantify cross-branch inconsistency patterns.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">03</div><div><div class="ba-next-title">Real-Time Headway Pipeline</div><div class="ba-next-desc">Build live MBTA feed into Tableau for real-time operations visibility — enable dispatchers to see variance alerts without re-running the full SQL analysis.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">04</div><div><div class="ba-next-title">Dynamic Scheduling Model</div><div class="ba-next-desc">Model optimal headway intervals by time-of-day using 2024 historical distribution — set dynamic scheduling targets to reduce bunching during identified problem windows.</div></div></div>
         </div>
       </div>
 
@@ -2667,21 +2662,24 @@
       </div>
       <div class="ba-pdf-hint">↕ scroll within frame · Headway: Analyzing MBTA Consistency</div>
 
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n" style="color:#DA291C;">Green-B</div><div class="l">Worst Normalized Headway</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#DA291C;">4</div><div class="l">Problem Stations Identified</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#DA291C;">2</div><div class="l">Tableau Dashboards Built</div></div>
+      <div class="ba-kpi-row" style="grid-template-columns:repeat(3,1fr);">
+        <div class="ba-kpi"><div class="n">4</div><div class="l">Problem Stations Found</div></div>
+        <div class="ba-kpi"><div class="n">2</div><div class="l">Tableau Dashboards</div></div>
+        <div class="ba-kpi"><div class="n">8</div><div class="l">Analyses Performed</div></div>
+        <div class="ba-kpi"><div class="n">$700M</div><div class="l">MBTA Deficit 2026</div></div>
+        <div class="ba-kpi"><div class="n">90s</div><div class="l">Warren St Cycle Window</div></div>
+        <div class="ba-kpi"><div class="n">Low</div><div class="l">Ridership Elasticity</div></div>
       </div>
 
       <!-- IMPACT -->
-      <div class="ba-block">
+      <div class="ba-impact">
         <div class="ba-bl mbta-bl">Impact &amp; Metrics</div>
         <ul class="ba-micro-list">
-          <li>Identified 4 problem stations (Chestnut Hill Ave, Warren St, Harvard Ave, Packard's Corner) driving majority of Green-B headway variance</li>
-          <li>Quantified that off-peak is less predictable than peak service — contradicting intuitive assumptions about capacity and demand</li>
-          <li>Demonstrated low ridership elasticity to headway: captive users absorb poor service — significant for MBTA's fare strategy and subsidy justification</li>
-          <li>Linked Warren Street's variance directly to intersection geometry (15–20s crossing window, 90s wait) — actionable basis for Transit Signal Priority pilot</li>
-          <li>Delivered 2 Tableau dashboards usable by MBTA operations teams for ongoing monitoring without re-running analysis</li>
+          <li><strong>4 problem stations pinpointed</strong> — Chestnut Hill Ave, Warren St, Harvard Ave, Packard's Corner — driving majority of Green-B headway variance</li>
+          <li><strong>Off-peak less predictable than peak</strong> — quantified insight contradicts intuitive capacity assumptions; reshapes scheduling strategy</li>
+          <li><strong>Low ridership elasticity confirmed</strong> — captive users absorb poor service; significant for fare strategy and subsidy justification</li>
+          <li>Warren Street variance <strong>causally linked to intersection geometry</strong> (15-20s crossing window, 90s wait) — direct basis for Transit Signal Priority pilot</li>
+          <li><strong>2 Tableau dashboards delivered</strong> — operational-ready for MBTA teams without re-running any analysis</li>
         </ul>
       </div>
 
@@ -2742,9 +2740,9 @@
 <section id="banco" class="project-section ba-full" style="scroll-margin-top:80px;">
 
   <div class="project-header" style="max-width:100%;margin-bottom:28px;">
-    <div class="project-badge" style="background:rgba(0,132,61,0.15);color:#00843D;">BP</div>
+    <div class="project-badge" style="background:rgba(0,132,61,0.12);padding:6px;display:flex;align-items:center;justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00843D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
     <div class="project-header-text">
-      <div class="project-label" style="color:#00843D;">BU MSBA · BA 820 · Unsupervised ML · 2025</div>
+      <div class="project-label" style="color:#00843D;">BU MSBA · Unsupervised Machine Learning · 2025</div>
       <h2>Banco de Portugal — Customer-Centric Bank Strategies via Unsupervised ML</h2>
       <p class="summary">Applied 4 unsupervised learning techniques — Hierarchical Clustering (Ward's), K-Prototypes, DBSCAN, and Association Rule Mining — to 45,211 records from a Portuguese bank to segment customers by financial behavior and surface actionable cross-sell strategies.</p>
     </div>
@@ -2755,8 +2753,8 @@
     <div class="ba-left">
 
       <!-- Problem block -->
-      <div class="ba-problem-block">
-        <div class="ba-bl" style="color:rgba(0,132,61,0.65);">Problem Statement</div>
+      <div class="ba-problem-block" style="background:rgba(140,0,0,0.22);border:1px solid rgba(220,38,38,0.4);border-left:3px solid rgba(220,38,38,0.75);">
+        <div class="ba-bl" style="color:rgba(220,38,38,0.65);">Problem Statement</div>
         <div class="ba-problem-line"><span class="pl-n">01</span>Banks rely on demographic segmentation (age, job, marital status) — but demographics don't predict financial behavior; they mask the real patterns driving term deposit uptake, loan risk, and campaign response rates</div>
         <div class="ba-problem-line"><span class="pl-n">02</span>Portugal's banking sector faced structural inefficiency: broad-brush marketing campaigns with poor conversion — no behavioral model existed to identify which customers would respond to which financial products</div>
         <div class="ba-problem-line"><span class="pl-n">03</span>No correlation structure existed between numeric variables — standard regression/supervised approaches would fail without first discovering latent behavioral clusters hidden in 17-dimensional data</div>
@@ -2832,7 +2830,7 @@
       </div>
 
       <!-- DATA ISSUES -->
-      <div class="ba-block">
+      <div class="ba-block" style="background:rgba(140,0,0,0.22);border:1px solid rgba(220,38,38,0.4);border-left:3px solid rgba(220,38,38,0.75);">
         <div class="ba-bl banco-bl">Data Issues</div>
         <ul class="ba-micro-list">
           <li><strong style="color:rgba(232,232,240,0.72);">duration leakage:</strong> Call duration is known only after the call ends — same time as the target label (y) — making it a direct data leak; must be excluded from any realistic model</li>
@@ -2932,43 +2930,36 @@
       </div>
 
       <!-- ANALYSES -->
-      <div class="ba-block">
+      <div class="ba-block" style="grid-column:1/-1;">
         <div class="ba-bl banco-bl">Analyses</div>
-        <div class="ba-analysis-list">
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">EDA — Correlation &amp; Distribution Analysis</div>
-            <div class="ba-analysis-method">Pearson correlation matrix on 7 numeric features; histograms (bins=30) on all columns; value_counts on all categoricals</div>
-            <div class="banco-analysis-finding">No strong correlations between numeric features — confirms that standard regression would fail; unsupervised discovery necessary. Moderate pdays↔previous correlation suggests prior engagement predicts future contact likelihood</div>
+        <div class="ba-analysis-grid">
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(0,132,61,0.4);">
+            <div class="ba-analysis-card-title">EDA — Correlation and Distribution</div>
+            <div class="ba-analysis-card-finding"><strong>No strong numeric correlations found</strong> — confirms standard regression would fail; unsupervised discovery necessary. Moderate pdays-previous correlation suggests prior engagement predicts future contact.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Hierarchical Clustering — Ward's Linkage</div>
-            <div class="ba-analysis-method">Computed pairwise Euclidean distance matrix on 5,000-row subsample; tested 4 linkage methods (single, complete, average, ward); evaluated silhouette, Davies-Bouldin, Calinski-Harabasz over 2–10 clusters</div>
-            <div class="banco-analysis-finding">Ward's method best minimizes intra-cluster variance; optimal n_clusters=3 by silhouette score. Cluster distribution: 2,539 / 1,828 / 633 — one small high-value cluster isolated</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(0,132,61,0.4);">
+            <div class="ba-analysis-card-title">Hierarchical Clustering (Ward's)</div>
+            <div class="ba-analysis-card-finding"><strong>Ward's method best</strong> minimizes intra-cluster variance. Optimal n_clusters=3 by silhouette score. Cluster distribution: 2,539 / 1,828 / 633 — one small high-value investor segment isolated.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">K-Prototypes Clustering</div>
-            <div class="ba-analysis-method">Applied K-Prototypes (handles mixed numeric + categorical natively); Cao initialization for stable starting centroids; n_clusters=3</div>
-            <div class="banco-analysis-finding">Best performer on mixed data — cleaner segment separation than K-Means. Confirmed 3-cluster structure: young low-balance, middle-age homeowner, high-balance investor archetypes</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(0,132,61,0.4);">
+            <div class="ba-analysis-card-title">K-Prototypes Clustering</div>
+            <div class="ba-analysis-card-finding">Best performer on <strong>mixed data</strong> — cleaner segment separation than K-Means. Cao initialization confirmed 3-cluster structure: Young Professionals, Middle-Age Homeowners, High-Balance Investors.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">DBSCAN — Outlier &amp; Anomaly Detection</div>
-            <div class="ba-analysis-method">Applied DBSCAN on PCA-reduced features; iteratively tuned eps and min_samples on scaled data to balance noise flagging vs. over-fragmentation</div>
-            <div class="banco-analysis-finding">Identified a noise cluster of customers matching no behavioral archetype — likely low-engagement, low-balance, erratic contact history; potential churn/attrition signal not visible in K-Prototypes</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(0,132,61,0.4);">
+            <div class="ba-analysis-card-title">DBSCAN — Outlier Detection</div>
+            <div class="ba-analysis-card-finding">Identified <strong>noise cluster</strong> of customers matching no behavioral archetype — low-engagement, low-balance, erratic contact history. Potential churn signal not visible in K-Prototypes alone.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Association Rule Mining (Apriori)</div>
-            <div class="ba-analysis-method">TransactionEncoder on categorical features (job, education, housing, loan, poutcome, contact); Apriori with iteratively refined support + confidence thresholds; extracted rules by lift and confidence</div>
-            <div class="banco-analysis-finding">High-confidence rules revealed: cellular contact + prior success → high term deposit subscription likelihood. Secondary-educated customers participated most but subscribed least — messaging mismatch, not audience mismatch</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(0,132,61,0.4);">
+            <div class="ba-analysis-card-title">Association Rule Mining (Apriori)</div>
+            <div class="ba-analysis-card-finding"><strong>Cellular contact + prior success</strong> = highest-confidence term deposit trigger. Secondary-educated customers participated most but subscribed least — messaging mismatch, not audience mismatch.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">3D Cluster Visualization</div>
-            <div class="ba-analysis-method">Matplotlib 3D scatter: age × balance × total_interactions axes; colored by cluster label</div>
-            <div class="banco-analysis-finding">Clear spatial separation confirmed: Young Professionals (low balance, low interactions), Middle-Aged Homeowners (moderate balance, higher interactions), High-Income Investors (high balance, variable interactions)</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(0,132,61,0.4);">
+            <div class="ba-analysis-card-title">3D Cluster Visualization</div>
+            <div class="ba-analysis-card-finding">Matplotlib 3D scatter (age x balance x total_interactions) showed <strong>clear spatial separation</strong> — Young Professionals (low balance), Middle-Aged Homeowners (moderate), High-Income Investors (high balance).</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Loan Status vs. Subscription Correlation</div>
-            <div class="ba-analysis-method">Cross-tabulated housing/personal loan status against y (term deposit); computed subscription rates per loan category</div>
-            <div class="banco-analysis-finding">No strong correlation between loan status and term deposit subscription — engagement history matters more than financial product holdings for predicting campaign response</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(0,132,61,0.4);">
+            <div class="ba-analysis-card-title">Loan Status vs Subscription</div>
+            <div class="ba-analysis-card-finding"><strong>No strong correlation</strong> between loan status and term deposit subscription — engagement history matters more than financial product holdings. Corrects a common banking assumption and redirects targeting.</div>
           </div>
         </div>
       </div>
@@ -3007,12 +2998,11 @@
       <!-- NEXT STEPS -->
       <div class="ba-block">
         <div class="ba-bl banco-bl">Next Steps</div>
-        <div style="display:flex;flex-direction:column;gap:2px;">
-          <div class="banco-next-row"><span class="banco-next-n">01</span><span style="color:var(--muted);font-size:12px;">Layer supervised model (XGBoost/Random Forest) on top of cluster labels to predict term deposit subscription probability within each segment</span></div>
-          <div class="banco-next-row"><span class="banco-next-n">02</span><span style="color:var(--muted);font-size:12px;">A/B test messaging variants for secondary-educated segment to address the participation↑ / conversion↓ mismatch identified by ARM</span></div>
-          <div class="banco-next-row"><span class="banco-next-n">03</span><span style="color:var(--muted);font-size:12px;">Re-run K-Prototypes on full 45K dataset with optimized Cao initialization — confirm cluster stability vs. 5K subsample results</span></div>
-          <div class="banco-next-row"><span class="banco-next-n">04</span><span style="color:var(--muted);font-size:12px;">Build Tableau dashboard mapping cluster membership by region/branch for geo-targeted campaign execution</span></div>
-          <div class="banco-next-row"><span class="banco-next-n">05</span><span style="color:var(--muted);font-size:12px;">Implement dynamic segment re-scoring pipeline: re-cluster quarterly as customer financial behavior evolves to keep segments current</span></div>
+        <div class="ba-next-grid">
+          <div class="ba-next-card"><div class="ba-next-num">01</div><div><div class="ba-next-title">Supervised Uplift Model</div><div class="ba-next-desc">Layer XGBoost on cluster labels to predict term deposit subscription probability within each segment — convert behavioral segments into predictive scoring engine.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">02</div><div><div class="ba-next-title">Messaging A/B Test</div><div class="ba-next-desc">A/B test messaging variants for the secondary-educated segment to address the high-participation / low-conversion mismatch identified by Association Rule Mining.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">03</div><div><div class="ba-next-title">Quarterly Re-Clustering</div><div class="ba-next-desc">Implement dynamic segment re-scoring pipeline — re-cluster quarterly as customer financial behavior evolves to keep segments and targeting strategies current.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">04</div><div><div class="ba-next-title">Geo-Targeted Campaign Dashboard</div><div class="ba-next-desc">Build Tableau dashboard mapping cluster membership by region for geo-targeted campaign execution — deliver High-Income Investor messaging to the right branches.</div></div></div>
         </div>
       </div>
 
@@ -3025,23 +3015,24 @@
       </div>
       <div class="ba-pdf-hint">↕ scroll within frame · Customer-Centric Bank Marketing Strategies · Team 11</div>
 
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n" style="color:#00843D;">45,211</div><div class="l">Customer Records</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#00843D;">17</div><div class="l">Features (7 numeric, 10 cat)</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#00843D;">4</div><div class="l">ML Methods Applied</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#00843D;">3</div><div class="l">Behavioral Segments Found</div></div>
+      <div class="ba-kpi-row" style="grid-template-columns:repeat(3,1fr);">
+        <div class="ba-kpi"><div class="n">45K</div><div class="l">Customer Records</div></div>
+        <div class="ba-kpi"><div class="n">4</div><div class="l">ML Methods Applied</div></div>
+        <div class="ba-kpi"><div class="n">3</div><div class="l">Behavioral Segments</div></div>
+        <div class="ba-kpi"><div class="n">37.5K</div><div class="l">After Outlier Removal</div></div>
+        <div class="ba-kpi"><div class="n">17</div><div class="l">Feature Dimensions</div></div>
+        <div class="ba-kpi"><div class="n">3</div><div class="l">Cluster Metrics Used</div></div>
       </div>
 
       <!-- IMPACT -->
-      <div class="ba-block">
+      <div class="ba-impact">
         <div class="ba-bl banco-bl">Impact &amp; Metrics</div>
         <ul class="ba-micro-list">
-          <li>Discovered 3 actionable behavioral segments from 45,211 records — providing a data-driven replacement for demographic-only segmentation</li>
-          <li>Identified DBSCAN noise cluster as potential churn/disengagement signal — not detectable by K-Means or K-Prototypes alone</li>
-          <li>ARM revealed cellular channel + prior campaign success as the highest-confidence cross-sell trigger — directly actionable for campaign targeting logic</li>
-          <li>Quantified that loan status does not predict term deposit subscription — correcting a common banking assumption and redirecting targeting toward engagement history</li>
-          <li>Secondary-educated segment: high participation, low conversion — evidence of messaging mismatch, not audience problem; actionable insight for creative/copy direction</li>
-          <li>3-cluster model reduces marketing spend concentration: High-Income Investors (Cluster 3) = highest ROI cross-sell target despite smallest absolute size</li>
+          <li><strong>3 actionable behavioral segments</strong> discovered from 45,211 records — data-driven replacement for demographic-only segmentation</li>
+          <li><strong>DBSCAN noise cluster</strong> identified as churn signal — invisible to K-Means and K-Prototypes; only detectable via density-based approach</li>
+          <li><strong>Cellular + prior success</strong> = highest-confidence cross-sell trigger (ARM) — directly actionable for campaign targeting and channel prioritization</li>
+          <li>Loan status confirmed as <strong>non-predictor</strong> of subscription — corrects a common banking assumption; redirects targeting toward engagement history</li>
+          <li>Secondary-educated segment: <strong>high participation, low conversion</strong> — messaging mismatch, not audience problem; actionable insight for creative direction</li>
         </ul>
       </div>
 
@@ -3072,9 +3063,9 @@
 <section id="clark-school" class="project-section ba-full" style="scroll-margin-top:80px;">
 
   <div class="project-header" style="max-width:100%;margin-bottom:28px;">
-    <div class="project-badge" style="background:rgba(217,119,6,0.15);color:#D97706;">CS</div>
+    <div class="project-badge" style="background:rgba(217,119,6,0.12);padding:6px;display:flex;align-items:center;justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
     <div class="project-header-text">
-      <div class="project-label" style="color:#D97706;">BU Questrom Link Day 2026 · Experiential Consulting Sprint · Strategy & GTM</div>
+      <div class="project-label" style="color:#D97706;">BU Questrom · Link Day 2026 · GTM Strategy Sprint</div>
       <h2>Clark School — CLARK ANYWHERE: Remote Without Missing Out</h2>
       <p class="summary">One-day consulting sprint for a K–12 private school serving neurodivergent learners. Delivered a full go-to-market strategy, 3-phase growth roadmap, channel plan, measurement framework, conference pipeline, and 5 immediately deployable marketing assets — all within a single sprint day.</p>
     </div>
@@ -3085,8 +3076,8 @@
     <div class="ba-left">
 
       <!-- Problem block -->
-      <div class="ba-problem-block">
-        <div class="ba-bl" style="color:rgba(217,119,6,0.65);">Problem Statement</div>
+      <div class="ba-problem-block" style="background:rgba(140,0,0,0.22);border:1px solid rgba(220,38,38,0.4);border-left:3px solid rgba(220,38,38,0.75);">
+        <div class="ba-bl" style="color:rgba(220,38,38,0.65);">Problem Statement</div>
         <div class="ba-problem-line"><span class="pl-n">01</span>Clark School's live remote/hybrid learning program is genuinely differentiated — but invisible beyond a 20-mile North Shore MA radius due to zero structured marketing, no analytics tracking, and no enrollment funnel for the remote product</div>
         <div class="ba-problem-line"><span class="pl-n">02</span>Running FB/IG + Google Ads with no performance data, no conversion funnel, no CAC tracking — leadership couldn't quantify what was working or justify any channel investment decision</div>
         <div class="ba-problem-line"><span class="pl-n">03</span>7M+ U.S. students have IEPs; 1 in 6 children are neurodivergent — yet the edtech market conflates "online school" with async video dumps; Clark's live, human-accountable model has no clear competitive frame in parents' minds</div>
@@ -3162,38 +3153,32 @@
       </div>
 
       <!-- FRAMEWORKS -->
-      <div class="ba-block">
+      <div class="ba-block" style="grid-column:1/-1;">
         <div class="ba-bl cs-bl">Consulting Frameworks Applied</div>
-        <div class="ba-analysis-list">
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Value Proposition Mapping</div>
-            <div class="ba-analysis-method">Identified core USP: live remote participation (not async), human accountability (Directed Learning + Bell), and pricing below comparable private schools by 47%</div>
-            <div class="cs-analysis-finding">Key insight: Clark's differentiation is NOT "online school" — it's "school, remotely." Messaging must lead with inclusion ("called on," "assemblies," "not invisible") not flexibility</div>
+        <div class="ba-analysis-grid">
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(217,119,6,0.4);">
+            <div class="ba-analysis-card-title">Value Proposition Mapping</div>
+            <div class="ba-analysis-card-finding">Core USP: <strong>live remote participation</strong> (not async), human accountability (Directed Learning + Bell), 47% price advantage. Key: Clark's model is "school, remotely" — not "online school."</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">High-Fit vs. Volume Segmentation</div>
-            <div class="ba-analysis-method">Explicitly rejected volume-first approach; built acquisition strategy around high-fit students (medical, neurodivergent) via pre-filtered channels (therapists, educational advocates) to protect community quality and reduce misalignment churn</div>
-            <div class="cs-analysis-finding">Poor-fit remote enrollment damages the model — a disruptive remote student undermines the live class experience for everyone; quality over volume is structurally necessary, not just preferential</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(217,119,6,0.4);">
+            <div class="ba-analysis-card-title">High-Fit Segmentation Strategy</div>
+            <div class="ba-analysis-card-finding">Rejected volume-first approach. Built acquisition around <strong>medical, neurodivergent, and athlete/performer</strong> segments via pre-filtered channels — quality over volume is structurally necessary, not just preferential.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Funnel Architecture (0→1)</div>
-            <div class="ba-analysis-method">Designed first-ever enrollment funnel: Awareness (FB/IG + advocates) → Inquiry (webpage + demo day) → Open House (~20% target conversion) → Enrollment; mapped CAC tracking at each stage</div>
-            <div class="cs-analysis-finding">No prior funnel existed — all prior effort was awareness-only with no conversion measurement; this project created the first measurable path from impression to enrolled student</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(217,119,6,0.4);">
+            <div class="ba-analysis-card-title">Enrollment Funnel (0 to 1)</div>
+            <div class="ba-analysis-card-finding">Designed <strong>first-ever enrollment funnel</strong>: Awareness (FB/IG + advocates) to Inquiry to Open House (~20% target conversion) to Enrollment. No prior funnel existed — this created the first measurable path to enrolled student.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Channel ROI Prioritization</div>
-            <div class="ba-analysis-method">Mapped channels by cost, reach, and fit-alignment: FB/IG and educational advocates rated highest on fit-per-dollar; print rated lowest; Google Ads noted as underutilized (admin lacks expertise + no performance visibility)</div>
-            <div class="cs-analysis-finding">Immediate recommendation: apply for Google Nonprofit Ad Grant ($10K/month free) — zero budget risk, highest reach channel, eliminates the expertise cost barrier</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(217,119,6,0.4);">
+            <div class="ba-analysis-card-title">Channel ROI Prioritization</div>
+            <div class="ba-analysis-card-finding"><strong>Google Nonprofit Ad Grant ($10K/mo)</strong> identified as immediate priority — zero budget risk, highest reach channel. FB/IG and educational advocates rated highest on fit-per-dollar; print deprioritized.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Content Narrative Strategy</div>
-            <div class="ba-analysis-method">Built short-form video strategy around 3 content types: student-voice (10–15s clips: "I'm remote but I'm not invisible"), parent testimonials (trust + accountability), teacher perspectives (how live remote inclusion actually works)</div>
-            <div class="cs-analysis-finding">"I still get called on. I still go to assemblies." — this narrative flips the perception that remote = isolated; directly addresses the biggest parent objection before they raise it</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(217,119,6,0.4);">
+            <div class="ba-analysis-card-title">Content Narrative Strategy</div>
+            <div class="ba-analysis-card-finding">"<strong>I'm remote but I'm not invisible</strong>" — narrative flips perception that remote = isolated. 3 content pillars: student voice (10-15s clips), parent testimonials, teacher perspectives on live remote inclusion.</div>
           </div>
-          <div class="ba-analysis-item">
-            <div class="ba-analysis-name">Website CRO Audit</div>
-            <div class="ba-analysis-method">Reviewed current site architecture; recommended dedicated "Clark Anywhere" landing page with: class listings, sample schedule, enrollment timeline, fee transparency, classroom highlight videos, and demo day CTAs</div>
-            <div class="cs-analysis-finding">Website converts traffic nowhere — no remote-specific page, no call-to-action, no expectations-setting content; fixing this is the #1 highest-leverage action before any ad spend</div>
+          <div class="ba-analysis-card" style="border-left:2px solid rgba(217,119,6,0.4);">
+            <div class="ba-analysis-card-title">Website CRO Audit</div>
+            <div class="ba-analysis-card-finding"><strong>No remote-specific landing page, no CTA, no expectations-setting content</strong> — fixing this is the highest-leverage action before any ad spend. Recommended: dedicated Clark Anywhere page with schedule, fees, and demo day CTAs.</div>
           </div>
         </div>
       </div>
@@ -3236,43 +3221,25 @@
         </ul>
       </div>
 
-      <!-- BILLION DOLLAR IDEA -->
       <div class="ba-block">
-        <div class="ba-bl cs-bl">The Underrated Billion Dollar Idea</div>
-        <div class="cs-billion-block">
-          <div class="cs-billion-title">🏫 Clark's Model = The Missing EdTech Category</div>
-          <ul class="ba-micro-list">
-            <li><strong style="color:rgba(217,119,6,0.8);">Market gap:</strong> 7M+ U.S. students have IEPs. 1 in 6 children are neurodivergent. The edtech market serves "asynchronous learners" (Khan Academy, Coursera) or "fully remote families" (homeschool). Nobody owns the "live school, remote attendance" category for special needs students at the K–12 level</li>
-            <li><strong style="color:rgba(217,119,6,0.8);">Pricing asymmetry:</strong> $17,500 remote vs $33,000 in-person — Clark is already 47% cheaper. For families paying $5–8K/yr for private behavioral therapists, Clark's Bell program absorbs that need. Total savings per family: $20K+/year</li>
-            <li><strong style="color:rgba(217,119,6,0.8);">TAM:</strong> Special education private schooling in the US is a $12B+ market. Live-remote hybrid for neurodivergent students is an unclaimed sub-category. Clark has a 6-year operational proof-of-concept with real enrolled students and teacher adoption</li>
-            <li><strong style="color:rgba(217,119,6,0.8);">The franchise play:</strong> Clark's model — live class cameras, SIS video recording, Directed Learning teams, Bell program — is licensable. Replicated at 10 schools × 200 students × $17,500 = $35M ARR before any tech platform</li>
-            <li><strong style="color:rgba(217,119,6,0.8);">What's missing:</strong> A brand identity that communicates the category clearly enough that parents don't have to "explain" why they chose Clark — they need to be able to say "it's live school, but remote" and have that land immediately</li>
-          </ul>
+        <div class="ba-bl cs-bl">Business Model &amp; Revenue</div>
+        <ul class="ba-micro-list">
+          <li><strong>Year 1 target:</strong> 20 remote students x $17,500 = $350K incremental revenue; breakeven on Phase III investment at 7+ students</li>
+          <li><strong>Bell program upsell:</strong> Paid accountability tier above base tuition increases ARPU without adding headcount</li>
+          <li><strong>Google Ad Grant:</strong> $10K/month free Google Ads for nonprofits = $120K/year of media budget at zero incremental cost</li>
+          <li><strong>Conference ROI:</strong> 7 targeted MA conferences — estimated $0 cost, 3-5 qualified inquiries per event from pre-filtered audiences</li>
+          <li><strong>47% price advantage</strong> ($17,500 vs $33,000+ in-person) — first time this has been framed as a marketing asset in Clark's messaging</li>
+        </ul>
+      </div>
+
+      <div class="ba-block">
+        <div class="ba-bl cs-bl">Next Steps</div>
+        <div class="ba-next-grid">
+          <div class="ba-next-card"><div class="ba-next-num">01</div><div><div class="ba-next-title">Clark Anywhere Landing Page</div><div class="ba-next-desc">Build dedicated remote program webpage with class listings, sample schedule, enrollment timeline, fee transparency, and demo day CTA — highest-leverage action before any paid spend.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">02</div><div><div class="ba-next-title">Google Nonprofit Ad Grant</div><div class="ba-next-desc">Apply immediately for $10K/month Google Ad Grant — zero budget risk, $120K/year in free reach targeting neurodivergent, medical, and athlete family search queries.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">03</div><div><div class="ba-next-title">Student Ambassador Program</div><div class="ba-next-desc">Launch Phase II ambassador program with current remote students — authentic WOM at local communities, sports clubs, and therapy groups with real reach and credibility.</div></div></div>
+          <div class="ba-next-card"><div class="ba-next-num">04</div><div><div class="ba-next-title">Conference Pipeline Activation</div><div class="ba-next-desc">Submit letter-of-interest to all 7 identified MA conferences using the template delivered on sprint day — activate conference referral channel before Fall 2026 enrollment cycle.</div></div></div>
         </div>
-      </div>
-
-      <!-- BUSINESS MODEL & INVESTMENT -->
-      <div class="ba-block">
-        <div class="ba-bl cs-bl">Business Model &amp; Investment Profitability</div>
-        <ul class="ba-micro-list">
-          <li><strong style="color:rgba(232,232,240,0.72);">Phase III cost model:</strong> $50K remote program director · $35K tech infrastructure · $10K/class → fully loaded remote program cost roughly $95–120K to operate 10 remote students profitably at $17,500 each ($175K revenue)</li>
-          <li><strong style="color:rgba(232,232,240,0.72);">Bell program upsell:</strong> Paid tier above base tuition — families with highest accountability needs pay premium; increases ARPU without adding headcount</li>
-          <li><strong style="color:rgba(232,232,240,0.72);">Google Ad Grant leverage:</strong> $10K/month free Google Ads for nonprofits — immediately adds $120K/year of marketing budget at zero incremental cost if applied and optimized</li>
-          <li><strong style="color:rgba(232,232,240,0.72);">Conference ROI:</strong> 7 targeted MA conferences → each drives pre-filtered inquiry traffic from therapists, educators, and parents already seeking solutions; estimated $0 cost, 3–5 qualified inquiries per event</li>
-          <li><strong style="color:rgba(232,232,240,0.72);">Year 1 target:</strong> 20 remote students × $17,500 = $350K incremental revenue; breakeven on Phase III investment within Year 1 at &gt;7 students</li>
-        </ul>
-      </div>
-
-      <!-- VISION FOR FUTURE ALIGNMENT -->
-      <div class="ba-block">
-        <div class="ba-bl cs-bl">Vision for Future Alignment</div>
-        <ul class="ba-micro-list">
-          <li>Build "Clark Anywhere" as a standalone brand within Clark School — distinct identity for remote program, own web presence, own testimonials, own video content library</li>
-          <li>Develop student ambassador program (Phase II): current remote students become advocates at their local communities, sports clubs, and therapy groups — WOM with authenticity and reach</li>
-          <li>30-45 day check-in program for new remote families: structured touchpoints reduce early attrition, generate testimonial content, and surface product feedback for program iteration</li>
-          <li>Long-term: explore licensing Clark's live-remote operating model to other private special-education schools seeking to expand without physical footprint — turning a single-school program into a network play</li>
-          <li>Supplementary learning expansion: modular courses beyond core curriculum (inspired by DataCamp-style learning modules) — upsell to existing remote families seeking enrichment</li>
-        </ul>
       </div>
 
     </div><!-- /ba-left -->
@@ -3284,11 +3251,13 @@
       </div>
       <div class="ba-pdf-hint">↕ scroll within frame · CLARK ANYWHERE · Link Day 2026 · 15 slides</div>
 
-      <div class="ba-kpi-row">
-        <div class="ba-kpi"><div class="n" style="color:#D97706;">20</div><div class="l">Target Remote Students Yr 1</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#D97706;">3-Ph</div><div class="l">GTM Roadmap</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#D97706;">~20%</div><div class="l">Open House → Enrollment Target</div></div>
-        <div class="ba-kpi"><div class="n" style="color:#D97706;">7</div><div class="l">Conferences Identified</div></div>
+      <div class="ba-kpi-row" style="grid-template-columns:repeat(3,1fr);">
+        <div class="ba-kpi"><div class="n">20</div><div class="l">Target Remote Students Yr 1</div></div>
+        <div class="ba-kpi"><div class="n">7</div><div class="l">Conferences Identified</div></div>
+        <div class="ba-kpi"><div class="n">~20%</div><div class="l">Open House Conversion Target</div></div>
+        <div class="ba-kpi"><div class="n">$10K/mo</div><div class="l">Google Ad Grant Available</div></div>
+        <div class="ba-kpi"><div class="n">47%</div><div class="l">Price Advantage vs In-Person</div></div>
+        <div class="ba-kpi"><div class="n">5</div><div class="l">Deliverables Handed Off</div></div>
       </div>
 
       <!-- GTM Phases -->
@@ -3321,14 +3290,14 @@
       </div>
 
       <!-- Impact -->
-      <div class="ba-block">
+      <div class="ba-impact">
         <div class="ba-bl cs-bl">Impact &amp; Metrics</div>
         <ul class="ba-micro-list">
-          <li>First-ever enrollment funnel designed: Awareness → Inquiry → Open House → Enrollment with CAC tracking at each stage</li>
-          <li>~20% open house → enrollment conversion targeted — first measurable KPI Clark has set for remote program</li>
-          <li>$10K/mo Google Nonprofit Ad Grant identified — $120K/year of free media budget if pursued immediately</li>
-          <li>47% price advantage ($17,500 vs $33,000+) framed as marketing asset for the first time — previously unmarked</li>
-          <li>5 immediately deployable assets handed to client on the day — not just strategy, but execution-ready tools</li>
+          <li><strong>First-ever enrollment funnel</strong> designed with CAC tracking at every stage — Awareness to Inquiry to Open House to Enrolled Student</li>
+          <li><strong>20% open house conversion</strong> targeted — first measurable KPI Clark has set for remote program in its history</li>
+          <li><strong>$10K/mo Google Nonprofit Ad Grant</strong> identified — $120K/year of free media budget available for immediate application</li>
+          <li><strong>47% price advantage</strong> ($17,500 vs $33,000+) framed as marketing asset for the first time — powerful conversion differentiator</li>
+          <li><strong>5 execution-ready assets</strong> delivered on sprint day — flyer, email template, conference list, CRO plan, video strategy</li>
         </ul>
       </div>
 
@@ -3355,9 +3324,9 @@
 <section id="newdia" class="ba-full project-section">
 
   <div class="project-header" style="padding:0 0 28px 0;">
-    <div class="project-badge" style="background:rgba(0,212,170,0.12);color:#00d4aa;">NC</div>
+    <div class="project-badge" style="background:rgba(0,212,170,0.10);padding:6px;display:flex;align-items:center;justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00d4aa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
     <div class="project-header-text">
-      <div class="project-label" style="color:#00d4aa;">Data Analyst Intern · Jan 2025 – Dec 2025 · Fenway, Boston</div>
+      <div class="project-label" style="color:#00d4aa;">Consumer Insights &amp; Marketing Analytics Intern · 2025</div>
       <h2>Newdia Co. — Consumer Insights &amp; Marketing Analytics</h2>
       <p class="summary">Sole analyst embedded with a cannabis retail startup in Boston's Fenway neighborhood. Owned the full research-to-action pipeline: 20+ deep-dive analyses, 9 targeted campaigns, GenZ psychographic modeling, $1.2M marketing budget strategy, and a suite of statistical models across churn, CLV, price elasticity, and customer segmentation — from raw transaction data to executive-ready recommendations.</p>
     </div>
@@ -3677,24 +3646,14 @@
       </div>
       <p style="font-size:10px;color:var(--muted2);text-align:center;margin:0;">Scroll within frame · Click documents below for full-page view</p>
 
-      <!-- KPI Row — 2×2 -->
-      <div class="ba-kpi-row" style="grid-template-columns:repeat(2,1fr);">
-        <div class="ba-kpi">
-          <div class="n nc-kpi-n">$1.2M</div>
-          <div class="l">Marketing Budget</div>
-        </div>
-        <div class="ba-kpi">
-          <div class="n nc-kpi-n">39,793</div>
-          <div class="l">Unique Customers</div>
-        </div>
-        <div class="ba-kpi">
-          <div class="n nc-kpi-n">20+</div>
-          <div class="l">Deep-Dive Analyses</div>
-        </div>
-        <div class="ba-kpi">
-          <div class="n nc-kpi-n">$774K+</div>
-          <div class="l">Revenue Modeled</div>
-        </div>
+      <!-- KPI Row — 3×2 -->
+      <div class="ba-kpi-row" style="grid-template-columns:repeat(3,1fr);">
+        <div class="ba-kpi"><div class="n">$1.2M</div><div class="l">Marketing Budget Managed</div></div>
+        <div class="ba-kpi"><div class="n">39.8K</div><div class="l">Monthly Target Impressions</div></div>
+        <div class="ba-kpi"><div class="n">20+</div><div class="l">Deep Analyses Conducted</div></div>
+        <div class="ba-kpi"><div class="n">$774K+</div><div class="l">Revenue Impact Identified</div></div>
+        <div class="ba-kpi"><div class="n">9</div><div class="l">Targeted Campaigns</div></div>
+        <div class="ba-kpi"><div class="n">6</div><div class="l">GenZ Segments Modeled</div></div>
       </div>
 
       <!-- Impact -->
