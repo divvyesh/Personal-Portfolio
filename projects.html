@@ -414,6 +414,25 @@
     .sb-feat-role { color: var(--muted2); }
     .sb-feat-imp { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(0,112,74,0.8); }
 
+    /* ── MBTA section ── */
+    .mbta-bl { color: rgba(218,41,28,0.65) !important; }
+    .mbta-pv { color: #DA291C !important; }
+    .mbta-analysis-finding { font-size: 11px; color: rgba(218,41,28,0.85); line-height: 1.4; }
+    .mbta-analysis-finding::before { content: '→ '; }
+    .mbta-link-block { border: 1px solid rgba(218,41,28,0.22); border-radius: 10px; overflow: hidden; }
+    .mbta-link-row { display: flex; align-items: center; gap: 12px; padding: 9px 14px; border-bottom: 1px solid rgba(218,41,28,0.08); font-size: 12px; }
+    .mbta-link-row:last-child { border-bottom: none; }
+    .mbta-link-icon { font-size: 16px; flex-shrink: 0; }
+    .mbta-link-name { color: rgba(232,232,240,0.82); font-weight: 600; font-size: 11.5px; }
+    .mbta-link-url { color: rgba(218,41,28,0.75); font-size: 10.5px; text-decoration: none; word-break: break-all; }
+    .mbta-link-url:hover { color: #DA291C; }
+    .mbta-var-row { display: grid; grid-template-columns: 1.5fr 0.7fr 2fr; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 11px; padding: 5px 0; gap: 8px; }
+    .mbta-var-row:last-child { border-bottom: none; }
+    .mbta-cat-block { border: 1px solid rgba(218,41,28,0.2); border-radius: 10px; padding: 11px 14px; background: rgba(218,41,28,0.03); }
+    .mbta-next-row { display: flex; align-items: baseline; gap: 8px; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 12px; }
+    .mbta-next-row:last-child { border-bottom: none; }
+    .mbta-next-n { font-size: 10px; color: rgba(218,41,28,0.5); font-weight: 700; flex-shrink: 0; }
+
     /* ── Google Trends section ── */
     .gt-bl { color: rgba(66,133,244,0.65) !important; }
     .gt-pv { color: #4285F4 !important; }
@@ -2001,44 +2020,306 @@
 <div class="sec-div"><hr></div>
 
 <!-- ═══ MBTA ═══ -->
-<section id="mbta" class="project-section">
-  <div class="project-header">
+<section id="mbta" class="project-section ba-full" style="scroll-margin-top:80px;">
+
+  <div class="project-header" style="max-width:100%;margin-bottom:28px;">
     <div class="project-badge" style="background:rgba(218,41,28,0.15);color:#DA291C;">T</div>
     <div class="project-header-text">
-      <div class="project-label" style="color:#DA291C;">BU MSBA Project · 2025</div>
-      <h2>MBTA — Transit Ridership Analytics &amp; Operations Intelligence</h2>
-      <p class="summary">Built SQL-powered analytics on MBTA ridership and operational data to surface system-level delay patterns, underserved route segments, and the relationship between schedule adherence and ridership elasticity.</p>
+      <div class="project-label" style="color:#DA291C;">BU MSBA · BA 775 · SQL &amp; Analytics · 2025</div>
+      <h2>MBTA — Headway Consistency Analysis &amp; Operations Intelligence</h2>
+      <p class="summary">SQL + Python analytics on MBTA's publicly released headway and gated-entry datasets — identifying the Green-B Line as the worst performer, pinpointing 4 problem stations by variance, and quantifying ridership elasticity to service inconsistency.</p>
     </div>
   </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-label" style="color:#DA291C;">The Problem</div>
-      <h3>Aggregate on-time metrics masked route-level failures</h3>
-      <p>System-wide on-time performance numbers were reported as acceptable. At the route level, specific segments were chronically delayed — with delay compounding across transfer points. Riders on those routes experienced a substantially different system than the headline metric suggested.</p>
+
+  <div class="ba-split">
+
+    <div class="ba-left">
+
+      <!-- Problem block -->
+      <div class="ba-problem-block">
+        <div class="ba-bl" style="color:rgba(220,38,38,0.65);">Problem Statement</div>
+        <div class="ba-problem-line"><span class="pl-n">01</span>MBTA reported acceptable system-wide on-time performance — but stop-level headway variance was masking chronic inconsistency on specific Green-B segments invisible to aggregate metrics</div>
+        <div class="ba-problem-line"><span class="pl-n">02</span>No quantitative stop-by-stop diagnostic existed to identify which stations were causing headway bunching and where trains were getting "caught" along the route</div>
+        <div class="ba-problem-line"><span class="pl-n">03</span>$700M projected MBTA budget deficit by 2026 — every operational fix must be data-justified; without station-level attribution, there's no basis for TSP or infrastructure investment prioritization</div>
+        <div class="ba-problem-line"><span class="pl-n">04</span>Unclear whether headway degradation suppresses ridership or riders absorb poor service as captive users — misunderstanding this relationship shapes fare and capacity strategy</div>
+      </div>
+
+      <!-- KPI row -->
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n" style="color:#DA291C;">Green-B</div><div class="l">Worst Normalized Headway</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#DA291C;">4</div><div class="l">Problem Stations Identified</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#DA291C;">2</div><div class="l">Tableau Dashboards Built</div></div>
+      </div>
+
+      <!-- DATA COLLECTION -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Data Collection</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.72);">hw_24 (Headway Data):</strong> MBTA public dataset — measured headway (seconds between consecutive trains) at every stop for all subway lines, 2024</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">gse_24 (Gated Station Entries):</strong> MBTA public dataset — turnstile/gate entry counts per station per time period, 2024</li>
+          <li>Both datasets sourced directly from MBTA's open data portal; loaded and analyzed in Jupyter Notebook via Python + SQL queries (DuckDB / pandas)</li>
+        </ul>
+      </div>
+
+      <!-- DATASET -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Dataset — Entity Relationship</div>
+        <div class="ba-ds-table">
+          <div class="ba-ds-row" style="color:var(--muted2);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding-bottom:5px;">
+            <span>Table</span><span>Dimensions</span><span>Join Key</span>
+          </div>
+          <div class="ba-ds-row">
+            <span class="d-name">hw_24 (headway)</span>
+            <span class="d-dim">10 columns</span>
+            <span class="d-src">stop_name → gse_24</span>
+          </div>
+          <div class="ba-ds-row">
+            <span class="d-name">gse_24 (gated entries)</span>
+            <span class="d-dim">4 columns</span>
+            <span class="d-src">stop_name → hw_24</span>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted2);margin-top:6px;">Tables joined on <code style="background:rgba(255,255,255,0.06);padding:1px 5px;border-radius:3px;">stop_name</code> to correlate headway variance with station ridership volume</div>
+      </div>
+
+      <!-- VARIABLE DICTIONARY -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Variable Dictionary</div>
+        <div class="ba-ds-table">
+          <div class="mbta-var-row" style="color:var(--muted2);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding-bottom:5px;">
+            <span>Variable</span><span>Type</span><span>Description</span>
+          </div>
+          <div class="mbta-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">route_id</span><span style="color:var(--muted2);">string</span><span style="color:var(--muted2);">Line + branch (Green-B, Red-A)</span></div>
+          <div class="mbta-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">trunk_route_id</span><span style="color:var(--muted2);">string</span><span style="color:var(--muted2);">Main line regardless of branch (Green, Red)</span></div>
+          <div class="mbta-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">trip_id</span><span style="color:var(--muted2);">string</span><span style="color:var(--muted2);">Individual train journey identifier</span></div>
+          <div class="mbta-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">stop_name</span><span style="color:var(--muted2);">string</span><span style="color:var(--muted2);">Station name; primary join key</span></div>
+          <div class="mbta-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">stop_departure_sec</span><span style="color:var(--muted2);">int</span><span style="color:var(--muted2);">Second of day at departure (day-boundary risk)</span></div>
+          <div class="mbta-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">headway_trunk_seconds</span><span style="color:var(--muted2);">int</span><span style="color:var(--muted2);">Seconds until next same-trunk train at stop</span></div>
+          <div class="mbta-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">headway_branch_seconds</span><span style="color:var(--muted2);">int</span><span style="color:var(--muted2);">Seconds until next same-branch train at stop</span></div>
+          <div class="mbta-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">gated_entries</span><span style="color:var(--muted2);">int</span><span style="color:var(--muted2);">Station tap-ins per recorded time period (gse_24)</span></div>
+          <div class="mbta-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">direction</span><span style="color:var(--muted2);">string</span><span style="color:var(--muted2);">Inbound / outbound trip direction</span></div>
+        </div>
+      </div>
+
+      <!-- LANGUAGES -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Languages &amp; Libraries</div>
+        <div class="ba-stack-row">
+          <span class="ba-stack-pill">Python 3</span>
+          <span class="ba-stack-pill">SQL (DuckDB)</span>
+          <span class="ba-stack-pill">Pandas</span>
+          <span class="ba-stack-pill">Matplotlib</span>
+          <span class="ba-stack-pill">Seaborn</span>
+          <span class="ba-stack-pill">Tableau</span>
+          <span class="ba-stack-pill">Jupyter Notebook</span>
+          <span class="ba-stack-pill">NumPy</span>
+        </div>
+      </div>
+
+      <!-- DATA ISSUES -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Data Issues</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.72);">Day-boundary in stop_departure_sec:</strong> Values exceed 86,400 seconds for trips running past midnight — required modulo normalization to avoid incorrect temporal ordering</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Null headway values:</strong> Missing headway when no subsequent train arrived within recording window — excluded from variance calculations</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">gse_24 granularity mismatch:</strong> Gated entry data aggregated at different time granularity than headway data — required aggregation alignment before join</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">branch_route_id sparsity:</strong> Orange, Blue, and Northern Red Line have no branches — branch_route_id NULL for these; required conditional handling in trunk vs. branch headway analysis</li>
+        </ul>
+      </div>
+
+      <!-- PRE-PROCESSING -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Pre-Processing</div>
+        <ul class="ba-micro-list">
+          <li>Normalize stop_departure_sec with modulo 86,400 to resolve day-boundary overflow</li>
+          <li>Filter NULL headway_branch_seconds for lines without branches before per-stop variance computation</li>
+          <li>Aggregate gse_24 gated_entries to daily totals per stop_name to match headway data granularity</li>
+          <li>Join hw_24 × gse_24 on stop_name; deduplicate on route_or_line to prevent row explosion</li>
+        </ul>
+      </div>
+
+      <!-- DATA MANIPULATION -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Data Manipulation</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.72);">Headway variance per stop:</strong> Computed std deviation of headway_branch_seconds grouped by stop_name to identify the most inconsistent stations</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Normalized headway by line:</strong> Compared average headway / scheduled headway ratio across trunk lines to rank Green-B as worst-performing</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Peak / off-peak segmentation:</strong> Derived from stop_departure_datetime; AM rush 7–9am, PM rush 4–7pm, all other = off-peak</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Long/short headway flags:</strong> Binary flags: headway &gt; scheduled_headway = long; headway &lt; scheduled_headway × 0.7 = short (bunching indicator)</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Station ridership join:</strong> Merged daily gated_entries onto hw_24 stop-level stats for Pearson correlation with headway variance</li>
+        </ul>
+      </div>
+
+      <!-- VARIABLE CATEGORIES -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Variable Categories</div>
+        <div class="mbta-cat-block">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;">
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(218,41,28,0.55);margin-bottom:6px;">Temporal</div>
+              <ul class="ba-micro-list">
+                <li>stop_departure_sec</li>
+                <li>stop_departure_datetime</li>
+                <li>service_datetime</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(218,41,28,0.55);margin-bottom:6px;">Operational</div>
+              <ul class="ba-micro-list">
+                <li>headway_trunk_seconds</li>
+                <li>headway_branch_seconds</li>
+                <li>direction</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(218,41,28,0.55);margin-bottom:6px;">Geographic</div>
+              <ul class="ba-micro-list">
+                <li>stop_name</li>
+                <li>route_id</li>
+                <li>trunk_route_id / branch_route_id</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(218,41,28,0.55);margin-bottom:6px;">Ridership</div>
+              <ul class="ba-micro-list">
+                <li>gated_entries</li>
+                <li>route_or_line</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANALYSES -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Analyses</div>
+        <div class="ba-analysis-list">
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Line Comparison — Normalized Headway</div>
+            <div class="ba-analysis-method">Computed (actual headway) / (scheduled headway) ratio per trunk line; ranked all MBTA lines by average deviation from schedule</div>
+            <div class="mbta-analysis-finding">Green-B identified as worst-performing line on normalized headway — selected as primary focus for all downstream stop-level analysis</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Stop-Level Headway Variance (Green-B)</div>
+            <div class="ba-analysis-method">SQL GROUP BY stop_name; computed std deviation of headway_branch_seconds per stop; ranked descending</div>
+            <div class="mbta-analysis-finding">4 problem stations: Chestnut Hill Avenue, Warren Street, Harvard Avenue, Packard's Corner — these stops drive the majority of Green-B headway inconsistency</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Long vs. Short Headway Co-occurrence</div>
+            <div class="ba-analysis-method">Counted stops with headway &gt; standard and stops with headway &lt; 70% standard per station; compared rankings</div>
+            <div class="mbta-analysis-finding">Stations with most over-long headways are the same stations with most short headways — confirms bunching cascades: one late train causes the next to arrive early (train spacing collapse)</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Peak vs. Off-Peak Variability</div>
+            <div class="ba-analysis-method">Segmented all trips into AM peak (7–9am), PM peak (4–7pm), off-peak; computed headway variance per segment per stop</div>
+            <div class="mbta-analysis-finding">Green-B has the most over-long headways during peak hours, but off-peak shows highest station-to-station variability — off-peak service is the least predictable window</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Intersection Geometry Analysis (Warren St)</div>
+            <div class="ba-analysis-method">Qualitative analysis supplementing headway data: Warren St has a 15–20 second crossing window with 90-second wait between windows; trains must operate independently from parallel traffic flow</div>
+            <div class="mbta-analysis-finding">Abnormal intersection geometry directly explains Warren Street's variance spike — random timing within the window creates unpredictable departure delays that propagate downstream</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Ridership vs. Headway Variance Correlation</div>
+            <div class="ba-analysis-method">Joined gse_24 gated_entries (daily total per stop) with stop-level headway variance; computed Pearson correlation and scatter plot</div>
+            <div class="mbta-analysis-finding">Very little correlation found — riders are captive users who rely on the T regardless of service quality; this has implications for fare elasticity and capacity planning</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">EDA Dashboard (Tableau)</div>
+            <div class="ba-analysis-method">Exported aggregated stop-level headway stats to Tableau; built interactive dashboard for cross-line and cross-station comparison</div>
+            <div class="mbta-analysis-finding">Visual EDA revealed Green-B outlier status clearly; dashboard allows MBTA operations team to drill into any station across any line</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Green-B Consistency Dashboard (Tableau)</div>
+            <div class="ba-analysis-method">Built second Tableau dashboard focused exclusively on Green-B stop-by-stop consistency metrics across 2024</div>
+            <div class="mbta-analysis-finding">Consistency visualization enables stakeholder communication of where TSP investment would have highest headway reduction impact</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLEAU DASHBOARDS -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Tableau Dashboards</div>
+        <div class="mbta-link-block">
+          <div class="mbta-link-row">
+            <span class="mbta-link-icon">📊</span>
+            <div>
+              <div class="mbta-link-name">MBTA Headway EDA Dashboard</div>
+              <a class="mbta-link-url" href="https://public.tableau.com/app/profile/barrett.ratzlaff/viz/MBTAHeadwayDashboard/EDADashboard" target="_blank" rel="noopener">public.tableau.com → MBTAHeadwayDashboard / EDADashboard</a>
+            </div>
+          </div>
+          <div class="mbta-link-row">
+            <span class="mbta-link-icon">🟢</span>
+            <div>
+              <div class="mbta-link-name">Green-B Line Consistency Dashboard</div>
+              <a class="mbta-link-url" href="https://public.tableau.com/app/profile/barrett.ratzlaff/viz/Green-BLineConsistencyDashboard/ConsistencyofGreenBLineServicein2024" target="_blank" rel="noopener">public.tableau.com → Green-BLineConsistencyDashboard</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMPACT -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Impact &amp; Metrics</div>
+        <ul class="ba-micro-list">
+          <li>Identified 4 problem stations (Chestnut Hill Ave, Warren St, Harvard Ave, Packard's Corner) driving majority of Green-B headway variance</li>
+          <li>Quantified that off-peak is less predictable than peak service — contradicting intuitive assumptions about capacity and demand</li>
+          <li>Demonstrated low ridership elasticity to headway: captive users absorb poor service — significant for MBTA's fare strategy and subsidy justification</li>
+          <li>Linked Warren Street's variance directly to intersection geometry (15–20s crossing window, 90s wait) — actionable basis for Transit Signal Priority pilot</li>
+          <li>Delivered 2 Tableau dashboards usable by MBTA operations teams for ongoing monitoring without re-running analysis</li>
+        </ul>
+      </div>
+
+      <!-- NEXT STEPS -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Next Steps</div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <div class="mbta-next-row"><span class="mbta-next-n">01</span><span style="color:var(--muted);font-size:12px;">Pilot Transit Signal Priority (TSP) at Warren Street and Packard's Corner intersections — measure headway variance reduction</span></div>
+          <div class="mbta-next-row"><span class="mbta-next-n">02</span><span style="color:var(--muted);font-size:12px;">Expand branch-level analysis to Red-A / Red-B to identify analogous problem stations on other branches</span></div>
+          <div class="mbta-next-row"><span class="mbta-next-n">03</span><span style="color:var(--muted);font-size:12px;">Build real-time headway monitoring pipeline feeding directly into Tableau for live operations visibility</span></div>
+          <div class="mbta-next-row"><span class="mbta-next-n">04</span><span style="color:var(--muted);font-size:12px;">Model optimal headway intervals by time-of-day using historical distribution to set dynamic scheduling targets</span></div>
+          <div class="mbta-next-row"><span class="mbta-next-n">05</span><span style="color:var(--muted);font-size:12px;">Investigate Monthly Membership Promotion impact on peak ridership distribution and its knock-on effect on headway bunching</span></div>
+        </div>
+      </div>
+
+      <!-- RECOMMENDATIONS -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Recommendations</div>
+        <div class="ba-chips">
+          <span class="ba-chip">Transit Signal Priority (TSP)</span>
+          <span class="ba-chip">Door Operation Improvements</span>
+          <span class="ba-chip">Gate Machine Establishment</span>
+          <span class="ba-chip">Monthly Membership Promotion</span>
+        </div>
+      </div>
+
+      <!-- TAGS -->
+      <div class="ba-block">
+        <div class="ba-bl mbta-bl">Tags</div>
+        <div class="ba-chips">
+          <span class="ba-chip">SQL</span>
+          <span class="ba-chip">Python</span>
+          <span class="ba-chip">Tableau</span>
+          <span class="ba-chip">Headway Analysis</span>
+          <span class="ba-chip">Transit Operations</span>
+          <span class="ba-chip">Variance Analysis</span>
+          <span class="ba-chip">Ridership Analytics</span>
+          <span class="ba-chip">MBTA</span>
+          <span class="ba-chip">Green Line</span>
+        </div>
+      </div>
+
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF (shown at top via order:-1) -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="MBTA_Headway_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="MBTA Headway Analysis Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ scroll within frame · Headway: Analyzing MBTA Consistency</div>
     </div>
-    <div class="card">
-      <div class="card-label" style="color:#DA291C;">Data &amp; Method</div>
-      <h3>SQL joins across 4 tables + BI dashboards</h3>
-      <p>Queried MBTA operational data using complex SQL — joining schedule, actual arrival, route, and ridership tables — to calculate segment-level delay rates, transfer compound effects, and ridership correlation with schedule variance. Built Tableau and Power BI dashboards enabling route-level drill-down on the key bottlenecks.</p>
-    </div>
-    <div class="card">
-      <div class="card-label" style="color:#DA291C;">What I Found</div>
-      <h3>Three routes drove the majority of chronic delay</h3>
-      <p>A small number of route segments accounted for a disproportionate share of total system delay. Delay on these segments propagated at transfer hubs — multiplying the passenger impact. The SQL analysis also showed measurable ridership elasticity: ridership declined in direct proportion to delay frequency on chronic routes.</p>
-    </div>
-  </div>
-  <div class="impact-row">
-    <div class="impact-stat"><div class="num" style="color:#DA291C;">SQL</div><div class="desc">Complex multi-table joins</div></div>
-    <div class="impact-stat"><div class="num" style="color:#DA291C;">Viz</div><div class="desc">Tableau + Power BI dashboards</div></div>
-    <div class="impact-stat"><div class="num" style="color:#DA291C;">Route</div><div class="desc">Segment-level delay attribution</div></div>
-  </div>
-  <div class="tags">
-    <span class="tag">SQL</span>
-    <span class="tag">Tableau</span>
-    <span class="tag">Power BI</span>
-    <span class="tag">Operations Analytics</span>
-    <span class="tag">Transit Data</span>
-  </div>
+
+  </div><!-- /ba-split -->
 </section>
 <div class="sec-div"><hr></div>
 
