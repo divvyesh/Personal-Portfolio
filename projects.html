@@ -513,6 +513,49 @@
     .sf-cat-cell { background: var(--surface); padding: 10px 12px; text-align: center; }
     .sf-cat-n { font-family: "Space Grotesk", sans-serif; font-size: 15px; font-weight: 800; color: #00A1E0; line-height: 1; margin-bottom: 3px; }
     .sf-cat-l { font-size: 10px; color: var(--muted2); letter-spacing: 0.07em; text-transform: uppercase; }
+
+    /* ── Newdia Cannabis section ── */
+    .nc-bl { color: rgba(0,212,170,0.65) !important; }
+    .nc-pv { color: #00d4aa !important; }
+    .nc-kpi-n { color: #00d4aa; font-family: "Space Grotesk", sans-serif; font-size: 22px; font-weight: 800; line-height: 1; margin-bottom: 3px; }
+    .nc-finding { font-size: 11px; color: rgba(0,212,170,0.85); line-height: 1.4; }
+    .nc-finding::before { content: '→ '; }
+    .nc-list li::before { color: rgba(0,212,170,0.55) !important; }
+    .nc-campaign-list { display: flex; flex-direction: column; gap: 6px; }
+    .nc-campaign-row { border: 1px solid rgba(0,212,170,0.15); border-radius: 8px; padding: 8px 12px; background: rgba(0,212,170,0.03); }
+    .nc-campaign-name { font-size: 11.5px; font-weight: 700; color: rgba(232,232,240,0.85); font-family: "Space Grotesk", sans-serif; margin-bottom: 2px; }
+    .nc-campaign-desc { font-size: 11px; color: var(--muted); line-height: 1.45; }
+    .nc-seg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .nc-seg-card { border: 1px solid rgba(0,212,170,0.18); border-radius: 9px; padding: 9px 12px; background: rgba(0,212,170,0.03); }
+    .nc-seg-name { font-size: 11.5px; font-weight: 700; color: #00d4aa; font-family: "Space Grotesk", sans-serif; margin-bottom: 3px; }
+    .nc-seg-desc { font-size: 10.5px; color: var(--muted); line-height: 1.45; }
+    .nc-data-table { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .nc-data-row { display: grid; grid-template-columns: 1.4fr 0.9fr 2fr; font-size: 11px; border-bottom: 1px solid rgba(255,255,255,0.04); padding: 5px 10px; gap: 8px; align-items: start; }
+    .nc-data-row:last-child { border-bottom: none; }
+    .nc-data-head { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); background: rgba(255,255,255,0.02); }
+    .nc-data-row span:first-child { color: rgba(232,232,240,0.82); font-weight: 500; }
+    .nc-data-row span:nth-child(2) { color: #00d4aa; font-size: 10.5px; }
+    .nc-data-row span:last-child { color: var(--muted); }
+    .nc-challenge-list { display: flex; flex-direction: column; gap: 6px; }
+    .nc-challenge-row { border-left: 2px solid rgba(0,212,170,0.4); padding: 6px 12px; background: rgba(0,212,170,0.03); border-radius: 0 8px 8px 0; }
+    .nc-ch-label { font-size: 10.5px; font-weight: 700; color: #00d4aa; font-family: "Space Grotesk", sans-serif; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .nc-ch-body { font-size: 11px; color: var(--muted); line-height: 1.45; }
+    .nc-video-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
+    .nc-video-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .nc-video-label { font-size: 10px; font-weight: 700; color: rgba(0,212,170,0.7); letter-spacing: 0.1em; text-transform: uppercase; }
+    .nc-video-frame { height: 340px; background: #000; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); }
+    .nc-video-frame iframe { width: 100%; height: 100%; display: block; }
+    .nc-doc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+    .nc-doc-btn { background: rgba(0,212,170,0.06); border: 1px solid rgba(0,212,170,0.2); border-radius: 8px; padding: 8px 10px; font-size: 10.5px; font-weight: 500; color: rgba(232,232,240,0.72); cursor: pointer; text-align: left; transition: all 0.2s; font-family: "Inter", sans-serif; line-height: 1.35; width: 100%; }
+    .nc-doc-btn:hover { background: rgba(0,212,170,0.12); border-color: rgba(0,212,170,0.45); color: #00d4aa; }
+    @media (max-width: 1100px) { .nc-doc-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 860px) {
+      .nc-video-row { grid-template-columns: 1fr; }
+      .nc-doc-grid { grid-template-columns: repeat(2, 1fr); }
+      .nc-seg-grid { grid-template-columns: 1fr; }
+      .nc-data-row { grid-template-columns: 1fr 1fr; }
+      .nc-data-row span:last-child { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -2979,48 +3022,407 @@
 <div class="sec-div"><hr></div>
 
 <!-- ═══ NEWDIA CO. ═══ -->
-<section id="newdia" class="project-section">
-  <div class="project-header">
+<section id="newdia" class="ba-full project-section">
+
+  <div class="project-header" style="padding:0 0 28px 0;">
     <div class="project-badge" style="background:rgba(0,212,170,0.12);color:#00d4aa;">NC</div>
     <div class="project-header-text">
-      <div class="project-label" style="color:#00d4aa;">Data Analyst · Jan 2025 – Dec 2025</div>
-      <h2>Newdia Co. — Fenway Consumer Analytics Stack</h2>
-      <p class="summary">Built the first behavioral analytics infrastructure the business had ever had — from BigQuery executive BI to XGBoost churn modeling, 12 concurrent A/B tests, a governed metric store, and the first behavioral NPS + CAC funnel.</p>
+      <div class="project-label" style="color:#00d4aa;">Data Analyst Intern · Jan 2025 – Dec 2025 · Fenway, Boston</div>
+      <h2>Newdia Co. — Consumer Insights &amp; Marketing Analytics</h2>
+      <p class="summary">Sole analyst embedded with a cannabis retail startup in Boston's Fenway neighborhood. Owned the full research-to-action pipeline: 20+ deep-dive analyses, 9 targeted campaigns, GenZ psychographic modeling, $1.2M marketing budget strategy, and a suite of statistical models across churn, CLV, price elasticity, and customer segmentation — from raw transaction data to executive-ready recommendations.</p>
     </div>
   </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-label" style="color:#00d4aa;">The Problem</div>
-      <h3>Same-day data needs, multi-week reporting lag</h3>
-      <p>Leadership was making growth decisions on data that was weeks old. No behavioral NPS. No CAC funnel. No churn model. Promotions were running without cannibalization analysis — masking a 30% self-competition between offer types that only surfaced after 3-source ETL reconciliation revealed the overlap.</p>
-    </div>
-    <div class="card">
-      <div class="card-label" style="color:#00d4aa;">What I Built</div>
-      <h3>Full analytics infrastructure from zero</h3>
-      <p>BigQuery executive BI (same-day reporting, eliminated multi-week lag). XGBoost churn model — 14 features, Optuna HPO, SHAP explainability, $40K projected retention value. CLV models. 3-source ETL reconciliation with Great Expectations nightly validation and a governed metric store. Bayesian identity bridge for cross-device attribution. 12 concurrent A/B tests with SUTVA compliance (2.4x lift).</p>
-    </div>
-    <div class="card">
-      <div class="card-label" style="color:#00d4aa;">What I Found</div>
-      <h3>30% promo-cannibalization — invisible before the ETL</h3>
-      <p>Before 3-source ETL reconciliation, two promotional programs appeared complementary. After reconciliation, the overlap revealed 30% of promotional uplift was self-cannibalized. Validated with DiD, synthetic control, and RDD — confirmed it wasn't confounding. The causal confirmation was what made the finding actionable for the business.</p>
-    </div>
+
+  <div class="ba-split">
+
+    <!-- ── LEFT COLUMN ── -->
+    <div class="ba-left">
+
+      <!-- Problem Statement -->
+      <div class="ba-block ba-problem-block">
+        <div class="ba-bl">Problem Statement</div>
+        <p class="ba-p" style="margin:0;">Newdia entered a newly-regulated Massachusetts cannabis market with zero analytics infrastructure, no understanding of its GenZ-majority customer base, and a $1.2M marketing budget deployed largely on instinct. The business had customer transaction data but no models, no segmentation, and no measurement framework to evaluate campaign performance or customer retention. Every growth and pricing decision was being made blind.</p>
+        <p class="ba-p" style="margin:8px 0 0 0;">My role: build the intelligence layer from scratch — answer "who are our customers, what do they buy, why do they leave, and how do we grow" — then translate that into 9 live campaigns and actionable strategy across channels.</p>
+      </div>
+
+      <!-- Client Context -->
+      <div class="ba-block">
+        <div class="ba-bl nc-bl">Client &amp; Market Context</div>
+        <ul class="ba-list nc-list">
+          <li>Newdia Co. — dispensary &amp; cannabis lifestyle brand, Fenway neighborhood, Boston MA</li>
+          <li>Regulated market (MA CORI laws restrict PII linkage; no loyalty program initially)</li>
+          <li>Core customer: GenZ (18–26), BIPOC community, event-goers, Fenway sports fans</li>
+          <li>Business model: retail + wholesale + apparel + events + brand licensing</li>
+          <li>Industry span: cannabis retail, CPG, sports &amp; events, wellness, urban lifestyle</li>
+          <li>Data constraint: transaction-level records only; no CRM, no loyalty IDs until mid-project</li>
+        </ul>
+      </div>
+
+      <!-- Analytics Stack -->
+      <div class="ba-block">
+        <div class="ba-bl nc-bl">Analytics Infrastructure Built</div>
+        <ul class="ba-list nc-list">
+          <li>K-means clustering (6 customer segments, silhouette ≥ 0.42)</li>
+          <li>Gradient Boost churn models (AUC 0.83–0.86, precision 0.79)</li>
+          <li>CLV/CBCV Beta-Geometric NBD models (12-month projections)</li>
+          <li>CausalForest uplift modeling (HTE estimation per segment)</li>
+          <li>Price elasticity OLS (R² 0.74) across 8 product categories</li>
+          <li>Market basket analysis (Apriori; lift ≥ 1.8 rule sets)</li>
+          <li>Cohort survival analysis (Kaplan-Meier + Cox regression)</li>
+          <li>Holt-Winters exponential smoothing (12-week revenue forecast)</li>
+          <li>Qualtrics survey (n=94) + NPS framework design</li>
+          <li>In-store + street-team observation protocol (n=30+ sessions)</li>
+        </ul>
+      </div>
+
+      <!-- Campaigns Executed -->
+      <div class="ba-block" style="grid-column: 1 / -1;">
+        <div class="ba-bl nc-bl">9 Campaigns Executed</div>
+        <div class="nc-campaign-list">
+          <div class="nc-campaign-row">
+            <div class="nc-campaign-name">Win-Back Re-Engagement</div>
+            <div class="nc-campaign-desc">Targeted lapsed 60–90 day customers identified by churn model (AUC 0.86). Personalized offers by segment drove measurable reactivation.</div>
+          </div>
+          <div class="nc-campaign-row">
+            <div class="nc-campaign-name">Bulk Flower Bundle Offer</div>
+            <div class="nc-campaign-desc">Price-elasticity and basket analysis revealed bulk flower buyers had high repurchase potential. Tiered bundle pricing raised average transaction size.</div>
+          </div>
+          <div class="nc-campaign-row">
+            <div class="nc-campaign-name">Bounce-Back Card Program</div>
+            <div class="nc-campaign-desc">Post-purchase card distributed at POS driving next-visit incentive within 14 days. Tracked via cohort return rate vs. control.</div>
+          </div>
+          <div class="nc-campaign-row">
+            <div class="nc-campaign-name">Gas Station Bulk Flower Push</div>
+            <div class="nc-campaign-desc">B2B wholesale opportunity targeting gas-station-adjacent convenience buyers. Analyzed segment purchase patterns to optimize SKU mix and pricing.</div>
+          </div>
+          <div class="nc-campaign-row">
+            <div class="nc-campaign-name">Pledge Dia Sponsorship Activation</div>
+            <div class="nc-campaign-desc">Event sponsorship forensic analysis — evaluated brand lift, foot traffic correlation, and sales attribution vs. spend during sponsored events.</div>
+          </div>
+          <div class="nc-campaign-row">
+            <div class="nc-campaign-name">Cookies x Worcester Collab</div>
+            <div class="nc-campaign-desc">Brand collaboration strategy with Cookies brand at Worcester location. Modeled incremental revenue and cross-brand customer overlap.</div>
+          </div>
+          <div class="nc-campaign-row">
+            <div class="nc-campaign-name">Medical Discount Program Analysis</div>
+            <div class="nc-campaign-desc">Evaluated the profitability and segment overlap of the medical discount — surfaced that high-frequency medical buyers had higher CLV than recreational equivalents.</div>
+          </div>
+          <div class="nc-campaign-row">
+            <div class="nc-campaign-name">NED Segment Micro-Campaign</div>
+            <div class="nc-campaign-desc">"Never-Engaged, Declining" segment identified in churn model — built targeted message cadence to convert from single-visit to repeat buyers.</div>
+          </div>
+          <div class="nc-campaign-row">
+            <div class="nc-campaign-name">In-Store Pickup + SparkPlugs Activation</div>
+            <div class="nc-campaign-desc">Analyzed digital conversion funnel for BOPIS (buy online, pick up in store) + partnered SparkPlugs ambassador program to drive first-visit-to-purchase rate.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GenZ Psychographics & Segments -->
+      <div class="ba-block" style="grid-column: 1 / -1;">
+        <div class="ba-bl nc-bl">GenZ Psychographics &amp; Customer Segments</div>
+        <p class="ba-p" style="margin-bottom:12px;">K-means clustering (k=6, silhouette 0.42) on 39,793 unique customer records. Psychographic layer added via Qualtrics survey (n=94) + social listening + in-store observation.</p>
+        <div class="nc-seg-grid">
+          <div class="nc-seg-card">
+            <div class="nc-seg-name">🎯 Fenway Loyalist</div>
+            <div class="nc-seg-desc">High-frequency, location-attached buyers. Sports events &amp; concerts drive same-day spikes. Strong brand affinity. Best CLV segment.</div>
+          </div>
+          <div class="nc-seg-card">
+            <div class="nc-seg-name">💊 Medical Pragmatist</div>
+            <div class="nc-seg-desc">Discount-sensitive, high-volume, consistent cadence. Lower spontaneity. Responds to subscription and loyalty nudges over creative campaigns.</div>
+          </div>
+          <div class="nc-seg-card">
+            <div class="nc-seg-name">🛍️ Apparel &amp; Lifestyle Buyer</div>
+            <div class="nc-seg-desc">Brand-driven, fashion-conscious, low product frequency but high merch spend. Primarily activates on social content and collaborations.</div>
+          </div>
+          <div class="nc-seg-card">
+            <div class="nc-seg-name">🌿 Bulk Deal Seeker</div>
+            <div class="nc-seg-desc">Price-elastic, basket-large, visit-infrequent. Responds strongly to bulk offers and tiered pricing. Low brand loyalty — primarily price-driven.</div>
+          </div>
+          <div class="nc-seg-card">
+            <div class="nc-seg-name">👥 Social Explorer</div>
+            <div class="nc-seg-desc">Event-adjacent, low repeat rate, high first-purchase AOV. FOMO-driven. Converts best with ambassador programs &amp; limited drops.</div>
+          </div>
+          <div class="nc-seg-card">
+            <div class="nc-seg-name">📉 NED — Never-Engaged, Declining</div>
+            <div class="nc-seg-desc">Single-visit or 2-visit buyers with zero re-engagement signal. Churn model AUC 0.83. Most responsive to first-week bounce-back incentive.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Sources -->
+      <div class="ba-block" style="grid-column: 1 / -1;">
+        <div class="ba-bl nc-bl">Data Sources &amp; Types Used</div>
+        <div class="nc-data-table">
+          <div class="nc-data-row nc-data-head"><span>Source</span><span>Type</span><span>Used For</span></div>
+          <div class="nc-data-row"><span>POS Transaction Records</span><span>Structured</span><span>Churn, CLV, basket analysis, cohort tracking</span></div>
+          <div class="nc-data-row"><span>Qualtrics Survey (n=94)</span><span>Primary Survey</span><span>Psychographics, GenZ motivations, NPS baseline</span></div>
+          <div class="nc-data-row"><span>In-Store Observation (n=30+)</span><span>Ethnographic</span><span>Behavioral cues, product browsing, staff interaction</span></div>
+          <div class="nc-data-row"><span>Meta / Instagram Ads</span><span>Platform API</span><span>Campaign attribution, CAC, ROAS, creative A/B</span></div>
+          <div class="nc-data-row"><span>TikTok Analytics</span><span>Platform API</span><span>GenZ reach, video retention, hashtag performance</span></div>
+          <div class="nc-data-row"><span>Google Trends</span><span>Search Signal</span><span>Category interest, seasonal demand, competitive benchmarks</span></div>
+          <div class="nc-data-row"><span>IBIS World Reports</span><span>Industry</span><span>Market sizing, cannabis retail benchmarks, competitive landscape</span></div>
+          <div class="nc-data-row"><span>Brand Mentions / Social Listening</span><span>Unstructured NLP</span><span>Sentiment, share-of-voice, complaint clustering</span></div>
+          <div class="nc-data-row"><span>Interview Transcripts (10 customers)</span><span>Qualitative</span><span>Motivation mapping, barrier identification, messaging tests</span></div>
+          <div class="nc-data-row"><span>Online Shopping Behavior Data</span><span>Behavioral</span><span>Digital funnel, BOPIS conversion, drop-off analysis</span></div>
+          <div class="nc-data-row"><span>Checkout Feedback (open-text)</span><span>VOC</span><span>Pain points, product gaps, NPS drivers</span></div>
+        </div>
+      </div>
+
+      <!-- 20+ Analyses -->
+      <div class="ba-block" style="grid-column: 1 / -1;">
+        <div class="ba-bl nc-bl">20+ Analyses Performed</div>
+        <div class="ba-analysis-list">
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Accessory Audit</div>
+            <div class="nc-finding">Identified 4 under-performing SKU families; recommended discontinuation of 2 with negative margin contribution</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Toronto Fan Segment Analysis</div>
+            <div class="nc-finding">Cross-city sports fan overlap with Fenway traffic; quantified incremental visit probability during away-game periods</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Street Team Performance Audit</div>
+            <div class="nc-finding">Measured cost-per-acquisition and conversion rate per street-team activation; 3 of 5 channels underperforming baseline CAC</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Churn Modeling (Gradient Boost)</div>
+            <div class="nc-finding">AUC 0.83–0.86, precision 0.79; top features: days-since-last-visit, category breadth, discount usage, transaction frequency</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">CLV / CBCV Modeling</div>
+            <div class="nc-finding">Beta-Geometric NBD; 12-month projections per segment; Loyalist CLV 3.4× NED segment; informed acquisition budget allocation</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">CausalForest Uplift Modeling</div>
+            <div class="nc-finding">HTE estimates per segment for bounce-back and win-back campaigns; identified 2 segments where offers had negative net lift</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Price Elasticity (OLS)</div>
+            <div class="nc-finding">R²=0.74 across 8 product categories; flower category most elastic (ε=−1.3); accessories near-inelastic (ε=−0.4); pricing strategy revised</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Market Basket / Apriori</div>
+            <div class="nc-finding">Lift ≥ 1.8 rules identified; {pre-roll, lighter} → {grinder} most actionable; informed POS upsell prompts and bundling decisions</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Cohort Survival Analysis</div>
+            <div class="nc-finding">Kaplan-Meier curves by acquisition channel; event-acquired cohorts retained 22% longer at 90-day mark vs. walk-in cohorts</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Revenue &amp; Demand Forecasting</div>
+            <div class="nc-finding">Holt-Winters 12-week forecast; MAPE 8.2%; surfaced Q2 demand trough enabling proactive promotional planning 6 weeks ahead</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Digital Performance Deep-Dive</div>
+            <div class="nc-finding">Meta + TikTok cross-platform attribution; identified 40% of social-driven revenue attributable to TikTok despite lower ad spend share</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Discount Deep-Dive</div>
+            <div class="nc-finding">Mapped full discount program economics; medical discounts had highest retained CLV; loyalty discounts showed marginal net uplift only</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Pledge Dia Forensic Audit</div>
+            <div class="nc-finding">Event sponsorship forensic — quantified foot traffic lift (Fenway event days +34%), isolating organic vs. sponsored attribution</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">NPS Framework &amp; Proposal</div>
+            <div class="nc-finding">Designed behavioral NPS system from zero; proposed transactional + relational survey cadence; benchmarked vs. cannabis retail baseline</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Apparel &amp; Accessories Deep-Dive</div>
+            <div class="nc-finding">Separate revenue stream analysis; brand collab SKUs outperformed house merch 2.1× on margin; collab-first strategy recommended</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Returning Customer Analysis</div>
+            <div class="nc-finding">30/60/90-day return rate cohort; identified 14-day window as highest-leverage reactivation moment across all segments</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Social Strategy Analysis</div>
+            <div class="nc-finding">Content-type performance by platform; Reels outperformed static posts 3.7× on reach; carousel drove highest link-click CTR on Meta</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Strategic Retention Framework</div>
+            <div class="nc-finding">Synthesized churn, CLV, uplift, and cohort findings into prioritized 3-tier retention roadmap with estimated ROI per initiative</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Worcester Roadmap Analysis</div>
+            <div class="nc-finding">Second-location demand analysis; geographic customer overlap, competitive landscape, and recommended positioning for Worcester expansion</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-title">Internship Proposal &amp; Punch Card Program</div>
+            <div class="nc-finding">Designed loyalty punch card mechanics + statistically modeled breakage rate, redemption cost, and incremental visit uplift</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Business Model, Investment & Challenges -->
+      <div class="ba-block" style="grid-column: 1 / -1;">
+        <div class="ba-bl nc-bl">Business Model, Investment &amp; Challenges</div>
+        <div class="nc-challenge-list">
+          <div class="nc-challenge-row">
+            <div class="nc-ch-label">Business Model</div>
+            <div class="nc-ch-body">Multi-stream: retail dispensary (primary revenue), wholesale bulk flower (B2B), branded apparel + accessories, event sponsorships, and brand licensing. Fenway location generates highest per-visit AOV due to event traffic; Worcester location serves higher-frequency but lower-AOV medical buyers.</div>
+          </div>
+          <div class="nc-challenge-row">
+            <div class="nc-ch-label">$1.2M Marketing Budget</div>
+            <div class="nc-ch-body">Total marketing budget audited across all channels — Meta, TikTok, events, street teams, ambassador programs, and brand partnerships. Pre-analysis, budget allocation was intuition-driven with no channel-level ROI measurement. Post-analysis, recommendations redistributed 40% of event spend toward digital (TikTok) where ROAS was 2.3× higher.</div>
+          </div>
+          <div class="nc-challenge-row">
+            <div class="nc-ch-label">MA Regulatory Constraints</div>
+            <div class="nc-ch-body">CORI (Criminal Offender Record Information) laws created PII-linking barriers — no standard loyalty ID system allowed initially. Required pseudonymized transaction fingerprinting and probabilistic identity resolution rather than deterministic customer matching.</div>
+          </div>
+          <div class="nc-challenge-row">
+            <div class="nc-ch-label">Data Infrastructure Gap</div>
+            <div class="nc-ch-body">POS system exported flat transaction CSVs with no customer linkage. Built a custom probabilistic match pipeline (visit time × spend × product category) to reconstruct customer-level behavioral history from anonymous records before any modeling was possible.</div>
+          </div>
+          <div class="nc-challenge-row">
+            <div class="nc-ch-label">Client Requirements</div>
+            <div class="nc-ch-body">Executive team needed: (1) actionable recommendations within each sprint cycle, (2) models interpretable to non-technical leadership, (3) all findings tied to concrete revenue or cost impact estimates — no academic-style analysis without business context.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campaign Videos -->
+      <div class="ba-block" style="grid-column: 1 / -1;">
+        <div class="ba-bl nc-bl">Campaign Videos</div>
+        <div class="nc-video-row">
+          <div class="nc-video-wrap">
+            <div class="nc-video-label">Facebook</div>
+            <div class="nc-video-frame">
+              <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fnewdia.co%2Fvideos%2F828331145950385%2F&width=500&show_text=false" scrolling="no" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+          </div>
+          <div class="nc-video-wrap">
+            <div class="nc-video-label">TikTok</div>
+            <div class="nc-video-frame">
+              <iframe src="https://www.tiktok.com/embed/v2/7537335443721833759" frameborder="0" allow="autoplay; fullscreen" allowfullscreen scrolling="no"></iframe>
+            </div>
+          </div>
+          <div class="nc-video-wrap">
+            <div class="nc-video-label">Instagram Reel</div>
+            <div class="nc-video-frame">
+              <iframe src="https://www.instagram.com/reel/DXrOgG_N45G/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20 Document Popup Buttons -->
+      <div class="ba-block" style="grid-column: 1 / -1;">
+        <div class="ba-bl nc-bl">20 Research &amp; Analysis Documents</div>
+        <p class="ba-p" style="margin-bottom:8px;">Click any document to open full-page preview.</p>
+        <div class="nc-doc-grid">
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Final_Presentation.pdf')">📊 Final Presentation</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Presentation.pdf')">📋 Client Presentation</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Internship_Proposal.pdf')">📝 Internship Proposal</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Brand_Mentions.pdf')">🔍 Brand Mentions Audit</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Consumer_Trends.pdf')">📈 Consumer Trends</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_IBIS_Report.pdf')">🏭 IBIS Industry Report</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Interview_Transcripts.pdf')">🎙️ Interview Transcripts</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Initial_Analysis.pdf')">🔬 Initial Analysis</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Mentions_Report.pdf')">📣 Mentions Report</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Observation_Research.pdf')">👁️ Observation Research</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Online_Shopping.pdf')">🛒 Online Shopping Funnel</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Creative_Brief.pdf')">🎨 Creative Brief</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Pledge_Dia_Sponsorship.pdf')">🎪 Pledge Dia Sponsorship</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Qualtrics_Survey.pdf')">📊 Qualtrics Survey</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Reflection_Letter.pdf')">✉️ Reflection Letter</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Reflection_Paper.pdf')">📄 Reflection Paper</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Social_Media_Trends.pdf')">📱 Social Media Trends</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Client_Data_Summary.pdf')">📦 Client Data Summary</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_Strategy_Framework.pdf')">🗺️ Strategy Framework</button>
+          <button class="nc-doc-btn" onclick="openDocOverlay('Newdia_25.pdf')">🌟 Main Slide Deck</button>
+        </div>
+      </div>
+
+    </div><!-- /ba-left -->
+
+    <!-- ── RIGHT COLUMN (sticky) ── -->
+    <div class="ba-right">
+
+      <!-- PDF Iframe -->
+      <div class="ba-pdf-frame">
+        <iframe src="Newdia_25.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" loading="lazy"></iframe>
+      </div>
+      <p style="font-size:10px;color:var(--muted2);text-align:center;margin:0;">Scroll within frame · Click documents below for full-page view</p>
+
+      <!-- KPI Row — 2×2 -->
+      <div class="ba-kpi-row" style="grid-template-columns:repeat(2,1fr);">
+        <div class="ba-kpi">
+          <div class="n nc-kpi-n">$1.2M</div>
+          <div class="l">Marketing Budget</div>
+        </div>
+        <div class="ba-kpi">
+          <div class="n nc-kpi-n">39,793</div>
+          <div class="l">Unique Customers</div>
+        </div>
+        <div class="ba-kpi">
+          <div class="n nc-kpi-n">20+</div>
+          <div class="l">Deep-Dive Analyses</div>
+        </div>
+        <div class="ba-kpi">
+          <div class="n nc-kpi-n">$774K+</div>
+          <div class="l">Revenue Modeled</div>
+        </div>
+      </div>
+
+      <!-- Impact -->
+      <div class="ba-impact">
+        <div class="ba-impact-title">Impact &amp; Outcomes</div>
+        <ul class="ba-impact-list">
+          <li>Built Newdia's first-ever analytics stack from zero — no prior infrastructure</li>
+          <li>9 campaigns executed informed by model outputs, not gut instinct</li>
+          <li>K-means segmentation identified 6 distinct customer types across 39K+ records</li>
+          <li>Churn model (AUC 0.86) prevented estimated $40K+ in lapsed-customer revenue loss</li>
+          <li>Price elasticity analysis led to revised pricing strategy across 8 product categories</li>
+          <li>Identified TikTok as 2.3× higher ROAS channel vs. event spend — budget rebalanced</li>
+          <li>Cohort analysis surfaced 14-day reactivation window — bounce-back card program designed around it</li>
+          <li>Uplift modeling found 2 segments where offers had negative net lift — campaigns paused</li>
+          <li>Designed NPS framework — Newdia's first structured customer satisfaction measurement</li>
+          <li>Revenue forecast (MAPE 8.2%) enabled proactive Q2 promotional planning 6 weeks ahead</li>
+        </ul>
+      </div>
+
+      <!-- Tags -->
+      <div class="ba-tags">
+        <span class="ba-chip" style="background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.3);color:#00d4aa;">Consumer Analytics</span>
+        <span class="ba-chip" style="background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.3);color:#00d4aa;">K-Means Clustering</span>
+        <span class="ba-chip" style="background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.3);color:#00d4aa;">Gradient Boost · Churn</span>
+        <span class="ba-chip" style="background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.3);color:#00d4aa;">CLV / CBCV</span>
+        <span class="ba-chip" style="background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.3);color:#00d4aa;">CausalForest Uplift</span>
+        <span class="ba-chip" style="background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.3);color:#00d4aa;">Price Elasticity OLS</span>
+        <span class="ba-chip" style="background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.3);color:#00d4aa;">Market Basket · Apriori</span>
+        <span class="ba-chip" style="background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.3);color:#00d4aa;">Holt-Winters Forecast</span>
+        <span class="ba-chip" style="background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.3);color:#00d4aa;">Qualtrics Survey Design</span>
+        <span class="ba-chip" style="background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.3);color:#00d4aa;">GenZ Psychographics</span>
+        <span class="ba-chip" style="background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.3);color:#00d4aa;">Cannabis Retail</span>
+        <span class="ba-chip" style="background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.3);color:#00d4aa;">NPS Framework Design</span>
+      </div>
+
+    </div><!-- /ba-right -->
+
+  </div><!-- /ba-split -->
+
+  <!-- Document Overlay Modal -->
+  <div id="nc-doc-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(3,3,10,0.92);backdrop-filter:blur(10px);">
+    <button onclick="closeDocOverlay()" style="position:absolute;top:16px;right:24px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;width:40px;height:40px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10001;line-height:1;">✕</button>
+    <iframe id="nc-doc-frame" src="" style="position:absolute;top:56px;left:24px;width:calc(100% - 48px);height:calc(100% - 80px);border:none;border-radius:12px;background:#fff;"></iframe>
   </div>
-  <div class="impact-row">
-    <div class="impact-stat"><div class="num" style="color:#00d4aa;">$40K</div><div class="desc">Projected churn retention value</div></div>
-    <div class="impact-stat"><div class="num" style="color:#00d4aa;">12</div><div class="desc">Concurrent A/B tests running</div></div>
-    <div class="impact-stat"><div class="num" style="color:#00d4aa;">2.4x</div><div class="desc">A/B lift (SUTVA-compliant)</div></div>
-    <div class="impact-stat"><div class="num" style="color:#00d4aa;">30%</div><div class="desc">Promo cannibalization identified</div></div>
-    <div class="impact-stat"><div class="num" style="color:#00d4aa;">0→1</div><div class="desc">First behavioral NPS + CAC funnel</div></div>
-  </div>
-  <div class="tags">
-    <span class="tag teal">XGBoost · Optuna · SHAP</span>
-    <span class="tag teal">BigQuery</span>
-    <span class="tag teal">DiD · RDD · Synthetic Control</span>
-    <span class="tag">3-Source ETL · Great Expectations</span>
-    <span class="tag">Bayesian Attribution</span>
-    <span class="tag">CLV Modeling</span>
-    <span class="tag">A/B Testing (SUTVA)</span>
-  </div>
+  <script>
+    function openDocOverlay(filename) {
+      document.getElementById('nc-doc-frame').src = filename + '#toolbar=0&navpanes=0&scrollbar=1&view=FitH';
+      document.getElementById('nc-doc-overlay').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDocOverlay() {
+      document.getElementById('nc-doc-overlay').style.display = 'none';
+      document.getElementById('nc-doc-frame').src = '';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeDocOverlay(); });
+  </script>
+
 </section>
 <div class="sec-div"><hr></div>
 
