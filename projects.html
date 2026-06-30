@@ -414,6 +414,23 @@
     .sb-feat-role { color: var(--muted2); }
     .sb-feat-imp { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(0,112,74,0.8); }
 
+    /* ── Banco de Portugal section ── */
+    .banco-bl { color: rgba(0,132,61,0.65) !important; }
+    .banco-pv { color: #00843D !important; }
+    .banco-analysis-finding { font-size: 11px; color: rgba(0,132,61,0.85); line-height: 1.4; }
+    .banco-analysis-finding::before { content: '→ '; }
+    .banco-var-row { display: grid; grid-template-columns: 1.4fr 0.6fr 1fr 2fr; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 11px; padding: 5px 0; gap: 8px; }
+    .banco-var-row:last-child { border-bottom: none; }
+    .banco-cluster-card { border: 1px solid rgba(0,132,61,0.2); border-radius: 10px; padding: 11px 14px; background: rgba(0,132,61,0.03); }
+    .banco-cluster-name { font-size: 12px; font-weight: 700; color: rgba(0,132,61,0.9); margin-bottom: 4px; }
+    .banco-next-row { display: flex; align-items: baseline; gap: 8px; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 12px; }
+    .banco-next-row:last-child { border-bottom: none; }
+    .banco-next-n { font-size: 10px; color: rgba(0,132,61,0.5); font-weight: 700; flex-shrink: 0; }
+    .banco-hp-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 11.5px; }
+    .banco-hp-row:last-child { border-bottom: none; }
+    .banco-hp-model { color: rgba(232,232,240,0.78); font-weight: 600; }
+    .banco-hp-val { color: rgba(0,132,61,0.85); font-size: 11px; text-align: right; }
+
     /* ── MBTA section ── */
     .mbta-bl { color: rgba(218,41,28,0.65) !important; }
     .mbta-pv { color: #DA291C !important; }
@@ -2324,45 +2341,333 @@
 <div class="sec-div"><hr></div>
 
 <!-- ═══ BANCO DE PORTUGAL ═══ -->
-<section id="banco" class="project-section">
-  <div class="project-header">
+<section id="banco" class="project-section ba-full" style="scroll-margin-top:80px;">
+
+  <div class="project-header" style="max-width:100%;margin-bottom:28px;">
     <div class="project-badge" style="background:rgba(0,132,61,0.15);color:#00843D;">BP</div>
     <div class="project-header-text">
-      <div class="project-label" style="color:#00843D;">BU MSBA Project · 2025</div>
-      <h2>Banco de Portugal — Banking Customer Segmentation</h2>
-      <p class="summary">Applied unsupervised learning to banking customer data — K-means, DBSCAN, PCA, and association rule mining — to identify behavioral segments product and pricing teams could actually act on.</p>
+      <div class="project-label" style="color:#00843D;">BU MSBA · BA 820 · Unsupervised ML · 2025</div>
+      <h2>Banco de Portugal — Customer-Centric Bank Strategies via Unsupervised ML</h2>
+      <p class="summary">Applied 4 unsupervised learning techniques — Hierarchical Clustering (Ward's), K-Prototypes, DBSCAN, and Association Rule Mining — to 45,211 records from a Portuguese bank to segment customers by financial behavior and surface actionable cross-sell strategies.</p>
     </div>
   </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-label" style="color:#00843D;">The Problem</div>
-      <h3>Product decisions built on demographics, not behavior</h3>
-      <p>Traditional bank segmentation — age, income, product holding — misses the behavioral patterns that actually predict product uptake, churn risk, and cross-sell timing. Behavioral clustering surfaces the signal that demographic bucketing hides. You end up with a segmentation you can act on.</p>
+
+  <div class="ba-split">
+
+    <div class="ba-left">
+
+      <!-- Problem block -->
+      <div class="ba-problem-block">
+        <div class="ba-bl" style="color:rgba(0,132,61,0.65);">Problem Statement</div>
+        <div class="ba-problem-line"><span class="pl-n">01</span>Banks rely on demographic segmentation (age, job, marital status) — but demographics don't predict financial behavior; they mask the real patterns driving term deposit uptake, loan risk, and campaign response rates</div>
+        <div class="ba-problem-line"><span class="pl-n">02</span>Portugal's banking sector faced structural inefficiency: broad-brush marketing campaigns with poor conversion — no behavioral model existed to identify which customers would respond to which financial products</div>
+        <div class="ba-problem-line"><span class="pl-n">03</span>No correlation structure existed between numeric variables — standard regression/supervised approaches would fail without first discovering latent behavioral clusters hidden in 17-dimensional data</div>
+        <div class="ba-problem-line"><span class="pl-n">04</span>Motivation: demonstrate that behavioral segmentation via unsupervised ML unlocks targeted marketing, reduces campaign waste, and enables personalized product recommendations at scale for retail banking</div>
+      </div>
+
+      <!-- KPI row -->
+      <div class="ba-kpi-row">
+        <div class="ba-kpi"><div class="n" style="color:#00843D;">45,211</div><div class="l">Customer Records</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00843D;">17</div><div class="l">Features (7 numeric, 10 cat)</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00843D;">4</div><div class="l">ML Methods Applied</div></div>
+        <div class="ba-kpi"><div class="n" style="color:#00843D;">3</div><div class="l">Behavioral Segments Found</div></div>
+      </div>
+
+      <!-- DATA COLLECTION -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Data Collection</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.72);">Source:</strong> UCI Machine Learning Repository — Portuguese bank direct marketing campaigns (phone outreach); publicly available dataset</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Period:</strong> May 2008 – November 2010; collected through telemarketing calls for term deposit subscriptions</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Files:</strong> bank-full.csv (45,211 rows) + bank.csv (subset); combined, deduplicated, saved as bank_combined.csv</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Final:</strong> 45,211 rows × 17 columns after deduplication; 0 null values across all columns</li>
+        </ul>
+      </div>
+
+      <!-- DATASET -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Dataset Overview</div>
+        <div class="ba-ds-table">
+          <div class="ba-ds-row" style="color:var(--muted2);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding-bottom:5px;">
+            <span>File</span><span>Rows</span><span>Columns</span>
+          </div>
+          <div class="ba-ds-row"><span class="d-name">bank-full.csv</span><span class="d-dim">45,211</span><span class="d-src">17</span></div>
+          <div class="ba-ds-row"><span class="d-name">bank.csv (subset)</span><span class="d-dim">~4,521</span><span class="d-src">17</span></div>
+          <div class="ba-ds-row"><span class="d-name">bank_combined.csv (final)</span><span class="d-dim">45,211</span><span class="d-src">17</span></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted2);margin-top:6px;">Age range: 18–95, mean 40.9 · Balance: -8,019 to 102,127 (mean 1,362) · Duration: 0–4,918s · Campaign: 1–63 contacts</div>
+      </div>
+
+      <!-- VARIABLE DICTIONARY -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Variable Dictionary</div>
+        <div class="ba-ds-table">
+          <div class="banco-var-row" style="color:var(--muted2);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding-bottom:5px;">
+            <span>Variable</span><span>Type</span><span>Used</span><span>Description</span>
+          </div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">age</span><span style="color:var(--muted2);">int</span><span style="color:#00843D;font-size:10px;">✓</span><span style="color:var(--muted2);">Customer age (18–95)</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">job</span><span style="color:var(--muted2);">cat</span><span style="color:#00843D;font-size:10px;">✓</span><span style="color:var(--muted2);">12 types: admin, blue-collar, management, retired…</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">marital</span><span style="color:var(--muted2);">cat</span><span style="color:#00843D;font-size:10px;">✓</span><span style="color:var(--muted2);">divorced / married / single / unknown</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">education</span><span style="color:var(--muted2);">cat</span><span style="color:#00843D;font-size:10px;">✓</span><span style="color:var(--muted2);">primary / secondary / tertiary / unknown</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">balance</span><span style="color:var(--muted2);">int</span><span style="color:#00843D;font-size:10px;">✓</span><span style="color:var(--muted2);">Avg yearly account balance (euros)</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">housing</span><span style="color:var(--muted2);">bin</span><span style="color:#00843D;font-size:10px;">✓</span><span style="color:var(--muted2);">Has housing loan? yes/no</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">loan</span><span style="color:var(--muted2);">bin</span><span style="color:#00843D;font-size:10px;">✓</span><span style="color:var(--muted2);">Has personal loan? yes/no</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">campaign</span><span style="color:var(--muted2);">int</span><span style="color:#00843D;font-size:10px;">✓</span><span style="color:var(--muted2);">Contacts in this campaign (1–63)</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">previous</span><span style="color:var(--muted2);">int</span><span style="color:#00843D;font-size:10px;">✓</span><span style="color:var(--muted2);">Contacts in prior campaigns</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">poutcome</span><span style="color:var(--muted2);">cat</span><span style="color:#00843D;font-size:10px;">✓</span><span style="color:var(--muted2);">Prior campaign outcome: failure/success/nonexistent</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">default</span><span style="color:var(--muted2);">bin</span><span style="color:#00843D;font-size:10px;">✓</span><span style="color:var(--muted2);">Has credit in default?</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">contact</span><span style="color:var(--muted2);">cat</span><span style="color:#00843D;font-size:10px;">✓</span><span style="color:var(--muted2);">Contact channel: cellular / telephone</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">duration</span><span style="color:var(--muted2);">int</span><span style="color:rgba(218,41,28,0.6);font-size:10px;">✗ dropped</span><span style="color:var(--muted2);">Call duration — leaks target label; excluded</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">day / month</span><span style="color:var(--muted2);">int/cat</span><span style="color:rgba(218,41,28,0.6);font-size:10px;">✗ dropped</span><span style="color:var(--muted2);">Contact date — no behavioral signal for clustering</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">pdays</span><span style="color:var(--muted2);">int</span><span style="color:rgba(218,41,28,0.6);font-size:10px;">✗ dropped</span><span style="color:var(--muted2);">Days since last contact (-1 = never); skewed, sparse</span></div>
+          <div class="banco-var-row"><span style="color:rgba(232,232,240,0.78);font-weight:500;">y</span><span style="color:var(--muted2);">bin</span><span style="color:rgba(218,41,28,0.6);font-size:10px;">✗ dropped</span><span style="color:var(--muted2);">Target: subscribed term deposit? (unsupervised — excluded)</span></div>
+        </div>
+      </div>
+
+      <!-- LANGUAGES -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Languages &amp; Libraries</div>
+        <div class="ba-stack-row">
+          <span class="ba-stack-pill">Python 3</span>
+          <span class="ba-stack-pill">scikit-learn</span>
+          <span class="ba-stack-pill">mlxtend</span>
+          <span class="ba-stack-pill">Pandas</span>
+          <span class="ba-stack-pill">NumPy</span>
+          <span class="ba-stack-pill">Matplotlib</span>
+          <span class="ba-stack-pill">Seaborn</span>
+          <span class="ba-stack-pill">SciPy</span>
+          <span class="ba-stack-pill">Google Colab</span>
+          <span class="ba-stack-pill">TransactionEncoder</span>
+        </div>
+      </div>
+
+      <!-- DATA ISSUES -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Data Issues</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.72);">duration leakage:</strong> Call duration is known only after the call ends — same time as the target label (y) — making it a direct data leak; must be excluded from any realistic model</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">pdays sparsity:</strong> ~82% of values are -1 (customer never previously contacted) — too sparse to be informative for clustering; dropped</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Mixed data types:</strong> 10 categorical + 7 numerical features — K-Means cannot handle this natively; required K-Prototypes or encoding first</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Balance outliers:</strong> Values range from -8,019 to 102,127 (std 3,044) — IQR-based removal reduced dataset to 37,570 rows before hierarchical clustering</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Hierarchical scalability:</strong> Full 45K-row distance matrix too memory-intensive — required subsampling to 5,000 records for hierarchical analysis</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">No nulls:</strong> 0 missing values across all 17 columns — no imputation needed</li>
+        </ul>
+      </div>
+
+      <!-- PRE-PROCESSING -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Pre-Processing</div>
+        <ul class="ba-micro-list">
+          <li>Concatenate bank-full.csv + bank.csv → drop_duplicates() → 45,211 clean rows</li>
+          <li>Drop columns: <code style="background:rgba(255,255,255,0.06);padding:1px 4px;border-radius:3px;">day, month, pdays, y, duration</code> — either leaking the target or non-behavioral</li>
+          <li>Label encode all 10 categorical features using <code style="background:rgba(255,255,255,0.06);padding:1px 4px;border-radius:3px;">LabelEncoder</code> for hierarchical clustering path</li>
+          <li>One-hot encode categoricals via <code style="background:rgba(255,255,255,0.06);padding:1px 4px;border-radius:3px;">pd.get_dummies(drop_first=True)</code> for correlation analysis</li>
+          <li>Standardize numerical features via <code style="background:rgba(255,255,255,0.06);padding:1px 4px;border-radius:3px;">StandardScaler</code> — zero mean, unit variance</li>
+          <li>IQR outlier removal on scaled numerical features → 37,570 rows remaining</li>
+          <li>Subsample 5,000 rows for hierarchical clustering (memory constraint); full dataset used for K-Prototypes and DBSCAN</li>
+          <li>ARM path: encode categoricals via <code style="background:rgba(255,255,255,0.06);padding:1px 4px;border-radius:3px;">TransactionEncoder</code> for transactional format required by Apriori</li>
+        </ul>
+      </div>
+
+      <!-- DATA MANIPULATION -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Data Manipulation</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.72);">Feature engineering — total_interactions:</strong> Created by summing <code style="background:rgba(255,255,255,0.06);padding:1px 4px;border-radius:3px;">campaign + previous</code> — gives cleaner engagement signal than analyzing separately; used as a 3rd axis in 3D cluster visualization</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Feature selection subset:</strong> Selected <code style="background:rgba(255,255,255,0.06);padding:1px 4px;border-radius:3px;">age, job, marital, education, balance, housing, loan, campaign, previous, poutcome, total_interactions</code> as clustering features</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Correlation matrix:</strong> Computed Pearson on numeric subset — no strong correlations found; confirms need for unsupervised discovery over regression</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Cluster label assignment:</strong> fcluster with maxclust criterion for hierarchical; cluster IDs merged back to full DataFrame for interpretation</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">ARM transactional encoding:</strong> TransactionEncoder fit on categorical feature combinations; binary matrix fed into Apriori with iteratively tuned support/confidence thresholds</li>
+        </ul>
+      </div>
+
+      <!-- VARIABLE CATEGORIES -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Variable Categories</div>
+        <div class="banco-cluster-card">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;">
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(0,132,61,0.55);margin-bottom:6px;">Demographics</div>
+              <ul class="ba-micro-list"><li>age, job, marital, education</li></ul>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(0,132,61,0.55);margin-bottom:6px;">Financial Behavior</div>
+              <ul class="ba-micro-list"><li>balance, default, housing, loan</li></ul>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(0,132,61,0.55);margin-bottom:6px;">Campaign Engagement</div>
+              <ul class="ba-micro-list"><li>campaign, previous, poutcome, contact, total_interactions (engineered)</li></ul>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(0,132,61,0.55);margin-bottom:6px;">Dropped / Target</div>
+              <ul class="ba-micro-list"><li>duration (leak), day/month (non-behavioral), pdays (sparse), y (target)</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TARGET VARIABLE -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Target Variable</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;">
+          <strong style="color:rgba(232,232,240,0.78);">y</strong> — Binary: has client subscribed a term deposit? (yes/no). Excluded during unsupervised clustering to prevent label leakage. Used post-hoc to validate cluster quality by checking subscription rate differences across segments — High-Income Investors and customers with prior positive contact showed higher y=yes rates.
+        </div>
+      </div>
+
+      <!-- HYPERPARAMETERS -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Hyperparameters</div>
+        <div>
+          <div class="banco-hp-row"><span class="banco-hp-model">Hierarchical (Ward)</span><span class="banco-hp-val">linkage='ward' · n_clusters=3 · criterion='maxclust' · silhouette tested 2–10</span></div>
+          <div class="banco-hp-row"><span class="banco-hp-model">K-Prototypes</span><span class="banco-hp-val">init='Cao' · n_clusters=3 · mixed numeric+categorical handling</span></div>
+          <div class="banco-hp-row"><span class="banco-hp-model">DBSCAN</span><span class="banco-hp-val">eps &amp; min_samples tuned iteratively; metric='euclidean' on scaled numeric features</span></div>
+          <div class="banco-hp-row"><span class="banco-hp-model">ARM (Apriori)</span><span class="banco-hp-val">support &amp; confidence thresholds iteratively refined; TransactionEncoder; mlxtend</span></div>
+          <div class="banco-hp-row"><span class="banco-hp-model">Cluster Evaluation</span><span class="banco-hp-val">Silhouette Score · Davies-Bouldin Index · Calinski-Harabasz Index</span></div>
+          <div class="banco-hp-row"><span class="banco-hp-model">Subsampling</span><span class="banco-hp-val">5,000 rows for hierarchical (memory); full 37,570 post-IQR for other methods</span></div>
+        </div>
+      </div>
+
+      <!-- PIPELINE -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Pipeline Setup</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.72);">Stage 1 — Data loading:</strong> Load bank-full + bank CSV → concat → deduplicate → verify 0 nulls</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Stage 2 — EDA:</strong> Histograms, boxplots, correlation heatmap, value_counts on categoricals</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Stage 3 — Preprocessing:</strong> Drop non-behavioral columns → LabelEncode → StandardScale → IQR outlier removal → subsample for HC</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Stage 4 — Feature engineering:</strong> total_interactions = campaign + previous</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Stage 5 — Clustering:</strong> Hierarchical (Ward) → K-Prototypes → DBSCAN → silhouette/DB/CH evaluation</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Stage 6 — ARM:</strong> TransactionEncoder → Apriori → association rule extraction → filter by confidence</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Stage 7 — Interpretation:</strong> Assign cluster labels → profile each segment → map to marketing strategies</li>
+        </ul>
+      </div>
+
+      <!-- ANALYSES -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Analyses</div>
+        <div class="ba-analysis-list">
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">EDA — Correlation &amp; Distribution Analysis</div>
+            <div class="ba-analysis-method">Pearson correlation matrix on 7 numeric features; histograms (bins=30) on all columns; value_counts on all categoricals</div>
+            <div class="banco-analysis-finding">No strong correlations between numeric features — confirms that standard regression would fail; unsupervised discovery necessary. Moderate pdays↔previous correlation suggests prior engagement predicts future contact likelihood</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Hierarchical Clustering — Ward's Linkage</div>
+            <div class="ba-analysis-method">Computed pairwise Euclidean distance matrix on 5,000-row subsample; tested 4 linkage methods (single, complete, average, ward); evaluated silhouette, Davies-Bouldin, Calinski-Harabasz over 2–10 clusters</div>
+            <div class="banco-analysis-finding">Ward's method best minimizes intra-cluster variance; optimal n_clusters=3 by silhouette score. Cluster distribution: 2,539 / 1,828 / 633 — one small high-value cluster isolated</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">K-Prototypes Clustering</div>
+            <div class="ba-analysis-method">Applied K-Prototypes (handles mixed numeric + categorical natively); Cao initialization for stable starting centroids; n_clusters=3</div>
+            <div class="banco-analysis-finding">Best performer on mixed data — cleaner segment separation than K-Means. Confirmed 3-cluster structure: young low-balance, middle-age homeowner, high-balance investor archetypes</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">DBSCAN — Outlier &amp; Anomaly Detection</div>
+            <div class="ba-analysis-method">Applied DBSCAN on PCA-reduced features; iteratively tuned eps and min_samples on scaled data to balance noise flagging vs. over-fragmentation</div>
+            <div class="banco-analysis-finding">Identified a noise cluster of customers matching no behavioral archetype — likely low-engagement, low-balance, erratic contact history; potential churn/attrition signal not visible in K-Prototypes</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Association Rule Mining (Apriori)</div>
+            <div class="ba-analysis-method">TransactionEncoder on categorical features (job, education, housing, loan, poutcome, contact); Apriori with iteratively refined support + confidence thresholds; extracted rules by lift and confidence</div>
+            <div class="banco-analysis-finding">High-confidence rules revealed: cellular contact + prior success → high term deposit subscription likelihood. Secondary-educated customers participated most but subscribed least — messaging mismatch, not audience mismatch</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">3D Cluster Visualization</div>
+            <div class="ba-analysis-method">Matplotlib 3D scatter: age × balance × total_interactions axes; colored by cluster label</div>
+            <div class="banco-analysis-finding">Clear spatial separation confirmed: Young Professionals (low balance, low interactions), Middle-Aged Homeowners (moderate balance, higher interactions), High-Income Investors (high balance, variable interactions)</div>
+          </div>
+          <div class="ba-analysis-item">
+            <div class="ba-analysis-name">Loan Status vs. Subscription Correlation</div>
+            <div class="ba-analysis-method">Cross-tabulated housing/personal loan status against y (term deposit); computed subscription rates per loan category</div>
+            <div class="banco-analysis-finding">No strong correlation between loan status and term deposit subscription — engagement history matters more than financial product holdings for predicting campaign response</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CUSTOMER SEGMENTS -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Customer Segments Identified</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="banco-cluster-card">
+            <div class="banco-cluster-name">Cluster 1 — Young Professionals (n≈2,539)</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.5;">Lower balances · minimal financial commitments · prefer digital banking channels<br><strong style="color:rgba(0,132,61,0.7);">Strategy:</strong> Low-cost savings accounts, short-term micro-loans, money management programs; online-first marketing campaigns</div>
+          </div>
+          <div class="banco-cluster-card">
+            <div class="banco-cluster-name">Cluster 2 — Middle-Aged Homeowners (n≈1,828)</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.5;">Moderate financial stability · housing loan holders · engage moderately with campaigns<br><strong style="color:rgba(0,132,61,0.7);">Strategy:</strong> Mortgage refinancing, retirement planning, insurance cross-sell; financial security messaging</div>
+          </div>
+          <div class="banco-cluster-card">
+            <div class="banco-cluster-name">Cluster 3 — High-Income Investors (n≈633)</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.5;">Large account balances · prefer wealth management over term deposits · low loan exposure<br><strong style="color:rgba(0,132,61,0.7);">Strategy:</strong> High-value investment products, wealth management, premium personalized offerings</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODEL EVALUATION -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Model Evaluation</div>
+        <ul class="ba-micro-list">
+          <li><strong style="color:rgba(232,232,240,0.72);">Silhouette Score:</strong> Tested 2–10 clusters; Ward's linkage peaked at n=3 — highest intra-cluster cohesion relative to inter-cluster separation</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Davies-Bouldin Index:</strong> Lower is better; Ward's method minimized DB score at n=3 — clusters well-separated with compact shapes</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Calinski-Harabasz Index:</strong> Higher is better; K-Prototypes with Cao init yielded best CH score — favors larger, well-separated clusters</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">ARM confidence:</strong> Rules with support ≥ threshold + confidence ≥ threshold retained; lift &gt; 1 required to confirm non-random association</li>
+          <li><strong style="color:rgba(232,232,240,0.72);">Business validation:</strong> Cluster profiles cross-tabulated against y (term deposit) post-hoc — segments showed meaningfully different subscription rates confirming behavioral relevance</li>
+        </ul>
+      </div>
+
+      <!-- IMPACT -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Impact &amp; Metrics</div>
+        <ul class="ba-micro-list">
+          <li>Discovered 3 actionable behavioral segments from 45,211 records — providing a data-driven replacement for demographic-only segmentation</li>
+          <li>Identified DBSCAN noise cluster as potential churn/disengagement signal — not detectable by K-Means or K-Prototypes alone</li>
+          <li>ARM revealed cellular channel + prior campaign success as the highest-confidence cross-sell trigger — directly actionable for campaign targeting logic</li>
+          <li>Quantified that loan status does not predict term deposit subscription — correcting a common banking assumption and redirecting targeting toward engagement history</li>
+          <li>Secondary-educated segment: high participation, low conversion — evidence of messaging mismatch, not audience problem; actionable insight for creative/copy direction</li>
+          <li>3-cluster model reduces marketing spend concentration: High-Income Investors (Cluster 3) = highest ROI cross-sell target despite smallest absolute size</li>
+        </ul>
+      </div>
+
+      <!-- NEXT STEPS -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Next Steps</div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <div class="banco-next-row"><span class="banco-next-n">01</span><span style="color:var(--muted);font-size:12px;">Layer supervised model (XGBoost/Random Forest) on top of cluster labels to predict term deposit subscription probability within each segment</span></div>
+          <div class="banco-next-row"><span class="banco-next-n">02</span><span style="color:var(--muted);font-size:12px;">A/B test messaging variants for secondary-educated segment to address the participation↑ / conversion↓ mismatch identified by ARM</span></div>
+          <div class="banco-next-row"><span class="banco-next-n">03</span><span style="color:var(--muted);font-size:12px;">Re-run K-Prototypes on full 45K dataset with optimized Cao initialization — confirm cluster stability vs. 5K subsample results</span></div>
+          <div class="banco-next-row"><span class="banco-next-n">04</span><span style="color:var(--muted);font-size:12px;">Build Tableau dashboard mapping cluster membership by region/branch for geo-targeted campaign execution</span></div>
+          <div class="banco-next-row"><span class="banco-next-n">05</span><span style="color:var(--muted);font-size:12px;">Implement dynamic segment re-scoring pipeline: re-cluster quarterly as customer financial behavior evolves to keep segments current</span></div>
+        </div>
+      </div>
+
+      <!-- TAGS -->
+      <div class="ba-block">
+        <div class="ba-bl banco-bl">Tags</div>
+        <div class="ba-chips">
+          <span class="ba-chip">Unsupervised ML</span>
+          <span class="ba-chip">K-Prototypes</span>
+          <span class="ba-chip">Hierarchical Clustering</span>
+          <span class="ba-chip">DBSCAN</span>
+          <span class="ba-chip">PCA</span>
+          <span class="ba-chip">Association Rule Mining</span>
+          <span class="ba-chip">Customer Segmentation</span>
+          <span class="ba-chip">scikit-learn</span>
+          <span class="ba-chip">mlxtend</span>
+          <span class="ba-chip">Banking Analytics</span>
+          <span class="ba-chip">UCI Dataset</span>
+        </div>
+      </div>
+
+    </div><!-- /ba-left -->
+
+    <!-- RIGHT: PDF (shown at top via order:-1) -->
+    <div class="ba-right">
+      <div class="ba-pdf-frame">
+        <iframe src="Banco_Presentation.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1&view=FitH" title="Customer-Centric Bank Marketing Strategies Presentation"></iframe>
+      </div>
+      <div class="ba-pdf-hint">↕ scroll within frame · Customer-Centric Bank Marketing Strategies · Team 11</div>
     </div>
-    <div class="card">
-      <div class="card-label" style="color:#00843D;">Data &amp; Method</div>
-      <h3>K-Means + DBSCAN + PCA + ARM</h3>
-      <p>Reduced feature dimensionality with PCA, then applied both K-means (partition-based) and DBSCAN (density-based) to compare cluster structures. Association Rule Mining (ARM) identified product co-holding patterns — which product combinations predict future uptake — enabling sequence-aware cross-sell recommendations with confidence thresholds.</p>
-    </div>
-    <div class="card">
-      <div class="card-label" style="color:#00843D;">What I Found</div>
-      <h3>DBSCAN isolated churn signals K-means missed</h3>
-      <p>K-means produced clean, interpretable behavioral segments. DBSCAN flagged a noise cluster that didn't fit any archetype — these customers turned out to be early-stage churn signals, not random variance. ARM revealed a high-confidence product sequence predicting term deposit uptake, enabling timed cross-sell outreach.</p>
-    </div>
-  </div>
-  <div class="impact-row">
-    <div class="impact-stat"><div class="num" style="color:#00843D;">3</div><div class="desc">Clustering methods compared</div></div>
-    <div class="impact-stat"><div class="num" style="color:#00843D;">ARM</div><div class="desc">Association rules for cross-sell</div></div>
-    <div class="impact-stat"><div class="num" style="color:#00843D;">PCA</div><div class="desc">Dimensionality reduction first</div></div>
-  </div>
-  <div class="tags">
-    <span class="tag">K-Means</span>
-    <span class="tag">DBSCAN</span>
-    <span class="tag">PCA</span>
-    <span class="tag">Association Rule Mining</span>
-    <span class="tag">Python · scikit-learn</span>
-    <span class="tag">mlxtend</span>
-  </div>
+
+  </div><!-- /ba-split -->
 </section>
 <div class="sec-div"><hr></div>
 
